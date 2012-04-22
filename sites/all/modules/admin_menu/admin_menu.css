@@ -208,3 +208,12 @@ tr.admin-menu-tweak-permissions-processed {
 tr.admin-menu-tweak-permissions-processed td.module {
   border-top: 0;
 }
+
+
+/* Start override */
+#admin-menu ul a
+{
+  font-size: 12px;
+  padding: 8px 16px;
+}
+/* End override */
