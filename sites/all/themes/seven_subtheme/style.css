@@ -990,16 +990,28 @@ div.add-or-remove-shortcuts {
 
 
 /* Start override */
-#admin-menu ul a
+.html #admin-menu ul a 
 {
-  font-size: 12px;
-  padding: 8px 16px;
+	font-size: 14px;
 }
 
-.admin-menu-icon
+.html #admin-menu 
 {
-	margin-top: 5px;
+   background-image: none;
+   background-color: #101010 !important;
 }
 
+
+.html #admin-menu li li 
+{
+	background-image: none;
+	background-color: #202020 !important;
+}
+
+.html #admin-menu li li.expandable 
+{
+	background-image: none;
+	background-color: #202020 !important;
+}
 /* End override */
 
