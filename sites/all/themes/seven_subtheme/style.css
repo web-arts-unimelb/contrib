@@ -989,3 +989,17 @@ div.add-or-remove-shortcuts {
 }
 
 
+/* Start override */
+#admin-menu ul a
+{
+  font-size: 12px;
+  padding: 8px 16px;
+}
+
+.admin-menu-icon
+{
+	margin-top: 5px;
+}
+
+/* End override */
+
