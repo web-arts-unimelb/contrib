@@ -146,11 +146,14 @@
 	
 		<div class="col-2 rightside">
 			<div class="aside" role="complementary">
+			<?php if($page["navigation"]): ?>
+				<?php print render($page["navigation"]); ?>
+			<?php endif; ?>
+			
 				<?php if($page["home_event"]): ?>
 					<?php print render($page["home_event"]); ?>
 				<?php endif; ?>
 
-				<br/>
 				<?php if($page["home_promo"]): ?>
 					<?php print render($page["home_promo"]); ?>
 				<?php endif; ?>

@@ -78,23 +78,7 @@
  * @see template_process()
  */
 
-print render($title_prefix);
-
-// if(!$page && $title) {
-
-print '<h2 ' . $title_attributes . '>';
-
-if(!$page) { print '<a href="' . $node_url . '">'; }
-
-print $title;
-
-if(!$page) { print '</a>'; }
-
-print '</h2>';
-
-// }
-
-print render($title_suffix); 
+ 
 
 hide($content['comments']);
 hide($content['links']);
@@ -102,6 +86,7 @@ hide($content['field_above']);
 hide($content['field_aside']);
 hide($content['field_display_settings']);
 hide($content['field_hide_images']);
+hide($content['field_external_url']);
 
 
 $hide_images = field_get_items('node', $node, 'field_hide_images');
@@ -111,12 +96,29 @@ if(render($hide_images_value) == 'Yes') {
 	hide($content['field_images']); 
 }
 
+$url = field_get_items('node', $node, 'field_external_url');
+$url_value = field_view_value('node', $node, 'field_external_url', $url[0], array());
+
+if(render($url_value) != '') { 
+	$the_url = render($url_value); $the_url_target = ' target="_blank"'; 		
+} 
+
 // global $user; 
 // if ($user->uid == 1) { // print_r($body); }
 
-if($body[0]['summary'] && $body[0]['summary'] != '') { print '<p class="pullquote">' . $body[0]['summary'] . '</p>'; }
+print render($title_prefix); 
+print '<h2 ' . $title_attributes . '>';
+if(!$page) { print '<a href="' . $the_url . '" ' . $the_url_target . '>'; }
+print $title;
+if(!$page) { print '</a>'; }
+print '</h2>';
+print render($title_suffix);
+
+if(isset($body[0]['summary']) && $body[0]['summary'] != '') { print '<p class="pullquote">' . $body[0]['summary'] . '</p>'; }
 
 print render($content);
+
+if(render($url_value) != '') { print '<h3>External URL:</h3><div><a href="' . $the_url . '" ' . $the_url_target . '>' . $the_url . '</a></div>'; }
 
 print render($content['links']);
 

@@ -107,11 +107,21 @@ function _menu_import_export_recurse($tree, $level, &$output) {
 
     $indentation = str_repeat('-', $level);
 
+    $options = array();
+    if ($link['hidden']) {
+      $options[] = 'disabled';
+    }
+    if ($link['expanded']) {
+      $options[] = 'expanded';
+    }
+    $options = count($options) ? '|' . join(',', $options) : '';
+
     $output .=
       $indentation
       . $link['link_title']
       . '|' . $link['link_path']
-      . (!empty($link['description']) ? '|' . $link['description'] : '')
+      . '|' . (!empty($link['description']) ? $link['description'] : '')
+      . $options
       . $me_options['line_ending'];
 
     if ($data['below']) {
