@@ -67,4 +67,16 @@ h2#block-views-zones-home-promo
 }
 /* End navigation */
 
+
+/* start user profile */
+a.bibliography_link:link
+{
+	margin: 15px 0 15px 0;
+	display: block;
+	border-width: 0;
+	font-size: 150%;
+}
+
+/* end user profile */
+
 /* End override */
