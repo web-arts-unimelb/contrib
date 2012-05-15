@@ -89,19 +89,19 @@ hide($content['field_hide_images']);
 hide($content['field_external_url']);
 
 
-$hide_images = field_get_items('node', $node, 'field_hide_images');
-$hide_images_value = field_view_value('node', $node, 'field_hide_images', $hide_images[0], array());
+//$hide_images = field_get_items('node', $node, 'field_hide_images');
+//$hide_images_value = field_view_value('node', $node, 'field_hide_images', $hide_images[0], array());
 
-if(render($hide_images_value) == 'Yes') {
-	hide($content['field_images']); 
-}
+//if(render($hide_images_value) == 'Yes') {
+//	hide($content['field_images']); 
+//}
 
-$url = field_get_items('node', $node, 'field_external_url');
-$url_value = field_view_value('node', $node, 'field_external_url', $url[0], array());
+//$url = field_get_items('node', $node, 'field_external_url');
+//$url_value = field_view_value('node', $node, 'field_external_url', $url[0], array());
 
-if(render($url_value) != '') { 
-	$the_url = render($url_value); $the_url_target = ' target="_blank"'; 		
-} 
+//if(render($url_value) != '') { 
+//	$the_url = render($url_value); $the_url_target = ' target="_blank"'; 		
+//} 
 
 // global $user; 
 // if ($user->uid == 1) { // print_r($body); }
