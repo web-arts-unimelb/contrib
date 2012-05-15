@@ -9,7 +9,10 @@
  * such as drupal_role, og_group, etc.
  *
  */
-require_once(drupal_get_path('module', 'ldap_authorization') . '/LdapAuthorizationConsumerAbstract.class.php');
+
+module_load_include('php', 'ldap_authorization', 'LdapAuthorizationConsumerAbstract.class');
+
+
 class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstract {
 
   public $consumerType = 'drupal_role';
@@ -35,8 +38,14 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
   }
 
   public function refreshConsumerIDs() {
-    $this->drupalRolesByName = array_flip(user_roles());
-    $this->_availableConsumerIDs = array_values(user_roles(TRUE));
+    $this->drupalRolesByName = array();
+    foreach (array_flip(user_roles()) as $role_name => $rid) {
+      $this->drupalRolesByName[drupal_strtolower($role_name)] = $rid;
+    }
+    $this->_availableConsumerIDs = array(); // array_values(user_roles(TRUE));
+    foreach (array_values(user_roles(TRUE)) as $role_name) {
+      $this->_availableConsumerIDs[] = drupal_strtolower($role_name);
+    }
   }
 
   public function availableConsumerIDs($reset = FALSE) {
@@ -132,9 +141,12 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
     }
 
     $user_edit = array('roles' => $user->roles + array($this->drupalRolesByName[$role_name] => $role_name));
+    if ($this->detailedWatchdogLog) {
+      watchdog('ldap_authorization', 'grantSingleAuthorization in drupal rold' . print_r($user, TRUE), array(), WATCHDOG_DEBUG);
+    }
+
     $user = user_save($user, $user_edit);
     $result = ($user && isset($user->roles[$this->drupalRolesByName[$role_name]]));
-
 
     if ($this->detailedWatchdogLog) {
       watchdog('ldap_authorization', 'LdapAuthorizationConsumerDrupalRole.grantSingleAuthorization()
@@ -151,7 +163,7 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
     return array_values($user->roles);
   }
 
-public function validateAuthorizationMappingTarget($map_to, $form_values = NULL, $clear_cache = FALSE) {
+  public function validateAuthorizationMappingTarget($map_to, $form_values = NULL, $clear_cache = FALSE) {
     $has_form_values = is_array($form_values);
 		$message_type = NULL;
 		$message_text = NULL;

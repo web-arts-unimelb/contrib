@@ -4,15 +4,11 @@ package = Core
 core = 7.x
 engine = phptemplate
 
-regions[above]			= Above
-regions[newsbanner]		= Newsbanner
+;regions[above]			= Above
+;regions[newsbanner]		= Newsbanner
 regions[help]			= Help
 regions[content]		= Content
 regions[navigation]		= Navigation
-regions[column1]		= Column 1
-regions[column2]		= Column 2
-regions[column3]		= Column 3
-regions[column4]		= Column 4
 
 regions[home_column_1]	= home_column_1
 regions[home_column_2]	= home_column_2

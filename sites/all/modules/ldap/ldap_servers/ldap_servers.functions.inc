@@ -6,6 +6,13 @@
  * collection of functions that don't belong in server object
  */
 
+function ldap_server_module_load_include($type, $module, $name = NULL) {
+  $result = module_load_include($type, $module, $name);
+  if ($result === FALSE) {
+    print "Failed to load file $name.$type in module $module";
+    drupal_exit();
+  }
+}
 
 
 /**
@@ -20,6 +27,9 @@ function ldap_create_drupal_account($name, $mail, $dn, $sid, $edit = array()) {
   $edit['mail'] = $mail;
   $edit['init'] = $mail;
   $edit['status'] = 1;
+  if (!isset($edit['signature'])) {
+    $edit['signature'] = '';
+  }
 
   // save 'init' data to know the origin of the ldap authentication provisioned account
   $edit['data']['ldap_authentication']['init'] = array(
@@ -155,7 +165,7 @@ function ldap_server_token_replace($ldap_entry, $text) {
 
 an ldap entry such as:
 
-   'dn' => 'cn=jdoe,ou=campus accounts,ou=toledo campus,dc=ad,dc=myuniveristy,dc=edu',
+   'dn' => 'cn=jdoe,ou=campus accounts,ou=toledo campus,dc=ad,dc=myuniversity,dc=edu',
     'mail' => array( 0 => 'jdoe@myuniversity.edu', 'count' => 1),
     'sAMAccountName' => array( 0 => 'jdoe', 'count' => 1),
 
@@ -171,7 +181,7 @@ should return tokens such as:
     [ou:last] = toledo campus
     [dc] = ad
     [dc:0] = ad
-    [dc:1] = myuniveristy
+    [dc:1] = myuniversity
     [dc:2] = edu
     [dc:last] = edu
 
@@ -289,7 +299,7 @@ function ldap_server_tokens_needed_for_template($template, $pre = LDAP_SERVERS_T
 function ldap_servers_show_sample_user_tokens($sid) {
 
   $ldap_server = ldap_servers_get_servers($sid, 'all', TRUE);
-  $test_username = $ldap_server->testing_drupal_username;
+  $test_username = $ldap_server->testingDrupalUsername;
   if (!$test_username || ! (
      $ldap_server->bind_method == LDAP_SERVERS_BIND_METHOD_SERVICE_ACCT ||
      $ldap_server->bind_method == LDAP_SERVERS_BIND_METHOD_ANON
@@ -310,3 +320,61 @@ function ldap_servers_show_sample_user_tokens($sid) {
 
   return $table;
 }
+
+ /**
+    * from pear net_ldap2-2.0.11
+    *
+    * Escapes the given VALUES according to RFC 2254 so that they can be safely used in LDAP filters.
+    *
+    * Any control characters with an ACII code < 32 as well as the characters with special meaning in
+    * LDAP filters "*", "(", ")", and "\" (the backslash) are converted into the representation of a
+    * backslash followed by two hex digits representing the hexadecimal value of the character.
+    *
+    * @param array $values Array of values to escape
+    *
+    * @static
+    * @return array Array $values, but escaped
+    */
+    function ldap_pear_escape_filter_value($values = array()) {
+        // Parameter validation
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+
+        foreach ($values as $key => $val) {
+            // Escaping of filter meta characters
+            $val = str_replace('\\', '\5c', $val);
+            $val = str_replace('*',  '\2a', $val);
+            $val = str_replace('(',  '\28', $val);
+            $val = str_replace(')',  '\29', $val);
+
+            // ASCII < 32 escaping
+            $val = ldap_pear_asc2hex32($val);
+
+            if (null === $val) $val = '\0';  // apply escaped "null" if string is empty
+
+            $values[$key] = $val;
+        }
+
+        return $values;
+    }
+
+    /**
+    * Converts all ASCII chars < 32 to "\HEX"
+    *
+    * @param string $string String to convert
+    *
+    * @static
+    * @return string
+    */
+    function ldap_pear_asc2hex32($string) {
+        for ($i = 0; $i < strlen($string); $i++) {
+            $char = substr($string, $i, 1);
+            if (ord($char) < 32) {
+                $hex = dechex(ord($char));
+                if (strlen($hex) == 1) $hex = '0'.$hex;
+                $string = str_replace($char, '\\'.$hex, $string);
+            }
+        }
+        return $string;
+    }
