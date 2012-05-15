@@ -33,24 +33,37 @@
  */
 ?>
 <div class="profile"<?php print $attributes; ?>>
+
 	<?php
 		$uid = null;
 		$link_array = null;
-		$profile_type_array = array();
+		$role_array = array();
+
 
 		if( isset($user_profile["field_first_name"]["#object"]) )
 		{
 			$user_profile_obj = $user_profile["field_first_name"]["#object"];
 			$uid = $user_profile_obj->uid;
 
-			if( isset($user_profile_obj->field_profile_type["und"]) )
+			if( isset($user_profile_obj->roles) )
 			{
-				foreach($user_profile_obj->field_profile_type["und"] as $profile_type_obj)
+				foreach($user_profile_obj->roles as $role)
 				{
-					$profile_type_array[] = $profile_type_obj["value"];		
+					if($role == "academic staff")
+					{
+						$role_array[] = $role;
+					}
+					elseif($role == "professional staff")
+					{
+						$role_array[] = $role;
+					}
+					else
+					{
+
+					}	
 				}
 	
-				$link_array = __build_profile_links($profile_type_array, $uid);				
+				$link_array = __build_role_links($role_array, $uid);				
 			}
 		}
 		else
@@ -68,9 +81,9 @@
 				echo "<ul>";
 				foreach($link_array as $link)
 				{
-					$profile_type = strtolower($link['profile_type']); 
+					$role = strtolower($link['role']); 
 					$url = $link["url"];
-					echo "<li>To view your $profile_type profile, please visit <a href='$url'>this page</a>.</li>";
+					echo "<li>To view your $role profile, please visit <a href='$url'>this page</a>.</li>";
 				}
 				echo "</ul>";
 			}
@@ -85,23 +98,23 @@
 
 <?php
 	// Build your functions here
-	function __build_profile_links($profile_type_array = array(), $uid)
+	function __build_role_links($role_array = array(), $uid)
 	{
 		global $base_url;		
 		$link_array = null;	
 		$index = 0;
 
-		foreach($profile_type_array as $profile_type)
+		foreach($role_array as $role)
 		{
-			if($profile_type == "Academic Staff")
+			if($role == "academic staff")
 			{
 				$link_array[$index]["url"] = $base_url. "/about-us/academic-staff/$uid";
-				$link_array[$index]["profile_type"] = $profile_type;
+				$link_array[$index]["role"] = $role;
 			}
-			elseif($profile_type == "Professional Staff")
+			elseif($role == "professional staff")
 			{
 				$link_array[$index]["url"] = $base_url. "/about-us/professional-staff/$uid";
-				$link_array[$index]["profile_type"] = $profile_type;
+				$link_array[$index]["role"] = $role;
 			}
 		
 			++$index;
