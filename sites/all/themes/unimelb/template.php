@@ -47,7 +47,7 @@ drupal_add_js($vars3, 'setting');
 // Define your functions here
 function __is_page_highlight_defined(&$node)
 {
-	$highlight_node = field_get_items('node', $node, 'field_highlight');
+	$highlight_node = field_get_items('node', $node, 'field_page_highlight');
 	if ($highlight_node != FALSE) 
 	{
 		$highlight = $highlight_node[0]['value'];
