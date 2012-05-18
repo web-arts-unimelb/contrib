@@ -78,14 +78,11 @@
  * @see template_process()
  */
 
-//print '<blockquote class="opening-hours">';
+__redirect_by_external_url_field($node);
 
 print render($title_prefix);
 
-
-print render($title_prefix);
-
-// if(!$page && $title) {
+//print render($title_prefix);
 
 print '<h2 ' . $title_attributes . '>';
 
@@ -97,23 +94,13 @@ if(!$page) { print '</a>'; }
 
 print '</h2>';
 
-// }
-
 print render($title_suffix); 
 
-
-print render($title_suffix); 
+//print render($title_suffix); 
 
 hide($content['comments']);
 hide($content['links']);
-
 hide($content['field_display_settings']);
 
 print render($content);
-
-// print render($content['links']);
-// print render($content['comments']); 
-
-//print '</blockquote>';
-
 ?>

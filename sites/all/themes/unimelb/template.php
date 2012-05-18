@@ -60,3 +60,21 @@ function __is_page_highlight_defined(&$node)
 
 	return $highlight;
 }
+
+function __redirect_by_external_url_field($node=null)
+{
+	$url = field_get_items('node', $node, 'field_external_url');
+	$url_value = field_view_value('node', $node, 'field_external_url', $url[0], array());
+	$url_markup = $url_value["#markup"];		
+
+	if(empty($url_markup))
+	{
+		// Do nothing
+	}
+	else
+	{
+		// Need to validate url
+		header("Location: $url_markup");
+		die;	
+	}
+}
