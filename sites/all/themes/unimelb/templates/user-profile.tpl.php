@@ -33,94 +33,10 @@
  */
 ?>
 <div class="profile"<?php print $attributes; ?>>
-
-	<?php
-		$uid = null;
-		$link_array = null;
-		$role_array = array();
-
-
-		if( isset($user_profile["field_first_name"]["#object"]) )
-		{
-			$user_profile_obj = $user_profile["field_first_name"]["#object"];
-			$uid = $user_profile_obj->uid;
-
-			if( isset($user_profile_obj->roles) )
-			{
-				foreach($user_profile_obj->roles as $role)
-				{
-					if($role == "academic staff")
-					{
-						$role_array[] = $role;
-					}
-					elseif($role == "professional staff")
-					{
-						$role_array[] = $role;
-					}
-					else
-					{
-
-					}	
-				}
-	
-				$link_array = __build_role_links($role_array, $uid);				
-			}
-		}
-		else
-		{
-			// Go somewhere
-		}
-	?>
-	
-	<br/>
-	<p>
-		<?php 
-			$num = count($link_array);
-			if($num > 0)
-			{
-				echo "<ul>";
-				foreach($link_array as $link)
-				{
-					$role = strtolower($link['role']); 
-					$url = $link["url"];
-					echo "<li>To view your $role profile, please visit <a href='$url'>this page</a>.</li>";
-				}
-				echo "</ul>";
-			}
-			else
-			{
-
-			}
-		?>
-	</p>
-</div>
-
-
 <?php
-	// Build your functions here
-	function __build_role_links($role_array = array(), $uid)
-	{
-		global $base_url;		
-		$link_array = null;	
-		$index = 0;
-
-		foreach($role_array as $role)
-		{
-			if($role == "academic staff")
-			{
-				$link_array[$index]["url"] = $base_url. "/about-us/academic-staff/$uid";
-				$link_array[$index]["role"] = $role;
-			}
-			elseif($role == "professional staff")
-			{
-				$link_array[$index]["url"] = $base_url. "/about-us/professional-staff/$uid";
-				$link_array[$index]["role"] = $role;
-			}
-		
-			++$index;
-		}
-
-		return $link_array;
-	}
-
+  // profile_links is set by the uom_custom module.
+  if (!empty($user_profile['profile_links'])):
+    print $user_profile['profile_links'];
+  endif;
 ?>
+</div>
