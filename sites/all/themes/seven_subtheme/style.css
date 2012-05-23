@@ -989,18 +989,18 @@ div.add-or-remove-shortcuts {
 }
 
 
-/* Start override */
-.html #admin-menu ul a 
-{
-	font-size: 14px;
-}
-
+/* Start override #admin-menu */
 .html #admin-menu 
 {
    background-image: none;
    background-color: #101010 !important;
 }
 
+.html #admin-menu ul a 
+{
+	font-size: 14px;
+	margin: 4px 5px 4px 0px; /* Only change the first level item. Level below will be margin:0px */
+}
 
 .html #admin-menu li li 
 {
@@ -1013,5 +1013,20 @@ div.add-or-remove-shortcuts {
 	background-image: none;
 	background-color: #202020 !important;
 }
-/* End override */
+
+/* Third-and-above-level lists */
+.html #admin-menu ul ul a
+{
+	padding: 8px 8px 8px 8px; /* Look at #admin-menu li li.expandable ul  */
+	-webkit-padding-after: 9px;
+
+	margin: 0px; /* Reset */
+}
+
+#admin-menu li li.expandable ul 
+{
+	margin: -28px 0 0 160px;
+}
+
+/* End override #admin-menu */
 
