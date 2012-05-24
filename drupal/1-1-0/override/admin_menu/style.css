@@ -5,6 +5,13 @@
    background-color: #101010 !important;
 }
 
+/* Start override icon */
+#admin-menu ul.dropdown li.admin-menu-icon ul a 
+{
+	padding: 8px 8px 8px 8px;
+}
+/* End override icon */
+
 .html #admin-menu ul a 
 {
 	font-size: 14px;
@@ -32,7 +39,7 @@
 	margin: 0px; /* Reset */
 }
 
-#admin-menu li li.expandable ul 
+#admin-menu ul.dropdown li li.expandable ul 
 {
 	margin: -28px 0 0 160px;
 }
