@@ -79,4 +79,45 @@ a.bibliography_link:link
 
 /* end user profile */
 
+
+/* start button */
+button,
+.button,
+input[type=submit],
+form.wbg input[type=submit],
+input.form-submit,
+input#edit-submit-profiles,
+input#edit-submit,
+input.button,
+a.button 
+{
+	
+margin: 0px 0px 0px 4px;
+padding: 2px 4px 2px 4px;
+
+-webkit-padding-before: 3px;
+-webkit-padding-after: 3px;
+-webkit-margin-before: 1px;
+
+}
+/* end button */
+
+
+/* start button, ie7 only */
+*+html button,
+*+html .button,
+*+html input[type=submit],
+*+html form.wbg input[type=submit],
+*+html input.form-submit,
+*+html input#edit-submit-profiles,
+*+html input#edit-submit,
+*+html input.button,
+*+html a.button 
+{
+    padding: 1px 2px 1px 2px;
+	margin: 1px 0px 0px 4px;
+}
+/* end button, ie7 only */
+
+
 /* End override */
