@@ -102,13 +102,29 @@ $site_name = variable_get('site_name', '');
 
 <?php $files_directory = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath() . '/'; ?>
 
-<style>
+<style> 
+#background-wrapper,
 body.html.home.front {
     background-image: url("<?php print $files_directory . 'images/homepage-blue.jpg'; ?>"); 
+    background-color: #036;
 }
 
+#background-wrapper,
 body.html.blue.not-front {
     background-image: url("<?php print $files_directory . 'images/blue.jpg'; ?>"); 
+    background-color: #036;
+}
+
+#background-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 </style>
 
@@ -121,6 +137,8 @@ body.html.blue.not-front {
 </head>
 
 <body class="no-logo<?php if($is_front) { print ' home '; } else { print ' blue '; } ?> <?php print $classes; ?>" <?php if($attributes) { print ' ' . $attributes; } ?>>
+
+<div id="background-wrapper"></div>
 
 <?php print $page_top; ?>
 <?php print $page; ?>
