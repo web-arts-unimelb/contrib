@@ -125,6 +125,7 @@ body.html.blue.not-front {
   z-index: -1;
   background-repeat: no-repeat;
   background-color: white;
+  background-position: 50% 0px;
 }
 </style>
 
