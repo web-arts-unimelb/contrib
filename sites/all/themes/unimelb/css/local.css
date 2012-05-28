@@ -1,0 +1,12 @@
+/* Local overrides to theme elements. */
+
+/* jQuery menu */
+body ul.jquerymenu li.parent span.open {
+  background-image: url('../images/collapse-arrow.png');
+  background-position: 50% 0.4em;;
+}
+
+body ul.jquerymenu li.parent span.closed {
+  background-image: url('../images/expand-arrow.png');
+  background-position: 50% 0.4em;;
+}

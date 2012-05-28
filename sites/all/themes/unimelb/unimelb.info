@@ -20,5 +20,8 @@ regions[home_column_6]	= home_column_6
 regions[home_event] = home_event
 regions[home_promo] = home_promo
 
+stylesheets[all][] = css/local.css
+
+scripts[] = js/local.js
 
 version = "7.x-1.0-beta1"
