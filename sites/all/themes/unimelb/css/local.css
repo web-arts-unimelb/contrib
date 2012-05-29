@@ -10,3 +10,19 @@ body ul.jquerymenu li.parent span.closed {
   background-image: url('../images/expand-arrow.png');
   background-position: 50% 0.4em;;
 }
+
+/* Content editing */
+.filter-help a {
+  padding: 0 20px 0 0;
+}
+
+.main a,
+.main a:link,
+.main a:active,
+.main a:visited,
+a.tabledrag-handle,
+a.tabledrag-handle:link,
+a.tabledrag-handle:active,
+a.tabledrag-handle:visited {
+  border: none;
+}
