@@ -53,23 +53,6 @@ function unimelb_preprocess_page(&$variables) {
   }
 }
 
-// Define your functions here
-function __is_page_highlight_defined(&$node)
-{
-	$highlight_node = field_get_items('node', $node, 'field_page_highlight');
-	if ($highlight_node != FALSE) 
-	{
-		$highlight = $highlight_node[0]['value'];
-
-	}
-	else 
-	{
-		$highlight = "";
-	}
-
-	return $highlight;
-}
-
 function __redirect_by_external_url_field($node=null)
 {
 	$url = field_get_items('node', $node, 'field_external_url');
