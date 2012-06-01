@@ -9,6 +9,7 @@ engine = phptemplate
 regions[help]			= Help
 regions[content]		= Content
 regions[navigation]		= Navigation
+regions[highlight]		= Highlight
 
 regions[home_column_1]	= home_column_1
 regions[home_column_2]	= home_column_2

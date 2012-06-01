@@ -92,13 +92,6 @@
 
 	</div><!-- end header -->
 
-	<?php
-		if(isset($node))
-		{
-			$highlight = __is_page_highlight_defined($node);
-		}	
-	?>
-
 	<?php if($is_front): ?>
 		<div class="main col-6" role="main" id="main-content">
 			<div class="col-6 first">
@@ -159,10 +152,10 @@
 				<?php endif; ?>
 			</div>
 		</div>
-	<?php elseif( !empty( $highlight ) ): ?>
+	<?php elseif( !empty( $page['highlight'] ) ): ?>
 		<div class="col-2">
 			<div class="events">
-				<?php print render($highlight); ?>
+				<?php print render($page['highlight']); ?>
 			</div>		
 		</div>	
 
