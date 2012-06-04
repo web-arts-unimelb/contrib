@@ -1,0 +1,14 @@
+name = Date Validation
+description = "Add validation rules to date field."
+package = Fields
+core = 7.x
+dependencies[] = field
+dependencies[] = field_ui
+dependencies[] = date
+dependencies[] = field_validation
+; Information added by drupal.org packaging script on 2012-04-30
+version = "7.x-2.0-beta2"
+core = "7.x"
+project = "field_validation"
+datestamp = "1335766862"
+
