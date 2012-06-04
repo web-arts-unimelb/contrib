@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Implements hook_rules_event_info()
+ * @file
+ * Rules hooks implementation.
+ */
+
+/**
+ * Implements hook_rules_event_info().
  */
 function draggableviews_rules_event_info() {
   $events = array();
@@ -13,6 +18,10 @@ function draggableviews_rules_event_info() {
       'view_name' => array(
         'type' => 'text',
         'label' => t('view name'),
+      ),
+      'display_name' => array(
+        'type' => 'text',
+        'label' => t('view current display name'),
       ),
     ),
   );
