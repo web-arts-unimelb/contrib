@@ -143,13 +143,19 @@
 				<?php print render($page["navigation"]); ?>
 			<?php endif; ?>
 			
-				<?php if($page["home_event"]): ?>
-					<?php print render($page["home_event"]); ?>
-				<?php endif; ?>
+			<?php if($page["home_event"]): ?>
+				<?php print render($page["home_event"]); ?>
+			<?php endif; ?>
 
-				<?php if($page["home_promo"]): ?>
-					<?php print render($page["home_promo"]); ?>
-				<?php endif; ?>
+			<?php if($page["home_promo"]): ?>
+				<?php print render($page["home_promo"]); ?>
+			<?php endif; ?>
+
+			<?php if($page["related_items"]): ?>
+                        	<div class="related-items">
+					<?php print render($page["related_items"]); ?>
+				</div>
+			<?php endif; ?>
 			</div>
 		</div>
 	<?php elseif( !empty( $page['highlight'] ) ): ?>
@@ -177,6 +183,12 @@
 					<?php print render($page["navigation"]); ?>
 				<?php endif; ?>
 			</div>
+
+			<?php if($page["related_items"]): ?>
+                        	<div class="related-items">
+					<?php print render($page["related_items"]); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 	<?php else: ?>
 		<div class="main col-6" role="main" id="main-content">
@@ -197,6 +209,12 @@
 					<?php print render($page["navigation"]); ?>
 				<?php endif; ?>
 			</div>
+
+			<?php if($page["related_items"]): ?>
+                        	<div class="related-items">
+					<?php print render($page["related_items"]); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 
