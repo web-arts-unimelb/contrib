@@ -1,0 +1,123 @@
+/* Start override */ 
+h2
+{
+	padding-top:0;
+}
+
+.main h1 
+{
+    color: #003366;
+}
+
+h2#block-views-zones-home-event
+{
+	font-size: 24px;
+	margin-top: 5px;
+}
+
+h2#block-views-zones-home-promo
+{
+	font-size: 24px;
+}
+
+.header .hgroup h1 
+{
+    font-size: 30px;
+	padding: 40px 0 12px;
+}
+
+
+
+.front .main 
+{
+    padding: 20px 0 0 0;
+    background: none;
+}
+
+.not-front .main 
+{
+    padding: 0 0 0 0;
+    background: none;
+}
+
+.rightside
+{
+	margin-top: 30px;
+}
+
+.events 
+{
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	color: #3e658e;
+	background: #dfe9f4;	
+	margin: 8px 30px 20px 0;
+	padding:10px;
+	width:200px;
+	font-size:.9em;
+
+}
+
+/* start navigation */
+#block-jquerymenu-1
+{
+    font-weight: bold;
+}
+/* End navigation */
+
+
+/* start user profile */
+a.bibliography_link:link
+{
+	margin: 15px 0 15px 0;
+	display: block;
+	border-width: 0;
+	font-size: 150%;
+}
+
+/* end user profile */
+
+
+/* start button */
+button,
+.button,
+input[type=submit],
+form.wbg input[type=submit],
+input.form-submit,
+input#edit-submit-profiles,
+input#edit-submit,
+input.button,
+a.button 
+{
+	
+margin: 0px 0px 0px 4px;
+padding: 2px 4px 2px 4px;
+
+-webkit-padding-before: 3px;
+-webkit-padding-after: 3px;
+-webkit-margin-before: 1px;
+
+}
+/* end button */
+
+
+/* start button, ie7 only */
+*+html button,
+*+html .button,
+*+html input[type=submit],
+*+html form.wbg input[type=submit],
+*+html input.form-submit,
+*+html input#edit-submit-profiles,
+*+html input#edit-submit,
+*+html input.button,
+*+html a.button 
+{
+    padding: 1px 2px 1px 2px;
+	margin: 1px 0px 0px 4px;
+}
+/* end button, ie7 only */
+
+
+/* End override */

@@ -100,18 +100,21 @@ $site_name = variable_get('site_name', '');
 
 <?php print $styles; ?>
 
-<?php $files_directory = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath() . '/'; ?>
+<?php 
+	//$files_directory = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath() . '/'; 
+	$current_theme_path = "/". drupal_get_path('theme', 'unimelb');
+?>
 
 <style> 
 #background-wrapper,
 body.html.home.front {
-    background-image: url("<?php print $files_directory . 'images/homepage-blue.jpg'; ?>"); 
+    background-image: url("<?php print $current_theme_path. '/marcom/1-1-0/images/homepage-blue.jpg'; ?>"); 
     background-color: #036;
 }
 
 #background-wrapper,
 body.html.blue.not-front {
-    background-image: url("<?php print $files_directory . 'images/blue.jpg'; ?>"); 
+    background-image: url("<?php print $current_theme_path. '/marcom/1-1-0/images/blue.jpg'; ?>"); 
     background-color: #036;
 }
 

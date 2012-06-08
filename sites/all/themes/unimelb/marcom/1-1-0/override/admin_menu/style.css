@@ -1,0 +1,47 @@
+/* Start override */
+.html #admin-menu 
+{
+   background-image: none;
+   background-color: #101010 !important;
+}
+
+/* Start override icon */
+#admin-menu ul.dropdown li.admin-menu-icon ul a 
+{
+	padding: 8px 8px 8px 8px;
+}
+/* End override icon */
+
+.html #admin-menu ul a 
+{
+	font-size: 14px;
+	margin: 4px 5px 4px 0px; /* Only change the first level item. Level below will be margin:0px */
+}
+
+.html #admin-menu li li 
+{
+	background-image: none;
+	background-color: #202020 !important;
+}
+
+.html #admin-menu li li.expandable 
+{
+	background-image: none;
+	background-color: #202020 !important;
+}
+
+/* Third-and-above-level lists */
+.html #admin-menu ul ul a
+{
+	padding: 8px 8px 8px 8px; /* Look at #admin-menu li li.expandable ul  */
+	-webkit-padding-after: 9px;
+
+	margin: 0px; /* Reset */
+}
+
+#admin-menu ul.dropdown li li.expandable ul 
+{
+	margin: -28px 0 0 160px;
+}
+
+/* End override */

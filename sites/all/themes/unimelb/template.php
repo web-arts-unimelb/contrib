@@ -14,21 +14,24 @@
  * I can test for syntax errors via the CLI without getting a bunch of
  * undefined function errors.
  */
-function unimelb_preprocess_page(&$variables) {
-  /* start css */
-  drupal_add_css('http://brand.unimelb.edu.au/web-templates/1-2-0beta1/css/complete.css', array('group' => CSS_THEME, 'type' => 'external'));
-  drupal_add_css('/drupal/1-1-0/css/unimelb_drupal_distro.css', array('group' => CSS_THEME, 'type' => 'external'));
-  drupal_add_css('/drupal/1-1-0/css/custom.css', array('group' => CSS_THEME, 'type' => 'external'));
-  /* end css */
+function unimelb_preprocess_page(&$variables) 
+{
+	global $base_url;
+	$current_theme_path = $base_url. "/". drupal_get_path('theme', 'unimelb');
 
-  /* start js */
-  drupal_add_js('http://brand.unimelb.edu.au/global-header/js/injection.js', 'external');
-  // drupal_add_js('http://brand.unimelb.edu.au/web-templates/1-1-0/js/navigation.js', 'external');
-  // drupal_add_js('http://brand.unimelb.edu.au/web-templates/1-1-0/js/widgets.js', 'external');
+	/* start css */
+	drupal_add_css('http://brand.unimelb.edu.au/web-templates/1-2-0beta1/css/complete.css', array('group' => CSS_THEME, 'type' => 'external'));
+	drupal_add_css("$current_theme_path/marcom/1-1-0/css/unimelb_drupal_distro.css", array('group' => CSS_THEME, 'type' => 'external'));
+  	drupal_add_css("$current_theme_path/marcom/1-1-0/css/custom.css", array('group' => CSS_THEME, 'type' => 'external'));
+	/* end css */
 
-  drupal_add_js('/drupal/1-1-0/js/unimelb_drupal_distro.js', 'external');
-  //drupal_add_js('/drupal/1-1-0/js/newsbanner.js', 'external');
-  /* end js */
+	/* start js */
+  	drupal_add_js('http://brand.unimelb.edu.au/global-header/js/injection.js', 'external');
+  	// drupal_add_js('http://brand.unimelb.edu.au/web-templates/1-1-0/js/navigation.js', 'external');
+  	// drupal_add_js('http://brand.unimelb.edu.au/web-templates/1-1-0/js/widgets.js', 'external');
+	//drupal_add_js("$current_theme_path/marcom/1-1-0/js/unimelb_drupal_distro.js", 'external');
+  	//drupal_add_js('/drupal/1-1-0/js/newsbanner.js', 'external');
+  	/* end js */
 
   /**
    * making Unimelb Settings variables available to js

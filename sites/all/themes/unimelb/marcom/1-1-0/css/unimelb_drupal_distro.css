@@ -1,0 +1,342 @@
+
+/* HIDDEN */
+
+.front .nav ul.menu,
+#search-form label,
+.not-logged-in #nice-menu-2,
+.view-display-id-News h3,
+.maintenance-page #header,
+.maintenance-page #main,
+.maintenance-page #backtotop {
+	display:none;
+}
+
+/* MARGIN = ZERO */
+
+.pullout ul li,
+.nav ul,
+blockquote h2, 
+blockquote .field-name-field-dates,
+blockquote .field-name-field-times,
+blockquote .field-name-field-location,
+.view-display-id-News p,
+.view-display-id-Events p,
+.view-display-id-Column1 p,
+.view-display-id-Column2 p,
+.view-display-id-Column3 p,
+.view-display-id-Column4 p {
+	margin:0;
+}
+
+/* MARGIN and PADDING = ZERO */
+
+.views-table ul li.last,
+.opening-hours p {
+	margin:0;
+	padding:0;
+}
+
+
+/* INLINE */
+
+form input, 
+form textarea, 
+form select {
+	display: inline;
+}
+
+
+
+
+/* PULLOUT */
+
+.pullout ul {
+margin:5px 0;
+padding:0;
+}
+
+.pullout blockquote {
+margin-top: 0px;
+}
+
+.featured .pullout {
+background:#dfe9f4 none no-repeat;
+display:block;
+left:0;
+padding:0 10px;
+}
+
+
+
+/* BLOCKQUOTE */
+
+
+blockquote {
+padding:10px 10px 10px 43px;
+}
+
+
+
+blockquote.opening-hours {
+-moz-border-radius:3px;
+-o-border-radius:3px;
+-webkit-border-radius:3px;
+background-position:8px 12px;
+border-radius:3px;
+padding:13px 10px 10px;
+}
+
+blockquote.opening-hours p.event-title {
+font-size:16px;
+font-weight:bold;
+margin:0 0 5px 30px;
+padding:0;
+text-indent:0;
+}
+
+blockquote.opening-hours h2 {
+padding-top:0;
+}
+
+blockquote .field-name-body p {
+font-weight:normal;
+margin:0;
+padding:0;
+text-indent:0;
+}
+
+blockquote.opening-hours p.event-title a {
+border-bottom:0 none;
+color:#036;
+}
+
+
+
+/* PROFILES */
+
+.user-picture {
+margin:10px 0;
+padding:0;
+}
+
+.profile .user-picture {
+clear:both;
+float:none;
+}
+
+.profile .field-name-field-first-name {
+float:left;
+margin-right:.4em;
+}
+
+.profile .field-name-field-first-name,.profile .field-name-field-last-name {
+font-size:16px;
+font-weight:bold;
+}
+
+.view-profiles .polaroid {
+margin-top:15px;
+}
+
+
+/* FORMS */
+
+
+form .views-exposed-widget select {
+margin-bottom:0;
+margin-top:0;
+}
+
+form input,form textarea,form select {
+padding:1px;
+}
+
+form label,form p {
+text-align:left;
+}
+
+
+
+
+
+
+/* HOME PAGE */
+
+.page-preview {
+float:left;
+margin-top:15px;
+padding-top:0;
+}
+
+.front .header.with-ht {
+margin:0 0 8px;
+}
+
+.header #headingtext {
+padding-top:10px;
+}
+
+
+
+
+
+
+/* LAYOUTS */
+
+.main {
+padding:20px 0 0;
+position:relative;
+}
+
+.main.with-above {
+padding:10px 0 0;
+}
+
+.above {
+margin-top:20px;
+}
+
+#main-content .field-name-field-images {
+margin:10px 0;
+}
+
+.rightside {
+    margin-top: 20px;
+}
+
+
+
+
+/* LINKS and BUTTONS */
+
+.main .view-Profiles a,
+.front .main a,
+.main .view-zones a,
+.user-picture a,
+.main a:hover {
+border-bottom:0 none;
+}
+
+button,
+.button,
+input[type=submit],
+form.wbg input[type=submit],
+input.form-submit,
+input#edit-submit-profiles,
+input#edit-submit,
+input.button,
+a.button {
+height:auto;
+margin:2px 0 4px 10px;
+padding:5px 6px;
+}
+
+div a.button {
+clear:both;
+float:none;
+margin:8px 0;
+}
+
+/* VIEWS */
+
+.view-filters form {
+margin-bottom:5px;
+margin-top:5px;
+overflow:hidden;
+}
+
+.view-zones .views-field-field-images ul li {
+list-style-type:none;
+margin:0 0 8px;
+padding:0;
+}
+
+.views-exposed-form .views-exposed-widget {
+padding: 10px 2px 0 0;
+}
+
+.views-table {
+width:100%;
+}
+
+.views-table .views-field-field-phone {
+white-space:nowrap;
+}
+
+.views-table td,.views-table tr,.views-table th {
+padding:5px;
+}
+
+.views-table ul {
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+.views-table ul li {
+margin:0 0 5px;
+padding:0;
+}
+
+
+/* MISC */
+
+.element-invisible {
+clip:rect(1px,1px,1px,1px);
+position:absolute!important;
+}
+
+#admin-menu {
+z-index:1001;
+}
+
+
+.header #headingtext p {
+    font-size: 18px;
+}
+
+
+h1#page-title {
+margin:0 0 10px;
+}
+
+td.active {
+background-color:inherit;
+}
+
+ul li.expanded,
+ul li.leaf,
+ul li.collapsed {
+list-style-image:none;
+list-style-type:none;
+}
+
+
+.view-display-id-News .news-item h3 {
+display:block;
+}
+
+.aside h2 {
+color:#036;
+}
+
+
+.maintenance-page #container {
+height:240px;
+}
+
+
+.front .header.without-ht,.header {
+margin:0 0 36px;
+}
+
+a:hover h2,a h2:hover,blockquote.opening-hours p.event-title a:hover,blockquote.opening-hours p.event-title a:hover {
+color:#c33;
+}
+
+
+
+#search-form .form-type-textfield {
+width: 280px;
+}
+
