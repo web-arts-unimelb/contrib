@@ -1,5 +1,10 @@
 /* Local overrides to theme elements. */
 
+/* Space out the highlights block title a bit. */
+h2#block-views-zones-home-promo {
+  margin-top: 1em;
+}
+
 /* jQuery menu */
 body ul.jquerymenu li.parent span.open {
   background-image: url('../images/collapse-arrow.png');
