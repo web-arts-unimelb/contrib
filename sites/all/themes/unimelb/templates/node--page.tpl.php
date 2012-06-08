@@ -79,8 +79,6 @@
  */
 
 
-__redirect_by_external_url_field($node);
-
 hide($content['comments']);
 hide($content['links']);
 hide($content['field_above']); 

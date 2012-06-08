@@ -78,8 +78,6 @@
  * @see template_process()
  */
 
-__redirect_by_external_url_field($node);
-
 print render($title_prefix);
 
 //print render($title_prefix);

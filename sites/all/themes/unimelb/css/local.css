@@ -1,8 +1,18 @@
 /* Local overrides to theme elements. */
 
+/* No background on the .main class. */
+.main {
+  background: transparent;
+}
+
 /* Space out the highlights block title a bit. */
 h2#block-views-zones-home-promo {
   margin-top: 1em;
+}
+
+/* Table cell has a border. */
+table td {
+  border-left: #B9CFE7 solid 1px;
 }
 
 /* jQuery menu */
@@ -41,11 +51,13 @@ a.tabledrag-handle:visited {
   text-decoration: underline;
 }
 
-/* But never on tabs or images! */
+/* But never on tabs, images or headers! */
 #main-content a img, #main-content a:link img, #main-content a:active img, #main-content a:visited img,
-#main-content ul.tabs a, #main-content ul.tabs a:link, #main-content ul.tabs a:active, #main-content ul.tabs a:visited {
+#main-content ul.tabs a, #main-content ul.tabs a:link, #main-content ul.tabs a:active, #main-content ul.tabs a:visited,
+#main-content h1 a:link, #main-content h2 a:link, #main-content h3 a:link, #main-content h4 a:link, #main-content h5 a:link, #main-content h6 a:link {
   text-decoration: none;
 }
+
 /* content-bottom (related content) links */
 #main-content-bottom {
   background: none repeat scroll 0 0 #DFE9F4;

@@ -42,8 +42,9 @@
  * 
 */
 
-?><!DOCTYPE HTML>
-<html lang="en">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>
 <head>
 
 <?php print $head; ?>
@@ -100,22 +101,26 @@ $site_name = variable_get('site_name', '');
 
 <?php print $styles; ?>
 
-<?php 
-	//$files_directory = '/' . file_stream_wrapper_get_instance_by_uri('public://')->getDirectoryPath() . '/'; 
-	$current_theme_path = "/". drupal_get_path('theme', 'unimelb');
-?>
+  <!-- GLOBAL RESOURCES -->
+  <!-- DO NOT CHANGE -->
+  <link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css">
+  <script src="http://brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
 
-<style> 
+  <link rel="stylesheet" href="http://brand.unimelb.edu.au/global-header/css/style.css">
+  <script src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
+  <!-- /GLOBAL RESOURCES -->
+
+<style>
 #background-wrapper,
 body.html.home.front {
-    background-image: url("<?php print $current_theme_path. '/marcom/1-1-0/images/homepage-blue.jpg'; ?>"); 
-    background-color: #036;
+  background-image: url('/<?php print path_to_theme(); ?>/images/homepage-blue.jpg');
+  background-color: #036;
 }
 
 #background-wrapper,
 body.html.blue.not-front {
-    background-image: url("<?php print $current_theme_path. '/marcom/1-1-0/images/blue.jpg'; ?>"); 
-    background-color: #036;
+  background-image: url('/<?php print path_to_theme(); ?>/images/blue.jpg');
+  background-color: #036;
 }
 
 #background-wrapper {
