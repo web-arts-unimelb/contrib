@@ -41,12 +41,11 @@
  * @see template_process()
  */
 
-if($block->subject) 
-{
-	print render($title_prefix);
-	print "<h4 id='$block_html_id' class='block-title $title_attributes'>". $block->subject .'</h4>';
-	print render($title_suffix);
-} 
+if ($block->subject) {
+  print render($title_prefix);
+  print "<h4 id='$block_html_id' class='block-title $title_attributes'>". $block->subject .'</h4>';
+  print render($title_suffix);
+}
 
 print $content;
 

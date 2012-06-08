@@ -10,7 +10,8 @@ regions[help]			= Help
 regions[content]		= Content
 regions[navigation]		= Navigation
 regions[highlight]		= Highlight
-regions[related_items]		= Related Items
+regions[sidebar_right]	= Sidebar Right
+regions[content_bottom]	= Content Bottom
 
 regions[home_column_1]	= home_column_1
 regions[home_column_2]	= home_column_2

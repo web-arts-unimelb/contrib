@@ -151,9 +151,9 @@
 				<?php print render($page["home_promo"]); ?>
 			<?php endif; ?>
 
-			<?php if($page["related_items"]): ?>
-                        	<div class="related-items">
-					<?php print render($page["related_items"]); ?>
+			<?php if($page["sidebar_right"]): ?>
+                        	<div class="sidebar-right">
+					<?php print render($page["sidebar_right"]); ?>
 				</div>
 			<?php endif; ?>
 			</div>
@@ -175,6 +175,11 @@
 				<ul class="action-links"><?php print render($action_links); ?></ul>
 			<?php endif; ?>
 			<?php print render($page['content']); ?>
+			<?php if ($page['content_bottom']): ?>
+				<div id="main-content-bottom">
+					<?php print render($page['content_bottom']); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 
 		<div class="col-2">
@@ -184,9 +189,9 @@
 				<?php endif; ?>
 			</div>
 
-			<?php if($page["related_items"]): ?>
-                        	<div class="related-items">
-					<?php print render($page["related_items"]); ?>
+			<?php if($page["sidebar_right"]): ?>
+				<div class="sidebar-right">
+					<?php print render($page["sidebar_right"]); ?>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -201,6 +206,11 @@
 				<ul class="action-links"><?php print render($action_links); ?></ul>
 			<?php endif; ?>
 			<?php print render($page['content']); ?>
+			<?php if ($page['content_bottom']): ?>
+				<div id="main-content-bottom">
+					<?php print render($page['content_bottom']); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 
 		<div class="col-2">
@@ -210,9 +220,9 @@
 				<?php endif; ?>
 			</div>
 
-			<?php if($page["related_items"]): ?>
-                        	<div class="related-items">
-					<?php print render($page["related_items"]); ?>
+			<?php if($page["sidebar_right"]): ?>
+				<div class="sidebar-right">
+					<?php print render($page["sidebar_right"]); ?>
 				</div>
 			<?php endif; ?>
 		</div>

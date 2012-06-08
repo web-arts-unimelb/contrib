@@ -16,6 +16,7 @@ body ul.jquerymenu li.parent span.closed {
   padding: 0 20px 0 0;
 }
 
+/* No border on any links, ever! */
 .main a,
 .main a:link,
 .main a:active,
@@ -25,4 +26,27 @@ a.tabledrag-handle:link,
 a.tabledrag-handle:active,
 a.tabledrag-handle:visited {
   border: none;
+}
+
+/* Underline links in the main content.*/
+#main-content a,
+#main-content a:link,
+#main-content a:active,
+#main-content a:visited {
+  text-decoration: underline;
+}
+
+/* But never on tabs or images! */
+#main-content a img, #main-content a:link img, #main-content a:active img, #main-content a:visited img,
+#main-content ul.tabs a, #main-content ul.tabs a:link, #main-content ul.tabs a:active, #main-content ul.tabs a:visited {
+  text-decoration: none;
+}
+/* content-bottom (related content) links */
+#main-content-bottom {
+  background: none repeat scroll 0 0 #DFE9F4;
+  border-radius: 3px 3px 3px 3px;
+  color: #3E658E;
+  font-size: 0.9em;
+  margin: 8px 30px 20px 0;
+  padding: 10px;
 }
