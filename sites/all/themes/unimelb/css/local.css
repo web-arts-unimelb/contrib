@@ -5,6 +5,11 @@
   background: transparent;
 }
 
+/* Give Marcus a pre-set margin on headers in the content. */
+.main h2, .main h3, .main h4, .main h5, .main h6 {
+  margin-top: 1em;
+}
+
 /* Space out the highlights block title a bit. */
 h2#block-views-zones-home-promo {
   margin-top: 1em;
