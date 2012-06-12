@@ -583,3 +583,13 @@ function _filefield_sources_sort($a, $b) {
   $b = (array)$b + array('weight' => 0, 'label' => '');
   return $a['weight'] < $b['weight'] ? -1 : ($a['weight'] > $b['weight'] ? 1 : strnatcasecmp($a['label'], $b['label']));
 }
+
+/**
+ * Implementation of hook_views_api().
+ */
+function filefield_sources_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'filefield_sources') . '/views',
+  );
+}
