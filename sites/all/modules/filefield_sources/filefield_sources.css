@@ -29,3 +29,18 @@ div.filefield-source-remote input.form-text {
   /* Helps with display consistency since references has a background. */
   background-image: inherit;
 }
+
+.fielfield-source-button {
+  cursor: pointer;
+  padding: 4px 17px;
+  color: #5A5A5A;
+  border: 1px solid #E4E4E4;
+  border-bottom: 1px solid #B4B4B4;
+  border-left-color: #D2D2D2;
+  border-right-color: #D2D2D2;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: block;
+  text-align: center;
+}

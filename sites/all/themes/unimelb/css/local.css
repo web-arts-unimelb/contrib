@@ -33,12 +33,25 @@ table td {
 /* jQuery menu */
 body ul.jquerymenu li.parent span.open {
   background-image: url('../images/collapse-arrow.png');
-  background-position: 50% 0.4em;;
+  background-position: 50% 0.4em;
 }
 
 body ul.jquerymenu li.parent span.closed {
   background-image: url('../images/expand-arrow.png');
-  background-position: 50% 0.4em;;
+  background-position: 50% 0.4em;
+}
+
+/* Ouch! Ugly! */
+.ie ul.jquerymenu li.parent {
+  position: relative;
+}
+
+/* Ouch! Ugly! */
+.ie ul.jquerymenu li.parent span.open,
+.ie ul.jquerymenu li.parent span.closed {
+  position: absolute;
+  top: 18px;
+  left: 0px;
 }
 
 /* Content editing */
