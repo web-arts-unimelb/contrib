@@ -47,3 +47,24 @@ function unimelb_preprocess_page(&$variables) {
     drupal_add_js($vars3, 'setting');
   }
 }
+
+/**
+ * Implements theme_date_display_range()
+ *
+ * Returns HTML for a date element formatted as a range. Override for
+ * the theme function in date.module to output according to the UoM
+ * style guide.
+ */
+function unimelb_date_display_range($variables) {
+  $date1 = $variables['date1'];
+  $date2 = $variables['date2'];
+  $timezone = $variables['timezone'];
+  $attributes_start = $variables['attributes_start'];
+  $attributes_end = $variables['attributes_end'];
+
+  // Wrap the result with the attributes.
+  return t('!start-date–!end-date', array(
+    '!start-date' => '<span class="date-display-start"' . drupal_attributes($attributes_start) . '>' . $date1 . '</span>',
+    '!end-date' => '<span class="date-display-end"' . drupal_attributes($attributes_end) . '>' . $date2 . $timezone .'</span>',
+  ));
+}
