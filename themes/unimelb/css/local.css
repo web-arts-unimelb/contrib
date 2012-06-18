@@ -95,3 +95,18 @@ a.tabledrag-handle:visited {
   margin: 8px 30px 20px 0;
   padding: 10px;
 }
+
+/* Notice style */
+#main-content .notice {
+  border: 1px dotted #999;
+  background-color: #EEE;
+  padding: 0.6em;
+}
+
+/* Important notice style. */
+#main-content .importantnotice {
+  color: #900;
+  border: 1px dotted #f99;
+  background-color: #FEE;
+  padding: 0.6em;
+}
