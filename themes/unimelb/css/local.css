@@ -6,8 +6,27 @@
 }
 
 /* Give Marcus a pre-set margin on headers in the content. */
-.main h2, .main h3, .main h4, .main h5, .main h6 {
+h2, h3, h4, h5, h6 {
   margin-top: 1em;
+}
+
+/* Override header margin if directly following another header. */
+h1 + h1, h1 + h2,
+h2 + h2, h2 + h3, h2 + h4, h2 + h5, h2 + h6,
+h3 + h3, h3 + h4, h3 + h5, h3 + h6,
+h4 + h4, h4 + h5, h4 + h4,
+h5 + h5, h5 + h6,
+h6 + h6 {
+  margin-top: 0em;
+}
+
+/* Override header margin if the first element on the page. */
+div.field-item > h2,
+div.field-item > h3,
+div.field-item > h4,
+div.field-item > h5,
+div.field-item > h6 {
+  margin-top: 0em;
 }
 
 /* Sensiblise list item spacing. */
