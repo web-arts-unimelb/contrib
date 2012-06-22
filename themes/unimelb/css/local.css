@@ -25,6 +25,16 @@ h2#block-views-zones-home-promo {
   margin-top: 1em;
 }
 
+/* Table has a bottom margin. */
+table {
+  margin-bottom: 1em;
+}
+
+/* Table caption is italic. */
+table caption {
+  font-style: italic;
+}
+
 /* Table cell has a border. */
 table td {
   border-left: #B9CFE7 solid 1px;
@@ -86,6 +96,11 @@ a.tabledrag-handle:visited {
   text-decoration: none;
 }
 
+/* File size */
+span.filesize {
+  font-style: italic;
+}
+
 /* content-bottom (related content) links */
 #main-content-bottom {
   background: none repeat scroll 0 0 #DFE9F4;
@@ -109,4 +124,15 @@ a.tabledrag-handle:visited {
   border: 1px dotted #f99;
   background-color: #FEE;
   padding: 0.6em;
+}
+
+/* Floated images. */
+.image-float-left {
+  float: left;
+  margin: 0.2em 1em 0.5em 0;
+}
+
+.image-float-right {
+  float: right;
+  margin: 0.2em 0 0.5em 1.5em;
 }
