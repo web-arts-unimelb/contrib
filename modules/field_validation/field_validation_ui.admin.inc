@@ -144,6 +144,7 @@ function field_validation_ui_manage_rule($form, $form_state, $instance, $action 
       'source' => array('rulename'),
     ),
     '#weight' => 2,
+    '#maxlength' => 32,
   );
   $field = field_info_field($instance['field_name']);
   $col_options = array(

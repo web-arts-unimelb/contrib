@@ -22,7 +22,7 @@ class LdapAuthenticationTestCase extends DrupalWebTestCase {
   public $testData;
   public $sid;
 
-  function setUp() {
+  function setUp($addl_modules = array()) {
     parent::setUp(array('ldap_authentication', 'ldap_authorization', 'ldap_authorization_drupal_role')); // don't need any real servers, configured, just ldap_servers code base
     variable_set('ldap_simpletest', 1);
     variable_set('ldap_help_watchdog_detail', 0);
@@ -73,7 +73,7 @@ class LdapAuthenticationTestCase extends DrupalWebTestCase {
     $parts = ldap_explode_dn($dn, 0);
     $cn_parts = explode('=', $parts[0]);
     $edit = array(
-      'name' => $cn_parts[1],
+      'name' => ldap_pear_unescape_dn_value($cn_parts[1]),
       'pass' => $user['password'][0],
     );
     $user = user_load_by_name($edit['name']);

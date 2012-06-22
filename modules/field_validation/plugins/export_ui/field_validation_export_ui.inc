@@ -25,6 +25,7 @@ $plugin = array(
 
   'form' => array(
     'settings' => 'field_validation_ui_ctools_export_ui_form',
+    'validate' => 'field_validation_ui_ctools_export_ui_form_validate',
     'submit' => 'field_validation_ui_ctools_export_ui_form_submit',
   ),
 );
@@ -243,6 +244,16 @@ function field_validation_ui_ctools_export_ui_form(&$form, &$form_state) {
 
   $form['#prefix'] = '<div id="validation-rule-wrapper-div">';
   $form['#suffix'] = '</div>';
+}
+
+/**
+ * Validation handler for the validation rule add/edit form.
+ */
+function field_validation_ui_ctools_export_ui_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  if (strlen($values['name']) > 32) {
+    form_set_error('name', t('Name must be 32 characters or less in length.'));
+  }
 }
 function field_validation_ui_ctools_export_ui_form_submit(&$form, &$form_state) {
   //$form_state['item']->settings['data'] = $form_state['values']['data'];

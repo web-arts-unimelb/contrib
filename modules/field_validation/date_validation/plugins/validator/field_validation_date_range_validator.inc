@@ -43,8 +43,8 @@ class field_validation_date_range_validator extends field_validation_validator {
         $date_str = substr($date_str, 8);
       }
       elseif ($unit =='week') {
-        $date_str = substr($date_str, 10);
         $week_day = date('w', strtotime($date_str));
+        $date_str = substr($date_str, 10);
         $date_str = $week_day . $date_str;
       }
       elseif ($unit =='day') {
