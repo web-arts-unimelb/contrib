@@ -60,6 +60,18 @@ table td {
   border-left: #B9CFE7 solid 1px;
 }
 
+/* Borderless table. :-/ */
+table.borderless tr,
+table.borderless th,
+table.borderless td {
+  border: none;
+}
+
+table.borderless tbody tr:nth-child(2n),
+table.borderless tbody tr:nth-child(2n+1) {
+  background: transparent;
+}
+
 /* jQuery menu */
 body ul.jquerymenu li.parent span.open {
   background-image: url('../images/collapse-arrow.png');
