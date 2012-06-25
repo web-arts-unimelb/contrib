@@ -7,8 +7,14 @@
  */
 
 function _ldap_servers_get_user_ldap_data($drupal_user, $sid) {
-  $drupal_username =  (is_object($drupal_user)) ? $drupal_user->name : $drupal_user;
-  // print $sid; die;
+
+  if (is_object($drupal_user) && isset($drupal_user->uid) && $authname = db_query("SELECT authname FROM {authmap} WHERE uid = :uid AND module = 'ldap_authentication'", array(':uid' => $drupal_user->uid))->fetchColumn()) {
+    $drupal_username = $authname;
+  }
+  else {
+    $drupal_username =  (is_object($drupal_user)) ? $drupal_user->name : $drupal_user;
+  }
+
   $servers = ldap_servers_get_servers($sid, 'enabled');
   foreach ($servers as $sid => $ldap_server)  {
     if ($ldap_user = $ldap_server->user_lookup($drupal_username)) {
@@ -32,7 +38,7 @@ function _ldap_servers_get_servers($sid, $type, $flatten, $reset) {
     $servers = array();
   }
   if (!isset($servers['all'])) {
-    $servers['all'] = LdapServerAdmin::getLdapServerObjects('all');
+    $servers['all'] = LdapServerAdmin::getLdapServerObjects('all', NULL, 'LdapServer', $reset);
   }
 
   if (!isset($servers['enabled'])) {
@@ -63,10 +69,9 @@ function _ldap_servers_get_simpletest_servers($sid, $type = NULL, $flatten, $res
   if (!$type) {
     $type = 'all';
   }
- // debug("_ldap_servers_get_simpletest_servers sid=$sid, type=$type, flatten=$flatten reset=$reset");
-  ldap_server_module_load_include('php', 'ldap_servers', 'tests/LdapServerTest.class');
-  $servers['all'] = LdapServerTest::getLdapServerObjects('all');
 
+  ldap_server_module_load_include('php', 'ldap_servers', 'tests/LdapServerTest.class');
+  $servers['all'] = LdapServerTest::getLdapServerObjects('all', NULL, 'LdapServer', $reset );
   foreach ($servers['all'] as $_sid => $ldap_server) {
     if ($ldap_server->status == 1) {
       $servers['enabled'][$_sid] = $ldap_server;

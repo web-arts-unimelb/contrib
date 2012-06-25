@@ -17,9 +17,9 @@ files[] = tests/ldap_query.test
 
 configure = admin/config/people/ldap/query
 
-; Information added by drupal.org packaging script on 2012-05-14
-version = "7.x-1.0-beta10"
+; Information added by drupal.org packaging script on 2012-06-14
+version = "7.x-1.0-beta11"
 core = "7.x"
 project = "ldap"
-datestamp = "1337025356"
+datestamp = "1339643179"
 

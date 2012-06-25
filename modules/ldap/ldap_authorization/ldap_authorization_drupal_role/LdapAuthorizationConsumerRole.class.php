@@ -44,7 +44,7 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
     }
     $this->_availableConsumerIDs = array(); // array_values(user_roles(TRUE));
     foreach (array_values(user_roles(TRUE)) as $role_name) {
-      $this->_availableConsumerIDs[] = drupal_strtolower($role_name);
+      $this->_availableConsumerIDs[] = $role_name;
     }
   }
 
@@ -113,7 +113,8 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
   public function revokeSingleAuthorization(&$user, $role_name, &$user_auth_data) {
 
     $user_edit = array('roles' => array_diff($user->roles, array($this->drupalRolesByName[$role_name] => $role_name)));
-    $user = user_save($user, $user_edit);
+    $account = user_load($user->uid);
+    $user = user_save($account, $user_edit);
     $result = ($user && !isset($user->roles[$this->drupalRolesByName[$role_name]]));
 
     if ($this->detailedWatchdogLog) {
@@ -139,13 +140,18 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
         WATCHDOG_ERROR);
         return FALSE;
     }
+    debug($user->roles);
+    $new_roles = $user->roles + array($this->drupalRolesByName[$role_name] => $role_name);
+    $user_edit = array('roles' => $new_roles);
 
-    $user_edit = array('roles' => $user->roles + array($this->drupalRolesByName[$role_name] => $role_name));
+    debug($new_roles);
+    debug($user_edit);
     if ($this->detailedWatchdogLog) {
       watchdog('ldap_authorization', 'grantSingleAuthorization in drupal rold' . print_r($user, TRUE), array(), WATCHDOG_DEBUG);
     }
 
-    $user = user_save($user, $user_edit);
+    $account = user_load($user->uid);
+    $user = user_save($account, $user_edit);
     $result = ($user && isset($user->roles[$this->drupalRolesByName[$role_name]]));
 
     if ($this->detailedWatchdogLog) {
@@ -172,7 +178,9 @@ class LdapAuthorizationConsumerDrupalRole extends LdapAuthorizationConsumerAbstr
 		$pass = FALSE;
 		if (is_array($normalized) && isset($normalized[0][1]) && $normalized[0][1] !== FALSE ) {
 			$available_authorization_ids = $this->availableConsumerIDs($clear_cache);
-			$pass = (in_array($normalized[0], $available_authorization_ids));
+      $available_authorization_ids = array_map('drupal_strtolower', $available_authorization_ids);
+     // debug($available_authorization_ids); debug($normalized[0]);
+			$pass = (in_array(drupal_strtolower($normalized[0]), $available_authorization_ids));
 		}
 
 		if (!$pass) {
