@@ -136,6 +136,7 @@ span.filesize {
   border: 1px dotted #999;
   background-color: #EEE;
   padding: 0.6em;
+  margin: 1em;
 }
 
 /* Important notice style. */
@@ -144,6 +145,15 @@ span.filesize {
   border: 1px dotted #f99;
   background-color: #FEE;
   padding: 0.6em;
+  margin: 1em;
+}
+
+/* Thou shalt not nest thy notices, or if thou dost, they shan't show up as such. */
+#main-content .notice .notice,
+#main-content .importantnotice .importantnotice {
+  border: none;
+  padding: 0em;
+  margin: 0em;
 }
 
 /* Floated images. */
