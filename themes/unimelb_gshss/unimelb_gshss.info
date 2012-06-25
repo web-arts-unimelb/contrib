@@ -1,0 +1,25 @@
+name = GSHSS Unimelb
+description = This is a GSHSS subtheme of the Unimelb theme.
+
+core = 7.x
+
+; Subtheme it.
+base theme = unimelb
+
+; Regions are not inherited from the base theme.
+regions[help]		= Help
+regions[content]	= Content
+regions[navigation]	= Navigation
+regions[highlight]	= Highlight
+regions[sidebar_right]	= Sidebar Right
+regions[content_bottom]	= Content Bottom
+
+; Need to revisit the name of these two.
+regions[home_event] 	= home_event
+regions[home_promo]	= home_promo
+
+; Stylesheets are inherited.
+; stylesheets[all][]	=
+
+; JavaScript is inherited.
+; scripts[]		=
