@@ -1,7 +1,7 @@
 name = GSHSS Unimelb
 description = This is a GSHSS subtheme of the Unimelb theme.
-
 core = 7.x
+version = 7.x-1.1.0
 
 ; Subtheme it.
 base theme = unimelb
