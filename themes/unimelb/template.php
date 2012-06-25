@@ -68,3 +68,40 @@ function unimelb_date_display_range($variables) {
     '!end-date' => '<span class="date-display-end"' . drupal_attributes($attributes_end) . '>' . $date2 . $timezone .'</span>',
   ));
 }
+
+/*
+ * Implements theme_colorbox_imagefield().
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - image: image item as array.
+ *   - path: The path of the image that should be displayed in the Colorbox.
+ *   - title: The title text that will be used as a caption in the Colorbox.
+ *   - gid: Gallery id for Colorbox image grouping.
+ */
+function unimelb_colorbox_imagefield($variables) {
+  $class = array('colorbox', $variables['gid']);
+
+  if ($variables['image']['style_name'] == 'hide') {
+    $image = '';
+    $class[] = 'js-hide';
+  }
+  else if (!empty($variables['image']['style_name'])) {
+    $image = theme('image_style', $variables['image']);
+  }
+  else {
+    $image = theme('image', $variables['image']);
+  }
+
+  $options = array(
+    'html' => TRUE,
+    'attributes' => array(
+      'title' => $variables['title'],
+      'class' => implode(' ', $class),
+      'rel' => $variables['gid'],
+    )
+  );
+
+  return l($image, $variables['path'], $options);
+}
+
