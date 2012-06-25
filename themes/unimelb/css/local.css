@@ -40,6 +40,7 @@ ul li:last-child, ol li:last-child {
 
 
 /* Space out the highlights block title a bit. */
+h2#block-views-highlights-news,
 h2#block-views-zones-home-promo {
   margin-top: 1em;
 }
