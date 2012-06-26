@@ -120,4 +120,13 @@ padding: 2px 4px 2px 4px;
 /* end button, ie7 only */
 
 
+/* start search button on various page */
+#search-block-form .form-submit
+{
+	padding-top: 0px;
+	margin-top: -5px;
+}
+/* end search button on various page */
+
+
 /* End override */
