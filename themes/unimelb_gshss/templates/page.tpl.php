@@ -92,6 +92,12 @@
 
 	</div><!-- end header -->
 
+	<?php if (!empty($page['slider'])): ?>
+		<div class="col-6" role="complementary" id="slider">
+			<?php print render($page['slider']); ?>
+		</div>
+	<?php endif; ?>
+
 	<?php if( !empty( $page['highlight'] ) ): ?>
 		<div class="col-2">
 			<div class="events">

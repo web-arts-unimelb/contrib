@@ -8,6 +8,7 @@ base theme = unimelb
 
 ; Regions are not inherited from the base theme.
 regions[help]		= Help
+regions[slider]		= Slider
 regions[content]	= Content
 regions[navigation]	= Navigation
 regions[highlight]	= Highlight
@@ -19,7 +20,7 @@ regions[home_event] 	= home_event
 regions[home_promo]	= home_promo
 
 ; Stylesheets are inherited.
-; stylesheets[all][]	=
+stylesheets[all][]	= css/slider.css
 
 ; JavaScript is inherited.
-; scripts[]		=
+; scripts[]			=
