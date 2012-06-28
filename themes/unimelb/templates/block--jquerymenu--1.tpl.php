@@ -46,7 +46,7 @@ if($block->subject)
 	$site_frontpage = variable_get('site_frontpage', 'node');
 
 	print render($title_prefix);
-	print "<h3 id='$block_html_id' class='block-title $title_attributes'>". "<a href='$site_frontpage'>". $block->subject. "</a>". '</h3>';
+	print '<h3 id="' . $block_html_id . ' class="block-title' . $title_attributes . '">' . '<a href="/">'. $block->subject. '</a></h3>';
 	print render($title_suffix);
 } 
 
