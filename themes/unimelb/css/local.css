@@ -84,6 +84,10 @@ body ul.jquerymenu li.parent span.closed {
 }
 
 /* Ouch! Ugly! */
+.ie ul.jquerymenu li {
+  padding-bottom: -5px;
+}
+
 .ie ul.jquerymenu li.parent {
   position: relative;
 }
@@ -110,20 +114,15 @@ a.tabledrag-handle,
 a.tabledrag-handle:link,
 a.tabledrag-handle:active,
 a.tabledrag-handle:visited {
+  text-decoration: none;
   border: none;
 }
 
 /* Underline links in the main content.*/
-#main-content a, #main-content a:link, #main-content a:active, #main-content a:visited,
-.view-highlight a, .view-highlight a:link, .view-highlight a:active, .view-highlight a:visited {
+#main-content p a, #main-content p a:link, #main-content p a:active, #main-content p a:visited,
+.view-highlight p a, .view-highlight p a:link, .view-highlight p a:active, .view-highlight p a:visited {
+  border: none;
   text-decoration: underline;
-}
-
-/* But never on tabs, images or headers! */
-#main-content a img, #main-content a:link img, #main-content a:active img, #main-content a:visited img,
-#main-content ul.tabs a, #main-content ul.tabs a:link, #main-content ul.tabs a:active, #main-content ul.tabs a:visited,
-#main-content h1 a:link, #main-content h2 a:link, #main-content h3 a:link, #main-content h4 a:link, #main-content h5 a:link, #main-content h6 a:link {
-  text-decoration: none;
 }
 
 /* File size */
@@ -224,4 +223,12 @@ span.filesize {
 .page-node-add .tabledrag-toggle-weight-wrapper {
   position: relative;
   top: 3em;
+}
+
+/* Fixes for IE. */
+table tbody tr.odd {
+  background: #EEF7FF;
+}
+table tbody tr.even {
+  background: #EEE;
 }
