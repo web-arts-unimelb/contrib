@@ -85,18 +85,23 @@ body ul.jquerymenu li.parent span.closed {
 
 /* Ouch! Ugly! */
 .ie ul.jquerymenu li {
-  padding-bottom: -5px;
+  padding-bottom: 0em;
 }
 
 .ie ul.jquerymenu li.parent {
+  margin-top: -1em;
   position: relative;
+}
+
+.ie ul.jquerymenu li ul {
+  margin-top: 0.3em;
 }
 
 /* Ouch! Ugly! */
 .ie ul.jquerymenu li.parent span.open,
 .ie ul.jquerymenu li.parent span.closed {
   position: absolute;
-  top: 18px;
+  top: 1.3em;
   left: 0px;
 }
 
