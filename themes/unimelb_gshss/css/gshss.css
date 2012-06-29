@@ -11,3 +11,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+#admin-menu {
+  z-index: 10000;
+}

@@ -4,7 +4,7 @@
 
 #slider #widget_pager_top_slider-block {
   position: absolute;
-  left: 746px;
+  left: 736px;
   top: 0px;
   width: 174px;
 }
@@ -15,7 +15,7 @@
   float: left;
   cursor: pointer;
   width: 174px;
-  height: 48px;
+  height: 47px;
   color: black;
   background: #EEE;
   background: -moz-linear-gradient(top, white, #EEE);

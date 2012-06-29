@@ -103,6 +103,7 @@
   <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/unimelb_drupal_distro.css" />
   <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/override.css" />
   <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/local.css" />
+  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/gshss.css" />
 
 <!--[if lt IE 9]>
   <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
