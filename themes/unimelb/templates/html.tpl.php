@@ -51,18 +51,6 @@
 
 <title><?php print $head_title; ?></title>
 
-<?php
-/*
-if(drupal_get_title() != '') { 
-  $page_title = drupal_get_title(); } else { $page_title = ''; 
-  $page_title = check_plain($page_title);
-}
-*/
-
-$site_name = variable_get('site_name', '');
-
-?>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 

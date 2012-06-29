@@ -11,6 +11,7 @@
  * Implements hook_preprocess_page()
  */
 function unimelb_preprocess_html(&$variables) {
+  $variables['site_name'] = variable_get('site_name', '');
   $variables['page_title'] = check_plain(strip_tags(drupal_get_title()));
 }
 
