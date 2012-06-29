@@ -9,6 +9,13 @@
 
 /**
  * Implements hook_preprocess_page()
+ */
+function unimelb_preprocess_html(&$variables) {
+  $variables['page_title'] = check_plain(strip_tags(drupal_get_title()));
+}
+
+/**
+ * Implements hook_preprocess_page()
  *
  * Use as a wrapper function. This runs on each request anyway and this way
  * I can test for syntax errors via the CLI without getting a bunch of

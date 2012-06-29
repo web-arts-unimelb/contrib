@@ -51,11 +51,13 @@
 
 <title><?php print $head_title; ?></title>
 
-<?php 
-
+<?php
+/*
 if(drupal_get_title() != '') { 
-	$page_title = drupal_get_title(); } else { $page_title = ''; 
+  $page_title = drupal_get_title(); } else { $page_title = ''; 
+  $page_title = check_plain($page_title);
 }
+*/
 
 $site_name = variable_get('site_name', '');
 
