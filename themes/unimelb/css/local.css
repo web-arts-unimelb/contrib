@@ -124,10 +124,8 @@ a.tabledrag-handle:visited {
 }
 
 /* Underline links in the main content.*/
-#main-content p a, #main-content p a:link, #main-content p a:active, #main-content p a:visited,
-#main-content li a, #main-content li a:link, #main-content li a:active, #main-content li a:visited,
-.view-highlight p a, .view-highlight p a:link, .view-highlight p a:active, .view-highlight p a:visited,
-.view-highlight li a, .view-highlight li a:link, .view-highlight li a:active, .view-highlight li a:visited {
+#main-content .field-type-text-with-summary a, #main-content .field-type-text-with-summary a:link,
+#main-content .field-type-text-with-summary a:active, #main-content .field-type-text-with-summary a:visited {
   border: none;
   text-decoration: underline;
 }
