@@ -176,3 +176,52 @@ span.filesize {
   float: right;
   margin: 0.2em 0 0.5em 1.5em;
 }
+
+/* Hack up the node entry forms. */
+.page-node-add form fieldset {
+  padding: 0px;
+  border: none;
+  background: transparent;
+}
+
+.page-node-add form fieldset legend {
+  display: none;
+}
+
+.page-node-add span.cke_skin_kama {
+  border: none;
+  padding: 0px;
+}
+
+.page-node-add table tr,
+.page-node-add table th,
+.page-node-add table td {
+  border: none;
+}
+
+.page-node-add table tr.even,
+.page-node-add table tr.odd {
+  border: none;
+  background: transparent;
+}
+
+.page-node-add table tbody tr:nth-child(2n),
+.page-node-add table tbody tr:nth-child(2n+1) {
+  background: transparent;
+}
+
+#main-content a.tabledrag-handle {
+  text-decoration: none;
+}
+
+.page-node-add div.field-name-field-events,
+.page-node-add div.field-name-field-related-pages,
+.page-node-add div.field-name-field-related-url,
+.page-node-add div.field-name-field-external-url {
+  margin-bottom: 3em;
+}
+
+.page-node-add .tabledrag-toggle-weight-wrapper {
+  position: relative;
+  top: 3em;
+}
