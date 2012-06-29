@@ -125,7 +125,11 @@ a.tabledrag-handle:visited {
 
 /* Underline links in the main content.*/
 #main-content .field-type-text-with-summary a, #main-content .field-type-text-with-summary a:link,
-#main-content .field-type-text-with-summary a:active, #main-content .field-type-text-with-summary a:visited {
+#main-content .field-type-text-with-summary a:active, #main-content .field-type-text-with-summary a:visited,
+#main-content .field-name-field-page-detail a, #main-content .field-name-field-page-detail a:link,
+#main-content .field-name-field-page-detail a:active, #main-content .field-name-field-page-detail a:visited,
+#main-content .field-name-field-event-detail a:active, #main-content .field-name-field-event-detail a:visited,
+#main-content .field-name-field-event-detail a, #main-content .field-name-field-event-detail a:link {
   border: none;
   text-decoration: underline;
 }
