@@ -46,8 +46,8 @@
 
 #slider .slider-item .caption {
   position: absolute;
-  bottom: 0px;
-  width: 716px;
+  bottom: 5px;
+  width: 700px;
 
   background: rgb(0, 51, 102);
   background: rgba(0, 51, 102, 0.6);
