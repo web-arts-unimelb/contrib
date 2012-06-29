@@ -114,10 +114,8 @@ a.tabledrag-handle:visited {
 }
 
 /* Underline links in the main content.*/
-#main-content a,
-#main-content a:link,
-#main-content a:active,
-#main-content a:visited {
+#main-content a, #main-content a:link, #main-content a:active, #main-content a:visited,
+.view-highlight a, .view-highlight a:link, .view-highlight a:active, .view-highlight a:visited {
   text-decoration: underline;
 }
 
