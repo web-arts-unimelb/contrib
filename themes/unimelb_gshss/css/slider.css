@@ -4,9 +4,9 @@
 
 #slider #widget_pager_top_slider-block {
   position: absolute;
-  left: 720px;
+  left: 746px;
   top: 0px;
-  width: 240px;
+  width: 174px;
 }
 
 #slider #widget_pager_top_slider-block.views-slideshow-pager-fields div.views-slideshow-pager-field-item {
@@ -14,8 +14,8 @@
   display: block;
   float: left;
   cursor: pointer;
-  width: 240px;
-  height: 60px;
+  width: 174px;
+  height: 48px;
   color: black;
   background: #EEE;
   background: -moz-linear-gradient(top, white, #EEE);
@@ -28,16 +28,16 @@
 
   padding: 0px 0px 0px 6px;
   font-size: 16px;
-  color: #036;
+  color: #4f4f4f;
 }
 
 #slider #widget_pager_top_slider-block.views-slideshow-pager-fields div.views-slideshow-pager-field-item.active {
-  background:#333;
-  background:-moz-linear-gradient(top, #666, #333);
-  background:-webkit-gradient(linear, left top, left bottom, from(#666), to(#333));
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#666666', EndColorStr='#333333');
+  background:#e0eaf4;
+  background:-moz-linear-gradient(top, #eee, #e0eaf4);
+  background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#e0eaf4));
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#e0eaf4');
 
-  color: white;
+  color: #036;
 }
 
 #slider .slider-item {
@@ -47,10 +47,10 @@
 #slider .slider-item .caption {
   position: absolute;
   bottom: 0px;
-  width: 700px;
+  width: 716px;
 
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgb(0, 51, 102);
+  background: rgba(0, 51, 102, 0.6);
 
   color: #fff;
 
