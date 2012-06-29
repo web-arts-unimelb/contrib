@@ -21,6 +21,7 @@ regions[home_promo]	= home_promo
 
 ; Stylesheets are inherited.
 stylesheets[all][]	= css/slider.css
+stylesheets[all][]	= css/gshss.css
 
 ; JavaScript is inherited.
 ; scripts[]			=

@@ -92,8 +92,10 @@
 
 	</div><!-- end header -->
 
+	<div id="content-wrap">
+
 	<?php if (!empty($page['slider'])): ?>
-		<div class="col-6" role="complementary" id="slider">
+		<div class="col-8" role="complementary" id="slider">
 			<?php print render($page['slider']); ?>
 		</div>
 	<?php endif; ?>
@@ -168,6 +170,7 @@
 		</div>
 	<?php endif; ?>
 
+	</div><!-- end content-wrap -->
 
 </div><!-- end wrapper -->
 
