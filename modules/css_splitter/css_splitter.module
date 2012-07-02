@@ -36,9 +36,9 @@ function css_splitter_css_splitter_groups_info() {
 }
 
 /**
- * Implements hook_css_splitter_groups_alter().
+ * Implements hook_css_splitter_groups_info_alter().
  */
-function css_splitter_css_splitter_groups_alter(&$css_groups) {
+function css_splitter_css_splitter_groups_info_alter(&$css_groups) {
   // Doing nothing, just here to show it exists.
 }
 
@@ -74,10 +74,17 @@ function css_splitter_preprocess_html(&$variables) {
     _css_splitter_process_attached($element);
   }
 
-  // Make a template variable for each CSS group.
+  // Create a render array of stylesheets, so the user can use them of desired.
+  $variables['css_splitter'] = array();
+
+  // Make a template variable for each CSS group and populate the render array.
   foreach ($css_groups as $name => $group) {
-    $variables['styles_' . $name] = _css_splitter_get_css($name, $group);
+    $variables['css_splitter'][$name]['#markup'] = $variables['styles_' . $name] = _css_splitter_get_css($name, $group);
   }
+}
+
+function css_splitter_preprocess_page(&$variables) {
+  $variables['styles'] = $variables['css_splitter'];
 }
 
 /**
@@ -169,7 +176,11 @@ function _css_splitter_get_css($name, $group) {
   foreach ($css as $key => $item) {
     if ($item['type'] == 'file') {
       // If defined, force a unique basename for this file.
+      if (function_exists('drupal_basename')) {
       $basename = isset($item['basename']) ? $item['basename'] : drupal_basename($item['data']);
+	  } else {
+      $basename = isset($item['basename']) ? $item['basename'] : basename($item['data']);
+	  }
       if (isset($previous_item[$basename])) {
         // Remove the previous item that shared the same base name.
         unset($css[$previous_item[$basename]]);
