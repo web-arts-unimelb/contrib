@@ -8,15 +8,81 @@
  */
 
 /**
- * Implements hook_preprocess_page()
+ * Implements hook_css_alter().
+ */
+function unimelb_css_alter(&$css) {
+  // Remove theme-specific CSS.
+  foreach ($css as $key => $item) {
+    if ($item['group'] == CSS_THEME) {
+      unset($css[$key]);
+    }
+  }
+}
+
+/**
+ * Return CSS from a specific group only.
+ *
+ * Based on drupal_get_css().
+ */
+function unimelb_get_css($group = CSS_THEME) {
+  $css = drupal_add_css();
+
+  // Sort CSS items, so that they appear in the correct order.
+  uasort($css, 'drupal_sort_css_js');
+
+  if (!empty($css)) {
+    // Cast the array to an object to be on the safe side even if not empty.
+    $setting['ajaxPageState']['css'] = (object) array_fill_keys(array_keys($css), 1);
+  }
+
+  // Remove the overridden CSS files. Later CSS files override former ones.
+  $previous_item = array();
+  foreach ($css as $key => $item) {
+    // Do not process if not in the correct group.
+    if ($item['group'] != $group) {
+        unset($css[$key]);
+        continue;
+    }
+    if ($item['type'] == 'file') {
+      // If defined, force a unique basename for this file.
+      $basename = isset($item['basename']) ? $item['basename'] : drupal_basename($item['data']);
+      if (isset($previous_item[$basename])) {
+        // Remove the previous item that shared the same base name.
+        unset($css[$previous_item[$basename]]);
+      }
+      $previous_item[$basename] = $key;
+    }
+  }
+
+  // Render the HTML needed to load the CSS.
+  $styles = array(
+    '#type' => 'styles', 
+    '#items' => $css,
+  );
+
+  if (!empty($setting)) {
+    $styles['#attached']['js'][] = array(
+      'type' => 'setting',
+      'data' => $setting,
+    );
+  }
+
+  return drupal_render($styles);
+}
+
+/**
+ * Implements hook_preprocess_html().
  */
 function unimelb_preprocess_html(&$variables) {
   $variables['site_name'] = variable_get('site_name', '');
   $variables['page_title'] = check_plain(strip_tags(drupal_get_title()));
+
+  // Create a template variable with theme-only CSS.
+  $variables['theme_styles'] = unimelb_get_css(CSS_THEME);
 }
 
 /**
- * Implements hook_preprocess_page()
+ * Implements hook_preprocess_page().
  *
  * Use as a wrapper function. This runs on each request anyway and this way
  * I can test for syntax errors via the CLI without getting a bunch of

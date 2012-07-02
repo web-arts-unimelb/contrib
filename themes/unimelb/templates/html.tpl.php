@@ -100,9 +100,7 @@
   <script src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
   <!-- /GLOBAL RESOURCES -->
 
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/unimelb_drupal_distro.css" />
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/override.css" />
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/local.css" />
+<?php print $theme_styles; ?>
 
 <style>
 #background-wrapper,
