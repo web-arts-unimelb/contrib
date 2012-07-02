@@ -20,12 +20,18 @@ h6 + h6 {
   margin-top: 0em;
 }
 
-/* Override header margin if the first element on the page. */
+/* Override header margin if the first element on the page or if in a block. */
 div.field-item > h2,
 div.field-item > h3,
 div.field-item > h4,
 div.field-item > h5,
-div.field-item > h6 {
+div.field-item > h6,
+div.col-2 h1,
+div.col-2 h2,
+div.col-2 h3,
+div.col-2 h4,
+div.col-2 h5,
+div.col-2 h6 {
   margin-top: 0em;
 }
 

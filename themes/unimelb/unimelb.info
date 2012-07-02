@@ -24,10 +24,14 @@ regions[home_event] = home_event
 regions[home_promo] = home_promo
 
 stylesheets[all][] = css/unimelb_drupal_distro.css
-stylesheets[all][] = css/override.css
+stylesheets[all][] = css/override/jquerymenu.css
+stylesheets[all][] = css/override/admin_menu.css
+stylesheets[all][] = css/override/misc.css
 stylesheets[all][] = css/local.css
+
+; Screen output-only CSS.
 stylesheets[screen][] = css/responsive.css
 
 scripts[] = js/local.js
 
-version = "7.x-1.0-beta1"
+version = "7.x-1.0-beta2"
