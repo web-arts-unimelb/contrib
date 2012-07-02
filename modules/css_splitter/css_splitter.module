@@ -72,8 +72,10 @@ function css_splitter_preprocess_html(&$variables) {
   // that now sits in an #attached element somewhere to be added to the global
   // static css array. Operate on a copy $page['page_bottom'], so the original
   // info is still present when template_process_html() uses it.
-  $page_bottom = $variables['page']['page_bottom'];
-  drupal_render($page_bottom);
+  if (isset($variables['page']['page_bottom'])) {
+    $page_bottom = $variables['page']['page_bottom'];
+    drupal_render($page_bottom);
+  }
 
   // Make a template variable for each CSS group.
   foreach ($css_groups as $name => $group) {
