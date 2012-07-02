@@ -33,6 +33,7 @@ div.col-2 h4,
 div.col-2 h5,
 div.col-2 h6 {
   margin-top: 0em;
+  padding-top: 0em;
 }
 
 /* Sensiblise list item spacing. */
@@ -129,13 +130,14 @@ a.tabledrag-handle:visited {
   border: none;
 }
 
-/* Underline links in the main content.*/
+/* Underline links in the main content and in the highlight block. */
 #main-content .field-type-text-with-summary a, #main-content .field-type-text-with-summary a:link,
 #main-content .field-type-text-with-summary a:active, #main-content .field-type-text-with-summary a:visited,
 #main-content .field-name-field-page-detail a, #main-content .field-name-field-page-detail a:link,
 #main-content .field-name-field-page-detail a:active, #main-content .field-name-field-page-detail a:visited,
 #main-content .field-name-field-event-detail a:active, #main-content .field-name-field-event-detail a:visited,
-#main-content .field-name-field-event-detail a, #main-content .field-name-field-event-detail a:link {
+#main-content .field-name-field-event-detail a, #main-content .field-name-field-event-detail a:link,
+.view-highlight a:active, .view-highlight a:visited, .view-highlight a:active, .view-highlight a:link {
   border: none;
   text-decoration: underline;
 }
