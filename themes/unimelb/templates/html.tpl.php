@@ -42,9 +42,10 @@
  * 
 */
 
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
   "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
 <head>
 
 <?php print $head; ?>
@@ -57,52 +58,57 @@
 <title><?php print $site_name . ' | ' . $page_title; ?></title>  
 
 <!-- SEO relevant meta data to describe content of page -->
-	<meta name="DC.Title" content="<?php print $site_name . ' | ' . $page_title; ?>">
-	<meta name="keywords" content="<?php if(variable_get('unimelb_settings_meta-keywords')) { print variable_get('unimelb_settings_meta-keywords') . ', ' . $page_title . ', ' . $site_name; } ?>">
-	<meta name="description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>">
-	<meta name="DC.Description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>">
+	<meta name="DC.Title" content="<?php print $site_name . ' | ' . $page_title; ?>" />
+	<meta name="keywords" content="<?php if(variable_get('unimelb_settings_meta-keywords')) { print variable_get('unimelb_settings_meta-keywords') . ', ' . $page_title . ', ' . $site_name; } ?>" />
+	<meta name="description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>" />
+	<meta name="DC.Description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>" />
 <!-- End SEO relevant meta data -->
 
 <!-- Authoriser and maintainer related meta data - developers, don't forget humans.txt -->
-	<meta name="DC.Creator" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; } print $site_name; ?>">
-	<meta name="DC.Contributor" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>">
-	<meta name="author" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>">
-	<meta name="UM.Authoriser.Name" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>">
-	<meta name="UM.Authoriser.Title" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>">
-	<meta name="UM.Maintainer.Name" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>">
-	<meta name="UM.Maintainer.Department" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>">
-	<meta name="UM.Maintainer.Email" content="<?php if(variable_get('unimelb_settings_ad-email')) { print variable_get('unimelb_settings_ad-email'); } ?>">
+	<meta name="DC.Creator" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; } print $site_name; ?>" />
+	<meta name="DC.Contributor" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>" />
+	<meta name="author" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>" />
+	<meta name="UM.Authoriser.Name" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>" />
+	<meta name="UM.Authoriser.Title" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>" />
+	<meta name="UM.Maintainer.Name" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>" />
+	<meta name="UM.Maintainer.Department" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>" />
+	<meta name="UM.Maintainer.Email" content="<?php if(variable_get('unimelb_settings_ad-email')) { print variable_get('unimelb_settings_ad-email'); } ?>" />
 <!-- End authoriser and maintainer meta data -->
 
 <!-- Static meta data   -->
-	<meta name="DC.Rights" content="http://www.unimelb.edu.au/disclaimer">
-	<meta name="DC.Publisher" content="The University of Melbourne">
-	<meta name="DC.Format" content="text/html">
-	<meta name="DC.Language" content="en">
-	<meta name="DC.Identifier" content="http://www.unimelb.edu.au/">
+	<meta name="DC.Rights" content="http://www.unimelb.edu.au/disclaimer" />
+	<meta name="DC.Publisher" content="The University of Melbourne" />
+	<meta name="DC.Format" content="text/html" />
+	<meta name="DC.Language" content="en" />
+	<meta name="DC.Identifier" content="http://www.unimelb.edu.au/" />
 <!-- End static meta data -->
 
 <!-- Meta data to be autofilled -->
-	<meta name="DC.Date" content="DATE">
-	<meta name="DC.Date.Modified" content="DATE">
+	<meta name="DC.Date" content="DATE" />
+	<meta name="DC.Date.Modified" content="DATE" />
 <!-- End meta data to be autofilled -->
 
-	<meta content="width=device-width; initial-scale=0.67;" name="viewport">
+	<meta content="width=device-width; initial-scale=0.67;" name="viewport" />
 
-<?php print $styles; ?>
+  <!-- BASE STYLES -->
+  <?php print $styles_system; ?>
+  <?php print $styles_default; ?>
+  <!-- /BASE STYLES -->
 
   <!-- GLOBAL RESOURCES -->
   <!-- DO NOT CHANGE -->
-  <link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css">
-  <script src="http://brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
+  <link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
+  <script type="text/javascript" src="http://brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
 
-  <link rel="stylesheet" href="http://brand.unimelb.edu.au/global-header/css/style.css">
-  <script src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
+  <link rel="stylesheet" href="http://brand.unimelb.edu.au/global-header/css/style.css" />
+  <script type="text/javascript" src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
   <!-- /GLOBAL RESOURCES -->
 
-<?php print $theme_styles; ?>
+  <!-- THEME STYLES -->
+  <?php print $styles_theme; ?>
+  <!-- /THEME STYLES -->
 
-<style>
+<style type="text/css">
 #background-wrapper,
 body.html.home.front {
   background-image: url('/<?php print path_to_theme(); ?>/images/homepage-blue.jpg');
