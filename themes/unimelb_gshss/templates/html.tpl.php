@@ -89,7 +89,10 @@
 
 	<meta content="width=device-width; initial-scale=0.67;" name="viewport">
 
-<?php print $styles; ?>
+  <!-- DRUPAL BASE STYLESHEETS -->
+  <?php print $styles_system; ?>
+  <?php print $styles_default; ?>
+  <!-- /DRUPAL BASE STYLESHEETS -->
 
   <!-- GLOBAL RESOURCES -->
   <!-- DO NOT CHANGE -->
@@ -100,10 +103,9 @@
   <script src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
   <!-- /GLOBAL RESOURCES -->
 
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/unimelb_drupal_distro.css" />
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/override.css" />
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/local.css" />
-  <link rel="stylesheet" href="/<?php print path_to_theme(); ?>/css/gshss.css" />
+  <!-- THEME STYLESHEETS -->
+  <?php print $styles_theme; ?>
+  <!-- /THEME STYLESHEETS -->
 
 <!--[if lt IE 9]>
   <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
