@@ -1,0 +1,3 @@
+name = CSS Splitter
+description = Splits each styleheet group into its own template variable.
+core = 7.x
