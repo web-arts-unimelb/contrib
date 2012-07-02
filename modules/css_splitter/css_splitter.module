@@ -141,8 +141,5 @@ function _css_splitter_get_css($name, $group) {
     );
   }
 
-  dpm($name);
-  dpm($styles);
-
   return drupal_render($styles);
 }
