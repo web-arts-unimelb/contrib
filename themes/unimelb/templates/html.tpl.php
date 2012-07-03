@@ -108,33 +108,6 @@
   <?php print $styles_theme; ?>
   <!-- /THEME STYLES -->
 
-<style type="text/css">
-#background-wrapper,
-body.html.home.front {
-  background-image: url('/<?php print path_to_theme(); ?>/images/homepage-blue.jpg');
-  background-color: #036;
-}
-
-#background-wrapper,
-body.html.blue.not-front {
-  background-image: url('/<?php print path_to_theme(); ?>/images/blue.jpg');
-  background-color: #036;
-}
-
-#background-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  overflow: visible;
-  z-index: -1;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-position: 50% 0px;
-}
-</style>
-
 <!--[if lt IE 9]>
 	<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
