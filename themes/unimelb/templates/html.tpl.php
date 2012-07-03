@@ -50,12 +50,9 @@
 
 <?php print $head; ?>
 
-<title><?php print $head_title; ?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-<title><?php print $site_name . ' | ' . $page_title; ?></title>  
+<title><?php print $site_name . ' | ' . $page_title; ?></title>
 
 <!-- SEO relevant meta data to describe content of page -->
 	<meta name="DC.Title" content="<?php print $site_name . ' | ' . $page_title; ?>" />
