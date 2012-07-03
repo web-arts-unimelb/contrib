@@ -1,6 +1,7 @@
 # Ignore configuration files that may contain sensitive information.
-drushrc.php
 settings.php
+drushrc.php
+aliases.drushrc.php
 
 # Ignore paths that contain user-generated content.
 database
