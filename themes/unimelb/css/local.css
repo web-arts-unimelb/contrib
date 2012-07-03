@@ -1,266 +1,283 @@
-/* Local overrides to theme elements. */
+/*
+ * Local overrides to theme elements.
+ */
+/*
+ * Give Marcus a pre-set margin on headers in the content.
+ */
+  #main-content h2,
+  #main-content h3,
+  #main-content h4,
+  #main-content h5,
+  #main-content h6 {
+    margin-top: 1em; }
 
-/* No background on the .main class. */
-.main {
-  background: transparent;
-}
-
-/* Give Marcus a pre-set margin on headers in the content. */
-h2, h3, h4, h5, h6 {
-  margin-top: 1em;
-}
-
-/* Override header margin if directly following another header. */
-h1 + h1, h1 + h2,
-h2 + h2, h2 + h3, h2 + h4, h2 + h5, h2 + h6,
-h3 + h3, h3 + h4, h3 + h5, h3 + h6,
-h4 + h4, h4 + h5, h4 + h4,
-h5 + h5, h5 + h6,
+/*
+ * Override header margin if directly following another header.
+ */
+h1 + h1,
+h1 + h2,
+h2 + h2,
+h2 + h3,
+h2 + h4,
+h2 + h5,
+h2 + h6,
+h3 + h3,
+h3 + h4,
+h3 + h5,
+h3 + h6,
+h4 + h4,
+h4 + h4,
+h4 + h5,
+h5 + h5,
+h5 + h6,
 h6 + h6 {
-  margin-top: 0em;
-}
+  margin-top: 0em; }
 
-/* Override header margin if the first element on the page or if in a block. */
-div.field-item > h2,
-div.field-item > h3,
-div.field-item > h4,
-div.field-item > h5,
-div.field-item > h6,
-div.col-2 h1,
-div.col-2 h2,
-div.col-2 h3,
-div.col-2 h4,
-div.col-2 h5,
-div.col-2 h6 {
-  margin-top: 0em;
-  padding-top: 0em;
-}
+/*
+ * Override header margin if the first element on the page or if in a block.
+ */
+  div.col-2 > h2,
+  div.col-2 > h3,
+  div.col-2 > h4,
+  div.col-2 > h5,
+  div.col-2 > h6,
+  div.field-item > h2,
+  div.field-item > h3,
+  div.field-item > h4,
+  div.field-item > h5,
+  div.field-item > h6 {
+    margin-top: 0em;
+    padding-top: 0em; }
 
-/* Sensiblise list item spacing. */
-ul li, ol li {
-  margin-bottom: 0px;
-}
+/*
+ * Sensiblise list item spacing.
+ */
+  ol li,
+  ul li {
+    margin-bottom: 0px; }
+  ol li:last-child,
+  ul li:last-child {
+    margin-bottom: 0.8em; }
 
-ul li:last-child, ol li:last-child {
-  margin-bottom: 0.8em;
-}
+/*
+ * Space out the highlights block title a bit.
+ */
+  h2 #block-views-highlights-news,
+  h2 #block-views-zones-home-promo {
+    margin-top: 1em; }
 
-
-/* Space out the highlights block title a bit. */
-h2#block-views-highlights-news,
-h2#block-views-zones-home-promo {
-  margin-top: 1em;
-}
-
-/* Table has a bottom margin. */
+/*
+ * Table has a bottom margin.
+ */
 table {
   margin-bottom: 1em;
-}
+    /*
+   * Borderless table style.
+   */ }
+  table caption {
+    font-style: italic; }
+  table td {
+    border-left: #b9cfe7 solid 1px; }
+    table .borderless td,
+    table .borderless th,
+    table .borderless tr {
+      border: none; }
+      table .borderless tbody tr:nth-child(2n),
+      table .borderless tbody tr:nth-child(2n+1) {
+        background: transparent; }
 
-/* Table caption is italic. */
-table caption {
-  font-style: italic;
-}
-
-/* Table cell has a border. */
-table td {
-  border-left: #B9CFE7 solid 1px;
-}
-
-/* Borderless table. :-/ */
-table.borderless tr,
-table.borderless th,
-table.borderless td {
-  border: none;
-}
-
-table.borderless tbody tr:nth-child(2n),
-table.borderless tbody tr:nth-child(2n+1) {
-  background: transparent;
-}
-
-/* jQuery menu */
+/*
+ * jQuery menu
+ */
 body ul.jquerymenu li.parent span.open {
   background-image: url('../images/collapse-arrow.png');
-  background-position: 50% 0.4em;
-}
+  background-position: 50% 0.4em; }
 
 body ul.jquerymenu li.parent span.closed {
   background-image: url('../images/expand-arrow.png');
-  background-position: 50% 0.4em;
-}
+  background-position: 50% 0.4em; }
 
-/* Ouch! Ugly! */
-.ie ul.jquerymenu li {
-  padding-bottom: 0em;
-}
+/*
+ * Ouch! Ugly!
+ */
+    .ie ul.jquerymenu li {
+      padding-bottom: 0em; }
+      .ie ul.jquerymenu li ul {
+        margin-top: 0.3em; }
+    .ie ul.jquerymenu li.parent {
+      margin-top: -1em;
+      position: relative; }
+        .ie ul.jquerymenu li.parent span .closed,
+        .ie ul.jquerymenu li.parent span .open {
+          position: absolute;
+          top: 1.3em;
+          left: 0px; }
 
-.ie ul.jquerymenu li.parent {
-  margin-top: -1em;
-  position: relative;
-}
-
-.ie ul.jquerymenu li ul {
-  margin-top: 0.3em;
-}
-
-/* Ouch! Ugly! */
-.ie ul.jquerymenu li.parent span.open,
-.ie ul.jquerymenu li.parent span.closed {
-  position: absolute;
-  top: 1.3em;
-  left: 0px;
-}
-
-/* Content editing */
+/*
+ * Content editing
+ */
 .filter-help a {
-  padding: 0 20px 0 0;
-}
+  padding: 0 20px 0 0; }
 
-/* No border on any links, ever! */
-.main a,
-.main a:link,
-.main a:active,
-.main a:visited,
-a.tabledrag-handle,
-a.tabledrag-handle:link,
-a.tabledrag-handle:active,
-a.tabledrag-handle:visited {
-  text-decoration: none;
-  border: none;
-}
+/*
+ * No border on any links, ever!
+ */
+  .main a,
+  .main a:active,
+  .main a:link,
+  .main a:visited {
+    text-decoration: none;
+    border: none; }
+  .main a.tabledrag-handle,
+  .main a.tabledrag-handle:active,
+  .main a.tabledrag-handle:link,
+  .main a.tabledrag-handle:visited {
+    text-decoration: none;
+    border: none; }
 
-/* Underline links in the main content and in the highlight block. */
-#main-content .field-type-text-with-summary a, #main-content .field-type-text-with-summary a:link,
-#main-content .field-type-text-with-summary a:active, #main-content .field-type-text-with-summary a:visited,
-#main-content .field-name-field-page-detail a, #main-content .field-name-field-page-detail a:link,
-#main-content .field-name-field-page-detail a:active, #main-content .field-name-field-page-detail a:visited,
-#main-content .field-name-field-event-detail a:active, #main-content .field-name-field-event-detail a:visited,
-#main-content .field-name-field-event-detail a, #main-content .field-name-field-event-detail a:link,
-.view-highlight a:active, .view-highlight a:visited, .view-highlight a:active, .view-highlight a:link {
-  border: none;
-  text-decoration: underline;
-}
+/*
+ * Underline links in the main content
+ */
+    #main-content .field-name-field-event-detail a,
+    #main-content .field-name-field-event-detail a:active,
+    #main-content .field-name-field-event-detail a:link,
+    #main-content .field-name-field-event-detail a:visited,
+    #main-content .field-name-field-page-detail a,
+    #main-content .field-name-field-page-detail a:active,
+    #main-content .field-name-field-page-detail a:link,
+    #main-content .field-name-field-page-detail a:visited,
+    #main-content .field-type-text-with-summary a,
+    #main-content .field-type-text-with-summary a:active,
+    #main-content .field-type-text-with-summary a:link,
+    #main-content .field-type-text-with-summary a:visited {
+      border: none;
+      text-decoration: underline; }
+  #main-content a.tabledrag-handle,
+  #main-content a.tabledrag-handle:active,
+  #main-content a.tabledrag-handle:link,
+  #main-content a.tabledrag-handle:visited {
+    text-decoration: none; }
 
-/* File size */
-span.filesize {
-  font-style: italic;
-}
+/*
+ * Underline links in the highlight block.
+ */
+  .view-highlight a,
+  .view-highlight a:active,
+  .view-highlight a:link,
+  .view-highlight a:visited {
+    border: none;
+    text-decoration: underline; }
 
-/* content-bottom (related content) links */
+/*
+ * Content-bottom (related content) links
+ */
 #main-content-bottom {
-  background: none repeat scroll 0 0 #DFE9F4;
+  background: none repeat scroll 0 0 #dfe9f4;
   border-radius: 3px 3px 3px 3px;
-  color: #3E658E;
+  color: #3e658e;
   font-size: 0.9em;
   margin: 8px 30px 20px 0;
-  padding: 10px;
-}
+  padding: 10px; }
 
-/* Notice style */
-#main-content .notice {
-  border: 1px dotted #999;
-  background-color: #EEE;
-  padding: 0.6em;
-  margin: 1em;
-}
+/*
+ * Notice style
+ */
+  #main-content .importantnotice,
+  #main-content .notice {
+    border: 1px dotted #999999;
+    background-color: #eeeeee;
+    padding: 0.6em;
+    margin: 1em; }
+    #main-content .importantnotice .notice .importantnotice,
+    #main-content .notice .notice .importantnotice {
+            /*
+       * Thou shalt not nest thy notices, or if thou dost, they shan't show up as such.
+       */
+      border: none;
+      padding: 0em;
+      margin: 0em; }
+  #main-content .importantnotice {
+    color: #990000;
+    border: 1px dotted #ff9999;
+    background-color: #ffeeee; }
 
-/* Important notice style. */
-#main-content .importantnotice {
-  color: #900;
-  border: 1px dotted #f99;
-  background-color: #FEE;
-  padding: 0.6em;
-  margin: 1em;
-}
-
-/* Thou shalt not nest thy notices, or if thou dost, they shan't show up as such. */
-#main-content .notice .notice,
-#main-content .importantnotice .importantnotice {
-  border: none;
-  padding: 0em;
-  margin: 0em;
-}
-
-/* Floated images. */
+/*
+ * Floated images.
+ */
 .image-float-left {
   float: left;
-  margin: 0.2em 1em 0.5em 0;
-}
+  margin: 0.2em 1em 0.5em 0; }
 
 .image-float-right {
   float: right;
-  margin: 0.2em 0 0.5em 1.5em;
-}
+  margin: 0.2em 0 0.5em 1.5em; }
 
-/* Hack up the node entry forms. */
-.page-node-add form fieldset, .page-node-edit form fieldset {
-  padding: 0px;
-  border: none;
-  background: transparent;
-}
+/*
+ * Hack up the node create and edit forms.
+ */
+  .page-node-add form fieldset,
+  .page-node-edit form fieldset {
+    padding: 0px;
+    border: none;
+    background: transparent; }
+    .page-node-add form fieldset legend,
+    .page-node-edit form fieldset legend {
+      display: none; }
+  .page-node-add span.cke_skin_kama,
+  .page-node-edit span.cke_skin_kama {
+    border: none;
+    padding: 0px; }
+    .page-node-add table td,
+    .page-node-add table th,
+    .page-node-add table tr,
+    .page-node-edit table td,
+    .page-node-edit table th,
+    .page-node-edit table tr {
+      border: none; }
+    .page-node-add table tr.even,
+    .page-node-add table tr.odd,
+    .page-node-edit table tr.even,
+    .page-node-edit table tr.odd {
+      border: none;
+      background: transparent; }
+      .page-node-add table tbody tr:nth-child(2n),
+      .page-node-add table tbody tr:nth-child(2n),
+      .page-node-edit table tbody tr:nth-child(2n),
+      .page-node-edit table tbody tr:nth-child(2n) {
+        background: transparent; }
 
-.page-node-add form fieldset legend, .page-node-edit form fieldset legend {
-  display: none;
-}
+    .page-node-add div .field-name-field-events,
+    .page-node-add div .field-name-field-external-url,
+    .page-node-add div .field-name-field-related-pages,
+    .page-node-add div .field-name-field-related-url,
+    .page-node-edit div .field-name-field-events,
+    .page-node-edit div .field-name-field-external-url,
+    .page-node-edit div .field-name-field-related-pages,
+    .page-node-edit div .field-name-field-related-url {
+      margin-bottom: 3em; }
 
-.page-node-add span.cke_skin_kama, .page-node-edit span.cke_skin_kama {
-  border: none;
-  padding: 0px;
-}
-
-.page-node-edit table tr, .page-node-add table tr,
-.page-node-edit table th, .page-node-add table th,
-.page-node-edit table td, .page-node-add table td {
-  border: none;
-}
-
-.page-node-add table tr.even, .page-node-edit table tr.even,
-.page-node-add table tr.odd, .page-node-edit table tr.odd {
-  border: none;
-  background: transparent;
-}
-
-.page-node-add table tbody tr:nth-child(2n), .page-node-edit table tbody tr:nth-child(2n),
-.page-node-add table tbody tr:nth-child(2n+1), .page-node-edit table tbody tr:nth-child(2n+1) {
-  background: transparent;
-}
-
-#main-content a.tabledrag-handle {
-  text-decoration: none;
-}
-
-.page-node-add div.field-name-field-events, .page-node-edit div.field-name-field-events,
-.page-node-add div.field-name-field-related-pages, .page-node-edit div.field-name-field-related-pages,
-.page-node-add div.field-name-field-related-url, .page-node-edit div.field-name-field-related-url,
-.page-node-add div.field-name-field-external-url, .page-node-edit div.field-name-field-external-url {
-  margin-bottom: 3em;
-}
-
-.page-node-add .tabledrag-toggle-weight-wrapper, .page-node-edit .tabledrag-toggle-weight-wrapper {
+.page-node-add .tabledrag-toggle-weight-wrapper,
+.page-node-edit .tabledrag-toggle-weight-wrapper {
   position: relative;
-  top: 3em;
-}
+  top: 3em; }
 
-/* Fixes for IE. */
-table tbody tr.odd {
-  background: #EEF7FF;
-}
-table tbody tr.even {
-  background: #EEE;
-}
+/*
+ * Fixes for IE.
+ */
+    table tbody tr.odd {
+      background: #eef7ff; }
+    table tbody tr.even {
+      background: #eeeeee; }
 
 #background-wrapper,
 body.html.home.front {
   background-image: url('../images/homepage-blue.jpg');
-  background-color: #036;
-}
+  background-color: #003366; }
 
 #background-wrapper,
 body.html.blue.not-front {
   background-image: url('../images/blue.jpg');
-  background-color: #036;
-}
+  background-color: #003366; }
 
 #background-wrapper {
   position: absolute;
@@ -272,5 +289,5 @@ body.html.blue.not-front {
   z-index: -1;
   background-repeat: no-repeat;
   background-color: white;
-  background-position: 50% 0px;
-}
+  background-position: 50% 0px; }
+
