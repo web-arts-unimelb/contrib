@@ -1,0 +1,12 @@
+name = Sassy Foundation integration
+description = Adds the Foundation namespace to Sassy @import statements, and makes available the Foundation JS as a library
+package = 'Theming Tools'
+core = 7.x
+dependencies[] = sassy
+
+; Information added by drupal.org packaging script on 2012-03-09
+version = "7.x-2.12"
+core = "7.x"
+project = "sassy"
+datestamp = "1331311846"
+

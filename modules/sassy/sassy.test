@@ -1,0 +1,100 @@
+<?php
+
+class SassyUnitTest extends DrupalUnitTestCase {
+
+	function getInfo() {
+		return array(
+			'name' => 'Sassy unit tests',
+			'description' => 'Tests Sassy by compiling SASS-format files and comparing them against preset CSS files',
+			'group' => 'Theme',
+		);
+	}
+
+	function setUp() {
+		parent::setUp('sassy');
+
+		require_once('phpsass/SassParser.php');
+
+	}
+
+	function runTest($input, $output = FALSE, $settings = array()) {
+		$name = $input;
+
+		$path = dirname(__FILE__) . '/phpsass/tests/';
+		$output = $path . ($output ? $output : preg_replace('/\..+$/', '.css', $input));
+		$input = $path . $input;
+
+		if (!file_exists($input)) {
+			return $this->fail('Input file not found - ' . $input);
+		}
+		if (!file_exists($output)) {
+			return $this->fail('Comparison file not found - ' . $output);
+		}
+
+		try {
+			$settings = $settings + array(
+				'style' => 'nested',
+				'cache' => FALSE,
+				'syntax' => array_pop(explode('.', $input)),
+				'debug' => FALSE,
+				'debug_info' => FALSE,
+				'load_path_functions' => array('sassy_load_callback'),
+				'functions' => sassy_get_functions(),
+			);
+			$parser = new SassParser($settings);
+			$result = $parser->toCss($input);
+		}
+		catch (Exception $e) {
+			$this->fail(t('Exception occured when compiling file') . ': ' . ((string) $e));
+		}
+
+		$compare = file_get_contents($output);
+		if ($compare === FALSE) {
+			$this->fail('Unable to load comparison file - ' . $compare);
+		}
+
+		$_result = $this->trimResult($result);
+		$_compare = $this->trimResult($compare);
+
+		if ($_result != $_compare) {
+			$this->fail(t('Result did not match comparison file'));
+		}
+		else {
+			$this->pass(t($name . ' compiled correctly'));
+		}
+	}
+
+	function trimResult(&$input) {
+		$trim = preg_replace('/[\s;]+/', '', $input);
+		$trim = preg_replace('/\/\*.+?\*\//m', '', $trim);
+		return $trim;
+	}
+
+	function testMain() {
+		$this->runTest('alt.sass');
+		$this->runTest('basic.sass');
+		$this->runTest('comments.sass');
+		$this->runTest('compact.sass');
+		// $this->runTest('complex.sass');
+		$this->runTest('compressed.sass', FALSE, array('style' => 'compressed'));
+		$this->runTest('default.sass');
+		$this->runTest('expanded.sass', FALSE, array('style' => 'expanded'));
+		$this->runTest('extend.sass');
+		$this->runTest('holmes.sass');
+		$this->runTest('if.sass');
+		// $this->runTest('import.sass');
+		// $this->runTest('import_content.sass');
+		$this->runTest('line_numbers.sass');
+		$this->runTest('mixin-content.sass');
+		$this->runTest('mixins.sass');
+		$this->runTest('mixin-ja1.sass');
+		$this->runTest('multiline.sass');
+		$this->runTest('nested.sass');
+		$this->runTest('parent_ref.sass');
+		// $this->runTest('scss_import.scss');
+		$this->runTest('units.sass');
+		$this->runTest('warn.sass');
+		$this->runTest('warn_imported.sass');
+	}
+
+}
