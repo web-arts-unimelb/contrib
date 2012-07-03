@@ -23,6 +23,7 @@ function unimelb_preprocess_html(&$variables) {
  * undefined function errors.
  */
 function unimelb_preprocess_page(&$variables) {
+
   /**
    * If looking at a node with a redirect field, redirect now. Not later.
    */
