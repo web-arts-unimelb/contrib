@@ -5,7 +5,7 @@ core = 7.x
 engine = phptemplate
 
 ;regions[above]			= Above
-;regions[newsbanner]		= Newsbanner
+;regions[newsbanner]	= Newsbanner
 regions[help]			= Help
 regions[content]		= Content
 regions[navigation]		= Navigation
@@ -13,6 +13,7 @@ regions[highlight]		= Highlight
 regions[sidebar_right]	= Sidebar Right
 regions[content_bottom]	= Content Bottom
 
+; Regions only shown on the front page.
 regions[home_column_1]	= home_column_1
 regions[home_column_2]	= home_column_2
 regions[home_column_3]	= home_column_3
@@ -20,17 +21,20 @@ regions[home_column_4]	= home_column_4
 regions[home_column_5]	= home_column_5
 regions[home_column_6]	= home_column_6
 
-regions[home_event] = home_event
-regions[home_promo] = home_promo
+regions[home_event]		= home_event
+regions[home_promo]		= home_promo
 
-stylesheets[all][] = css/unimelb_drupal_distro.scss
-stylesheets[all][] = css/override/admin_menu.scss
-stylesheets[all][] = css/override/jquerymenu.scss
-stylesheets[all][] = css/override/misc.scss
-stylesheets[all][] = css/local.scss
+; Manual stylesheets.
+stylesheets[all][] = css/unimelb_drupal_distro.css
+stylesheets[all][] = css/override/admin_menu.css
+stylesheets[all][] = css/override/jquerymenu.css
+stylesheets[all][] = css/override/misc.css
+
+; Sassy proccessed stylesheets.
+stylesheets[all][] = scss/local.scss
 
 ; Screen output-only CSS.
-stylesheets[screen][] = css/responsive.scss
+stylesheets[screen][] = css/responsive.css
 
 scripts[] = js/local.js
 
