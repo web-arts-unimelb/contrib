@@ -4,7 +4,7 @@
 
 #slider #widget_pager_top_slider-block {
   position: absolute;
-  left: 736px;
+  left: 746px;
   top: 0px;
   width: 174px;
 }
@@ -14,7 +14,7 @@
   display: block;
   float: left;
   cursor: pointer;
-  width: 174px;
+  width: 164px;
   height: 47px;
   color: black;
   background: #EEE;
@@ -47,7 +47,7 @@
 #slider .slider-item .caption {
   position: absolute;
   bottom: 5px;
-  width: 700px;
+  width: 716px;
 
   background: rgb(0, 51, 102);
   background: rgba(0, 51, 102, 0.6);
