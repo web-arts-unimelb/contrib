@@ -16,7 +16,7 @@ regions[sidebar_right]	= Sidebar Right
 regions[content_bottom]	= Content Bottom
 
 ; Need to revisit the name of these two.
-regions[home_event] 	= home_event
+regions[home_event]	= home_event
 regions[home_promo]	= home_promo
 
 ; Stylesheets are inherited.
