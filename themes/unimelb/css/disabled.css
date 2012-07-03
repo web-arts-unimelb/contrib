@@ -70,10 +70,7 @@ h6 + h6 {
  * Table has a bottom margin.
  */
 table {
-  margin-bottom: 1em;
-    /*
-   * Borderless table style.
-   */ }
+  margin-bottom: 1em; }
   table caption {
     font-style: italic; }
   table td {
@@ -190,9 +187,6 @@ body ul.jquerymenu li.parent span.closed {
     margin: 1em; }
     #main-content .importantnotice .notice .importantnotice,
     #main-content .notice .notice .importantnotice {
-            /*
-       * Thou shalt not nest thy notices, or if thou dost, they shan't show up as such.
-       */
       border: none;
       padding: 0em;
       margin: 0em; }
