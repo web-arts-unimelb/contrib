@@ -23,14 +23,14 @@ regions[home_column_6]	= home_column_6
 regions[home_event] = home_event
 regions[home_promo] = home_promo
 
-stylesheets[all][] = css/unimelb_drupal_distro.css
-stylesheets[all][] = css/override/admin_menu.css
-stylesheets[all][] = css/override/jquerymenu.css
-stylesheets[all][] = css/override/misc.css
-stylesheets[all][] = css/local.css
+stylesheets[all][] = css/unimelb_drupal_distro.scss
+stylesheets[all][] = css/override/admin_menu.scss
+stylesheets[all][] = css/override/jquerymenu.scss
+stylesheets[all][] = css/override/misc.scss
+stylesheets[all][] = css/local.scss
 
 ; Screen output-only CSS.
-stylesheets[screen][] = css/responsive.css
+stylesheets[screen][] = css/responsive.scss
 
 scripts[] = js/local.js
 

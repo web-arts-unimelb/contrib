@@ -1,0 +1,278 @@
+/* Local overrides to theme elements. */
+
+@mixin no-decoration {
+  text-decoration: none;
+  border: none;
+}
+
+@mixin decoration {
+  border: none;
+  text-decoration: underline;
+}
+
+/* Give Marcus a pre-set margin on headers in the content. */
+#main-content {
+  h2, h3, h4, h5, h6 {
+    margin-top: 1em;
+  }
+}
+
+/* Override header margin if directly following another header. */
+h1 + h1, h1 + h2,
+h2 + h2, h2 + h3, h2 + h4, h2 + h5, h2 + h6,
+h3 + h3, h3 + h4, h3 + h5, h3 + h6,
+h4 + h4, h4 + h5, h4 + h4,
+h5 + h5, h5 + h6,
+h6 + h6 {
+  margin-top: 0em;
+}
+
+/* Override header margin if the first element on the page or if in a block. */
+div.field-item,
+div.col-2 {
+  > h2, > h3, > h4, > h5, > h6 {
+    margin-top: 0em;
+    padding-top: 0em;
+  }
+}
+
+/* Sensiblise list item spacing. */
+ul, ol {
+  li {
+    margin-bottom: 0px;
+    &:last-child {
+      margin-bottom: 0.8em;
+    }
+  }
+}
+
+/* Space out the highlights block title a bit. */
+h2 {
+  #block-views-highlights-news,
+  #block-views-zones-home-promo {
+    margin-top: 1em;
+  }
+}
+
+/* Table has a bottom margin. */
+table {
+  margin-bottom: 1em;
+  caption {
+    font-style: italic;
+  }
+  td {
+    border-left: #B9CFE7 solid 1px;
+  }
+
+  // Borderless table style.
+  .borderless {
+    tr, th, td {
+      border: none;
+    }
+    tbody {
+      tr:nth-child(2n), tr:nth-child(2n+1) {
+        background: transparent;
+      }
+    }
+  }
+}
+
+/* jQuery menu */
+body ul.jquerymenu li.parent span.open {
+  background-image: url('../images/collapse-arrow.png');
+  background-position: 50% 0.4em;
+}
+
+body ul.jquerymenu li.parent span.closed {
+  background-image: url('../images/expand-arrow.png');
+  background-position: 50% 0.4em;
+}
+
+/* Ouch! Ugly! */
+.ie {
+  ul.jquerymenu {
+    li {
+      padding-bottom: 0em;
+      ul {
+        margin-top: 0.3em;
+      }
+    }
+    li.parent {
+      margin-top: -1em;
+      position: relative;
+      span {
+       .open, .closed {
+         position: absolute;
+         top: 1.3em;
+         left: 0px;
+        }
+      }
+    }
+  }
+}
+
+/* Content editing */
+.filter-help a {
+  padding: 0 20px 0 0;
+}
+
+/* No border on any links, ever! */
+.main {
+  a, a.tabledrag-handle {
+    &, &:link, &:active, &:visited {
+      @include no-decoration;
+    }
+  }
+}
+
+/* Underline links in the main content */
+#main-content {
+  .field-type-text-with-summary,
+  .field-name-field-page-detail,
+  .field-name-field-event-detail {
+    a {
+      &:link, &:active, &:visited {
+        @include decoration;
+      }
+      .tabledrag-handle {
+        &:link, &:active, &:visited {
+          @include no-decoration;
+        }
+      }
+    }
+  }
+}
+
+/* Underline links in the highlight block. */
+.view-highlight {
+  a, a:link, a:active, a:visited {
+    @include decoration;
+  }
+}
+
+/* Content-bottom (related content) links */
+#main-content-bottom {
+  background: none repeat scroll 0 0 #DFE9F4;
+  border-radius: 3px 3px 3px 3px;
+  color: #3E658E;
+  font-size: 0.9em;
+  margin: 8px 30px 20px 0;
+  padding: 10px;
+}
+
+/* Notice style */
+#main-content {
+  .notice, .importantnotice {
+    border: 1px dotted #999;
+    background-color: #EEE;
+    padding: 0.6em;
+    margin: 1em;
+    .notice .importantnotice {
+      // Thou shalt not nest thy notices, or if thou dost, they shan't show up as such.
+      border: none;
+      padding: 0em;
+      margin: 0em;
+    }
+  }
+  .importantnotice {
+    color: #900;
+    border: 1px dotted #f99;
+    background-color: #FEE;
+  }
+}
+
+/* Floated images. */
+.image-float-left {
+  float: left;
+  margin: 0.2em 1em 0.5em 0;
+}
+
+.image-float-right {
+  float: right;
+  margin: 0.2em 0 0.5em 1.5em;
+}
+
+/* Hack up the node create and edit forms. */
+.page-node-add,
+.page-node-edit {
+  form fieldset {
+    padding: 0px;
+    border: none;
+    background: transparent;
+    legend {
+      display: none;
+    }
+  }
+  span.cke_skin_kama {
+    border: none;
+    padding: 0px;
+  }
+  table {
+    tr, th, td {
+      border: none;
+    }
+    tr.odd, tr.even {
+      border: none;
+      background: transparent;
+    }
+    tbody {
+      tr:nth-child(2n), tr:nth-child(2n) {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.page-node-add,
+.page-node-edit {
+  div {
+    .field-name-field-events,
+    .field-name-field-related-pages,
+    .field-name-field-related-url,
+    .field-name-field-external-url {
+      margin-bottom: 3em;
+    }
+  }
+}
+
+.page-node-add .tabledrag-toggle-weight-wrapper, .page-node-edit .tabledrag-toggle-weight-wrapper {
+  position: relative;
+  top: 3em;
+}
+
+/* Fixes for IE. */
+table {
+  tbody {
+    tr.odd {
+      background: #EEF7FF;
+    }
+    tr.even {
+      background: #EEE;
+    }
+  }
+}
+
+#background-wrapper,
+body.html.home.front {
+  background-image: url('../images/homepage-blue.jpg');
+  background-color: #036;
+}
+
+#background-wrapper,
+body.html.blue.not-front {
+  background-image: url('../images/blue.jpg');
+  background-color: #036;
+}
+
+#background-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-position: 50% 0px;
+}
