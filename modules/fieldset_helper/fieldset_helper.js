@@ -245,8 +245,8 @@ $(function() {
     };
   }
 
-	// Init default fieldset states.
-	Drupal.FieldsetHelper.init();
+  // Init default fieldset states.
+  Drupal.FieldsetHelper.init();
 });
 
 
@@ -282,7 +282,7 @@ Drupal.behaviors.collapse = {
         .append($fieldset.hasClass('collapsed') ? Drupal.t('Show') : Drupal.t('Hide'))
         .prependTo($legend)
         // Removing the below line of code from collapse.js fixes the issue.
-				// .after(' ');
+	// .after(' ');
 
       // .wrapInner() does not retain bound events.
       var $link = $('<a class="fieldset-title" href="#"></a>')
