@@ -1,41 +1,45 @@
 /* GSHSS Slider CSS. */
+@mixin slidergradient($start, $end) {
+  background: $start;
+  background: -moz-linear-gradient(top, $start, $end);
+  background: -webkit-gradient(linear, left top, left bottom, from($start), to($end));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
+}
+
 #slider {
   .view-content {
     position: relative;
   }
-  #widget_pager_top_slider-block {
+  #widget_pager_top_slider-block.views-slideshow-pager-fields {
+    // Position the pager div.
     position: absolute;
     left: 746px;
     top: 0px;
     width: 174px;
-    .views-slideshow-pager-fields {
-      div.views-slideshow-pager-field-item {
-        position: relative;
-        display: block;
-        float: left;
-        cursor: pointer;
-        width: 164px;
-        height: 47px;
-        color: black;
-        background: #EEE;
-        background: -moz-linear-gradient(top, white, #EEE);
-        background: -webkit-gradient(linear, left top, left bottom, from(white), to(#EEE));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#EEEEEE');
-        border-color: #CCC;
-        border-style: solid;
-        border-width: 0 0 1px 0;
-        overflow: hidden;
-        padding: 0px 0px 0px 6px;
-        font-size: 16px;
-        color: #4f4f4f;
-      }
-      div.views-slideshow-pager-field-item.active {
-        background:#e0eaf4;
-        background:-moz-linear-gradient(top, #eee, #e0eaf4);
-        background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#e0eaf4));
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#e0eaf4');
-        color: #036;
-      }
+
+    // Normal (inactive) pager item.
+    div.views-slideshow-pager-field-item {
+      position: relative;
+      display: block;
+      float: left;
+      cursor: pointer;
+      width: 164px;
+      height: 47px;
+      color: black;
+      @include slidergradient(#FFFFFF, #EEEEEE);
+      border-color: #CCC;
+      border-style: solid;
+      border-width: 0 0 1px 0;
+      overflow: hidden;
+      padding: 0px 0px 0px 6px;
+      font-size: 16px;
+      color: #4f4f4f;
+    }
+
+    // Active pager item.
+    div.views-slideshow-pager-field-item.active {
+      @include slidergradient(#EEEEEE, #E0EAF4);
+      color: #036;
     }
   }
 
