@@ -20,8 +20,8 @@ regions[home_event]	= home_event
 regions[home_promo]	= home_promo
 
 ; Stylesheets are inherited.
-stylesheets[all][]	= css/slider.css
-stylesheets[all][]	= css/gshss.css
+stylesheets[all][]	= scss/slider.scss
+stylesheets[all][]	= scss/gshss.scss
 
 ; JavaScript is inherited.
 ; scripts[]			=
