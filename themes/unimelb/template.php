@@ -11,8 +11,8 @@
  * Implements hook_preprocess_html().
  */
 function unimelb_preprocess_html(&$variables) {
-  $variables['site_name'] = variable_get('site_name', '');
-  $variables['page_title'] = check_plain(strip_tags(drupal_get_title()));
+  $variables['site_name'] = _unimelb_space_tags(variable_get('site_name', ''));
+  $variables['page_title'] = _unimelb_space_tags(drupal_get_title());
 }
 
 /**
@@ -111,4 +111,20 @@ function unimelb_colorbox_imagefield($variables) {
   );
 
   return l($image, $variables['path'], $options);
+}
+
+/**
+ * Helper to replace tags in page title with spaces.
+ *
+ * @param $text
+ *   A string.
+ *
+ * @return
+ *   A string without HTML tags.
+ */
+function _unimelb_space_tags($text) {
+  // May contain encoded entities from drupal_get_title().
+  $text = html_entity_decode($text);
+  $text = preg_replace('/<[^>]*?>/', ' ', $text);
+  return check_plain($text);
 }
