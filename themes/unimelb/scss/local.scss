@@ -167,7 +167,7 @@ body ul.jquerymenu li.parent span.closed {
     background-color: #EEE;
     padding: 0.6em;
     margin: 1em;
-    .notice .importantnotice {
+    .notice, .importantnotice {
       // Thou shalt not nest thy notices, or if thou dost, they shan't show up as such.
       border: none;
       padding: 0em;
@@ -178,6 +178,12 @@ body ul.jquerymenu li.parent span.closed {
     color: #900;
     border: 1px dotted #f99;
     background-color: #FEE;
+    .notice, .importantnotice {
+      // Thou shalt not nest thy notices, or if thou dost, they shan't show up as such.
+      border: none;
+      padding: 0em;
+      margin: 0em;
+    }
   }
 }
 
