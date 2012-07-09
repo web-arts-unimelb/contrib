@@ -7,13 +7,17 @@
 }
 
 #slider {
+  width: 900px;
+  border: 1px solid #ccc;
+  padding: 10px 10px 5px 10px;
+
   .view-content {
     position: relative;
   }
   #widget_pager_top_slider-block.views-slideshow-pager-fields {
     // Position the pager div.
     position: absolute;
-    left: 746px;
+    right: -2px;
     top: 0px;
     width: 174px;
 
@@ -36,6 +40,11 @@
       color: #4f4f4f;
     }
 
+   div#views_slideshow_pager_field_item_top_slider-block_4.views-slideshow-pager-field-item {
+     border-bottom: none;
+     height: 48px;
+   }
+
     // Active pager item.
     div.views-slideshow-pager-field-item.active {
       @include slidergradient(#EEEEEE, #E0EAF4);
@@ -45,19 +54,21 @@
 
   .slider-item {
     position: relative;
+    overflow: hidden;
 
     .caption {
       position: absolute;
       bottom: 5px;
-      width: 716px;
+      width: 691px;
       background: rgb(0, 51, 102);
       background: rgba(0, 51, 102, 0.6);
       color: #fff;
-      padding: 10px;
+      padding: 0px 5px 5px 20px;
     }
   }
 
   h1, h2, h3, h4, h5, h6 {
+    color: white;
     margin-top: none;
   }
 }
