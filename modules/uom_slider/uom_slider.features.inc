@@ -31,7 +31,7 @@ function uom_slider_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => '720',
+          'width' => '716',
           'height' => '240',
         ),
         'weight' => '1',

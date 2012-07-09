@@ -2,6 +2,7 @@ name = Slider
 description = The feature provides a slider content type and view block.
 core = 7.x
 package = University of Melbourne
+php = 5.2.4
 version = 7.x-1.0
 project = uom_slider
 dependencies[] = entityreference
