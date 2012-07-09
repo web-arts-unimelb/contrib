@@ -8,6 +8,12 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
 }
 
+/* Override h2 size on the profile tabs. */
+#main-content .pane-quicktabs-staff-profile h2 {
+  font-size: 23px;
+}
+
+
 .quicktabs-style-nostyle {
   border: none;
   margin-top: 1em;
