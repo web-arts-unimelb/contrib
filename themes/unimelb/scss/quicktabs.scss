@@ -1,0 +1,47 @@
+/* Quick Tabs: Override "Basic" style. */
+
+/* Gradient. */
+@mixin gradient($start, $end) {
+  background: $start;
+  background: -moz-linear-gradient(top, $start, $end);
+  background: -webkit-gradient(linear, left top, left bottom, from($start), to($end));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
+}
+
+.quicktabs-style-nostyle {
+  border: none;
+  margin-top: 1em;
+}
+
+ul.quicktabs-tabs.quicktabs-style-nostyle {
+  border-bottom: 1px solid #758CAA;
+  li {
+    margin: 0 8px 0 0;
+    padding: 5px 25px 2px 25px;
+    border: 1px solid #AAA;
+    border-bottom: 1px solid #758CAA;
+    @include gradient(#EEEEEE, #E0EAF4);
+
+    a {
+      color: #666;
+      margin-bottom: 0.5em;
+      &:hover {
+        color: #036;
+      }
+    }
+
+    &.active {
+      @include gradient(#758CAA, #003366);
+      color: white;
+
+      a {
+        color: white;
+        background: none;
+
+        &:hover {
+          color: #036;
+        }
+      }
+    }
+  }
+}

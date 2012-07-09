@@ -1,14 +1,17 @@
 /* Local overrides to theme elements. */
 
+/* Undecorated text. */
 @mixin no-decoration {
   text-decoration: none;
   border: none;
 }
 
+/* Underlined text (no border) */
 @mixin decoration {
   border: none;
   text-decoration: underline;
 }
+
 
 /* Give Marcus a pre-set margin on headers in the content. */
 #main-content {

@@ -31,6 +31,7 @@ stylesheets[all][] = css/override/jquerymenu.css
 stylesheets[all][] = css/override/misc.css
 
 ; Sassy proccessed stylesheets.
+stylesheets[all][] = scss/quicktabs.scss
 stylesheets[all][] = scss/local.scss
 
 ; Screen output-only CSS.
