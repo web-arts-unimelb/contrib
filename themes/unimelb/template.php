@@ -123,8 +123,9 @@ function unimelb_colorbox_imagefield($variables) {
  * Specifically: col-N => view-col-N
  */
 function unimelb_preprocess_views_view_grid(&$vars) {
+  $columns = isset($vars['options']['columns']) ? $vars['options']['columns'] : $vars['view']->style_options['columns'];
   $replace = array();
-  for ($i = 1; $i <= ($vars['view']->style_options['columns']); $i++) {
+  for ($i = 1; $i <= $columns; $i++) {
     $replace['col-'. $i .' '] = 'view-col-' . $i . ' ';
     $replace['col-'. $i] = 'view-col-' . $i;
   }
