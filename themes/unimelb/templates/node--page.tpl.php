@@ -87,14 +87,6 @@ hide($content['field_display_settings']);
 hide($content['field_hide_images']);
 hide($content['field_external_url']);
 
-print render($title_prefix); 
-print '<h2 ' . $title_attributes . '>';
-if(!$page) { print '<a href="' . $the_url . '" ' . $the_url_target . '>'; }
-print $title;
-if(!$page) { print '</a>'; }
-print '</h2>';
-print render($title_suffix);
-
 if(isset($body[0]['summary']) && $body[0]['summary'] != '') { print '<p class="pullquote">' . $body[0]['summary'] . '</p>'; }
 
 print render($content);
