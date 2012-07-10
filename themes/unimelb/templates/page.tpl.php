@@ -94,6 +94,7 @@
 
 	<?php if($is_front): ?>
 		<div class="main col-6" role="main" id="main-content">
+			<?php print $messages; ?>
 			<div class="col-6 first">
 				<div class="col-2 first page-preview">		
 					<?php if($page["home_column_1"]): ?>
