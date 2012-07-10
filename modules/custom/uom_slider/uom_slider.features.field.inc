@@ -64,7 +64,7 @@ function uom_slider_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'body',
-      'label' => 'Description',
+      'label' => 'Image Caption',
       'required' => 1,
       'settings' => array(
         'display_summary' => 1,
@@ -159,7 +159,7 @@ function uom_slider_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -244,7 +244,76 @@ function uom_slider_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '2',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-slider-field_slider_pager'.
+  $fields['node-slider-field_slider_pager'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_slider_pager',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_with_summary',
+    ),
+    'field_instance' => array(
+      'bundle' => 'slider',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'This text will be shown on the small pager to the right of the main slider. When a user hovers the mouse over this text, the main slider displays the image and caption you enter below.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 3,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_slider_pager',
+      'label' => 'Pager Label',
+      'required' => 1,
+      'settings' => array(
+        'display_summary' => 0,
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '3',
+          'summary_rows' => 5,
+        ),
+        'type' => 'text_textarea_with_summary',
+        'weight' => '1',
       ),
     ),
   );
@@ -252,10 +321,12 @@ function uom_slider_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Choose the page (on this site) that the slider should link to.');
-  t('Description');
   t('Enter descriptive text that is to be displayed as caption over the slider image.');
   t('Image');
+  t('Image Caption');
   t('Page Link');
+  t('Pager Label');
+  t('This text will be shown on the small pager to the right of the main slider. When a user hovers the mouse over this text, the main slider displays the image and caption you enter below.');
   t('Upload an image. It will be automatically resized to 720×240 pixels for display in the slider.');
 
   return $fields;
