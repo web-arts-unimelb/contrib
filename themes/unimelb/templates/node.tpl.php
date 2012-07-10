@@ -78,24 +78,6 @@
  * @see template_process()
  */
 
-print render($title_prefix);
-
-print '<h2 ' . $title_attributes . '>';
-
-if(!$page) { 
-	print '<a href="' . $node_url . '">'; 
-}
-
-print $title;
-
-if(!$page) { 
-	print '</a>'; 
-}
-
-print '</h2>';
-
-print render($title_suffix); 
-
 hide($content['comments']);
 hide($content['links']);
 
