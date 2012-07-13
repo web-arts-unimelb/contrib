@@ -71,21 +71,31 @@
  * @see template_process()
  * @see bartik_process_page()
  */
-
 ?>
 
 <div class="wrapper">
-	<div class="header <?php if(variable_get('unimelb_settings_ht-right') && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
+	<div class="header <?php if(!empty($unimelb_ht_right) && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
 
 	<div class="hgroup">
-		<?php if(variable_get('unimelb_settings_parent-org')) { ?><p><?php if(variable_get('unimelb_settings_parent-org-url')) { ?><a href="<?php print variable_get('unimelb_settings_parent-org-url'); ?>"><?php } else { ?><a href="/"><?php } ?><?php print variable_get('unimelb_settings_parent-org'); ?></a></p><?php } ?>
-		<h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
+		<?php if ($brand_logo == 'logo' && !empty($logo)): ?>
+			<a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
+		<?php else: ?>
+			<?php if (!empty($unimelb_parent_org_short)): ?><p>
+				<?php if (!empty($unimelb_parent_org_url)): ?>
+					<a href="<?php print $unimelb_parent_org_url ?>">
+				<?php else: ?>
+					<a href="<?php print $front_page; ?>">
+				<?php endif; ?>
+				<?php print $unimelb_parent_org_short; ?></a></p>
+			<?php endif; ?>
+			<h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
+		<?php endif; ?>
 	</div><!-- end hgroup -->
 
-	<?php if(variable_get('unimelb_settings_ht-right') && $is_front): ?>
+	<?php if (!empty($unimelb_ht_right) && $is_front): ?>
 		<div id="headingtext">
-        <p class="title col-1"><?php print variable_get('unimelb_settings_ht-left'); ?></p>
-        <p class="col-7"><?php print variable_get('unimelb_settings_ht-right'); ?></p>
+        <p class="title col-1"><?php print $unimelb_ht_left; ?></p>
+        <p class="col-7"><?php print $unimelb_ht_right; ?></p>
         <hr />
       </div>
 	<?php endif; ?>

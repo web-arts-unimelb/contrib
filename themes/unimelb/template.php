@@ -67,23 +67,27 @@ function unimelb_preprocess_page(&$variables) {
   /**
    * making Unimelb Settings variables available to js
    */
+  // Body class that is used by templates to show or not show the university logo.
+  $variables['brand_logo'] = variable_get('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
 
-  if(variable_get('unimelb_settings_site-name-short') && variable_get('unimelb_settings_site-name-short', '') != ''){
-    $site_name = variable_get('unimelb_settings_site-name-short');
-    $vars1 = array('sitename' => $site_name);
-    drupal_add_js($vars1, 'setting');
+  $variables['unimelb_ht_right'] = variable_get('unimelb_settings_ht-right', '');
+  $variables['unimelb_ht_left'] = variable_get('unimelb_settings_ht-left', '');
+
+  $vars = array();
+  if ($value = variable_get('unimelb_settings_site-name-short')){
+    $vars['sitename'] = $variables['unimelb_site_name_short'] = $value;
   }
 
-  if(variable_get('unimelb_settings_parent-org-short') && variable_get('unimelb_settings_parent-org-short', '') != ''){
-    $parent_org = variable_get('unimelb_settings_parent-org-short');
-    $vars2 = array('parentorg' => $parent_org);
-    drupal_add_js($vars2, 'setting');
+  if ($value = variable_get('unimelb_settings_parent-org-short')) {
+    $vars['parentorg'] = $variables['unimelb_parent_org_short'] = $value;
   }
 
-  if(variable_get('unimelb_settings_parent-org-url') && variable_get('unimelb_settings_parent-org-url', '') != ''){
-    $parent_orgurl = variable_get('unimelb_settings_parent-org-url');
-    $vars3 = array('parentorgurl' => $parent_orgurl);
-    drupal_add_js($vars3, 'setting');
+  if ($value = variable_get('unimelb_settings_parent-org-url')) {
+    $vars['parentorgurl'] = $variables['unimelb_parent_org_url'] = $value;
+  }
+
+  if (!empty($vars)) {
+    drupal_add_js($vars, 'setting');
   }
 }
 
