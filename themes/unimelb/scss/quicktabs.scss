@@ -1,12 +1,6 @@
 /* Quick Tabs: Override "Basic" style. */
 
-/* Gradient. */
-@mixin gradient($start, $end) {
-  background: $start;
-  background: -moz-linear-gradient(top, $start, $end);
-  background: -webkit-gradient(linear, left top, left bottom, from($start), to($end));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
-}
+@include "mixins.scss";
 
 /* Override h2 size on the profile tabs. */
 #main-content .pane-quicktabs-staff-profile h2 {

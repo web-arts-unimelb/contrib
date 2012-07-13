@@ -1,17 +1,6 @@
 /* Local overrides to theme elements. */
 
-/* Undecorated text. */
-@mixin no-decoration {
-  text-decoration: none;
-  border: none;
-}
-
-/* Underlined text (no border) */
-@mixin decoration {
-  border: none;
-  text-decoration: underline;
-}
-
+@include "mixins.scss";
 
 /* Give Marcus a pre-set margin on headers in the content. */
 #main-content {
@@ -151,6 +140,11 @@ body ul.jquerymenu li.parent span.closed {
   a, a:link, a:active, a:visited {
     @include decoration;
   }
+}
+
+/* No underline on the home page. */
+body.home.front div.view-content a {
+  @include no-decoration;
 }
 
 /* Content-bottom (related content) links */

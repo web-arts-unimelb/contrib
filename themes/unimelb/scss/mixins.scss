@@ -1,0 +1,23 @@
+/**
+ * Mixins.
+ */
+
+/* Undecorated text. */
+@mixin no-decoration {
+  text-decoration: none;
+  border: none;
+}
+
+/* Underlined text (no border) */
+@mixin decoration {
+  border: none;
+  text-decoration: underline;
+}
+
+/* Gradient. */
+@mixin gradient($start, $end) {
+  background: $start;
+  background: -moz-linear-gradient(top, $start, $end);
+  background: -webkit-gradient(linear, left top, left bottom, from($start), to($end));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
+}
