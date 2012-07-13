@@ -11,8 +11,13 @@ $block-background = #dfe9f4;
  * padding/margin: top bottom right left;
  */
 
-/* Header logo override. */
-.header .hgroup {
+// No extra margin on a logo-only header.
+.logo .header.without-ht {
+  margin: 0px
+}
+
+// Logo header positioning override.
+.logo .header .hgroup {
   margin: -2px 0 0 -20px;
 }
 
