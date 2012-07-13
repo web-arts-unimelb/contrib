@@ -3,9 +3,9 @@ description = seven_subtheme
 base theme = seven
 core = 7.x
 
-stylesheets[all][] = style.css
+stylesheets[all][] = css/style.css
 
-
+scripts[] = js/script.js
 
 settings[shortcut_module_link] = 1
 regions[content] = Content
