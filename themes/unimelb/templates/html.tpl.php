@@ -56,20 +56,20 @@
 
 <!-- SEO relevant meta data to describe content of page -->
 	<meta name="DC.Title" content="<?php print $site_name . ' | ' . $page_title; ?>" />
-	<meta name="keywords" content="<?php if(variable_get('unimelb_settings_meta-keywords')) { print variable_get('unimelb_settings_meta-keywords') . ', ' . $page_title . ', ' . $site_name; } ?>" />
-	<meta name="description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>" />
-	<meta name="DC.Description" content="<?php print $site_name . ': ' . $page_title; if($is_front && variable_get('unimelb_settings_ht-right')) { print ' - ' . variable_get('unimelb_settings_ht-right'); } ?>" />
+	<meta name="keywords" content="<?php print $unimelb_meta_keywords; ?>" />
+	<meta name="description" content="<?php print $unimelb_meta_description; ?>" />
+	<meta name="DC.Description" content="<?php print $unimelb_meta_description; ?>" />
 <!-- End SEO relevant meta data -->
 
 <!-- Authoriser and maintainer related meta data - developers, don't forget humans.txt -->
-	<meta name="DC.Creator" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; } print $site_name; ?>" />
-	<meta name="DC.Contributor" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>" />
-	<meta name="author" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name') . ', '; }  print $site_name; ?>" />
-	<meta name="UM.Authoriser.Name" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>" />
-	<meta name="UM.Authoriser.Title" content="<?php if(variable_get('unimelb_settings_auth-name')) { print variable_get('unimelb_settings_auth-name'); } ?>" />
-	<meta name="UM.Maintainer.Name" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>" />
-	<meta name="UM.Maintainer.Department" content="<?php if(variable_get('unimelb_settings_maint-name')) { print variable_get('unimelb_settings_maint-name'); } ?>" />
-	<meta name="UM.Maintainer.Email" content="<?php if(variable_get('unimelb_settings_ad-email')) { print variable_get('unimelb_settings_ad-email'); } ?>" />
+	<meta name="DC.Creator" content="<?php print $unimelb_meta_creator; ?>" />
+	<meta name="DC.Contributor" content="<?php print $unimelb_meta_creator; ?>" />
+	<meta name="author" content="<?php print $unimelb_meta_creator; ?>"> />
+	<meta name="UM.Authoriser.Name" content="<?php print $unimelb_meta_authoriser; ?>" />
+	<meta name="UM.Authoriser.Title" content="<?php print $unimelb_meta_authoriser; ?>" />
+	<meta name="UM.Maintainer.Name" content="<?php print $unimelb_meta_creator; ?>" />
+	<meta name="UM.Maintainer.Department" content="<?php print $unimelb_meta_creator; ?>" />
+	<meta name="UM.Maintainer.Email" content="<?php print $unimelb_meta_email; ?>" />
 <!-- End authoriser and maintainer meta data -->
 
 <!-- Static meta data   -->
@@ -113,7 +113,7 @@
 
 </head>
 
-<body class="no-logo<?php if($is_front) { print ' home '; } else { print ' blue '; } ?> <?php print $classes; ?>" <?php if($attributes) { print ' ' . $attributes; } ?>>
+<body class="<?php print $brand_logo; ?><?php if($is_front) { print ' home '; } else { print ' blue '; } ?> <?php print $classes; ?>" <?php if($attributes) { print ' ' . $attributes; } ?>>
 
 <div id="background-wrapper"></div>
 

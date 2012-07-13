@@ -11,8 +11,38 @@
  * Implements hook_preprocess_html().
  */
 function unimelb_preprocess_html(&$variables) {
-  $variables['site_name'] = _unimelb_space_tags(variable_get('site_name', ''));
+  $variables['site_name'] = _unimelb_space_tags(variable_get('site_name'));
   $variables['page_title'] = _unimelb_space_tags(drupal_get_title());
+
+  if (empty($variables['page_title'])) {
+    $variables['page_title'] = $variables['site_name'];
+  }
+
+  // Body class that is used by templates to show or not show the university logo.
+  $variables['brand_logo'] = variable_get('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
+
+  // Generate the meta tag content here, simply print the content in the tpl.php.
+  if ($keywords = variable_get('unimelb_settings_meta-keywords')) {
+    $keywords[] = variable_get('unimelb_settings_meta-keywords');
+  }
+  $keywords[] = $variables['page_title'];
+  $keywords[] = $variables['site_name'];
+  $variables['unimelb_meta_keywords']  = implode(', ', $keywords);
+
+  $variables['unimelb_meta_description'] = $variables['site_name'] . ': ' . $variables['page_title'];
+  if ($variables['is_front'] && $description = variable_get('unimelb_settings_ht-right')) {
+    $variables['unimelb_meta_description'] .= ' - ' . $description;
+  }
+
+  if ($creator = variable_get('unimelb_settings_maint-name')) {
+    $creators[] = variable_get('unimelb_settings_maint-name');
+  }
+  $creators[] = $variables['site_name'];
+  $variables['unimelb_meta_creator'] = implode(', ', $creators);
+
+  $variables['unimelb_meta_authoriser'] = variable_get('unimelb_settings_auth-name');
+
+  $variables['unimelb_meta_email'] = variable_get('unimelb_settings_ad-email');
 }
 
 /**
