@@ -64,7 +64,7 @@
 <!-- Authoriser and maintainer related meta data - developers, don't forget humans.txt -->
 	<meta name="DC.Creator" content="<?php print $unimelb_meta_creator; ?>" />
 	<meta name="DC.Contributor" content="<?php print $unimelb_meta_creator; ?>" />
-	<meta name="author" content="<?php print $unimelb_meta_creator; ?>"> />
+	<meta name="author" content="<?php print $unimelb_meta_creator; ?>" />
 	<meta name="UM.Authoriser.Name" content="<?php print $unimelb_meta_authoriser; ?>" />
 	<meta name="UM.Authoriser.Title" content="<?php print $unimelb_meta_authoriser; ?>" />
 	<meta name="UM.Maintainer.Name" content="<?php print $unimelb_meta_creator; ?>" />
