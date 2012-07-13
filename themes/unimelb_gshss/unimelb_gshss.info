@@ -7,11 +7,12 @@ version = 7.x-1.1.0
 base theme = unimelb
 
 ; Regions are not inherited from the base theme.
-regions[help]		= Help
-regions[slider]		= Slider
-regions[content]	= Content
-regions[navigation]	= Navigation
-regions[highlight]	= Highlight
+regions[help]			= Help
+regions[feature_menu]	= Feature Menu
+regions[slider]			= Slider
+regions[content]		= Content
+regions[navigation]		= Navigation
+regions[highlight]		= Highlight
 regions[sidebar_right]	= Sidebar Right
 regions[content_bottom]	= Content Bottom
 

@@ -75,22 +75,39 @@
 ?>
 
 <div class="wrapper">
-	<div class="header <?php if(variable_get('unimelb_settings_ht-right') && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
+	<div class="header <?php if(!empty($unimelb_ht_right) && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
 
 	<div class="hgroup">
-		<?php if(variable_get('unimelb_settings_parent-org')) { ?><p><?php if(variable_get('unimelb_settings_parent-org-url')) { ?><a href="<?php print variable_get('unimelb_settings_parent-org-url'); ?>"><?php } else { ?><a href="/"><?php } ?><?php print variable_get('unimelb_settings_parent-org'); ?></a></p><?php } ?>
-		<h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
+		<?php if ($brand_logo == 'logo' && !empty($logo)): ?>
+			<a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
+		<?php else: ?>
+			<?php if (!empty($unimelb_parent_org_short)): ?><p>
+				<?php if (!empty($unimelb_parent_org_url)): ?>
+					<a href="<?php print $unimelb_parent_org_url ?>">
+				<?php else: ?>
+					<a href="<?php print $front_page; ?>">
+				<?php endif; ?>
+				<?php print $unimelb_parent_org_short; ?></a></p>
+			<?php endif; ?>
+			<h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
+		<?php endif; ?>
 	</div><!-- end hgroup -->
 
-	<?php if(variable_get('unimelb_settings_ht-right') && $is_front): ?>
+	<?php if (!empty($unimelb_ht_right) && $is_front): ?>
 		<div id="headingtext">
-        <p class="title col-1"><?php print variable_get('unimelb_settings_ht-left'); ?></p>
-        <p class="col-7"><?php print variable_get('unimelb_settings_ht-right'); ?></p>
-        <hr>
-      </div>
+			<p class="title col-1"><?php print $unimelb_ht_left; ?></p>
+			<p class="col-7"><?php print $unimelb_ht_right; ?></p>
+			<hr />
+		</div>
 	<?php endif; ?>
 
 	</div><!-- end header -->
+
+	<?php if (!empty($page['feature_menu'])): ?>
+	<div id="feature-menu">
+		<?php print render($page['feature_menu']); ?>
+	</div>
+	<?php endif; ?>
 
 	<div id="content-wrap">
 
@@ -115,6 +132,11 @@
 			<?php print render($page['help']); ?>
 			<?php if ($action_links): ?>
 				<ul class="action-links"><?php print render($action_links); ?></ul>
+			<?php endif; ?>
+			<?php if ($title): ?>
+				<?php print render($title_prefix); ?>
+				<?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
+				<?php print render($title_suffix); ?>
 			<?php endif; ?>
 			<?php print render($page['content']); ?>
 			<?php if ($page['content_bottom']): ?>
@@ -146,6 +168,11 @@
 			<?php print render($page['help']); ?>
 			<?php if ($action_links): ?>
 				<ul class="action-links"><?php print render($action_links); ?></ul>
+			<?php endif; ?>
+			<?php if ($title): ?>
+				<?php print render($title_prefix); ?>
+				<?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
+				<?php print render($title_suffix); ?>
 			<?php endif; ?>
 			<?php print render($page['content']); ?>
 			<?php if ($page['content_bottom']): ?>

@@ -1,12 +1,44 @@
 /* GSHSS Specific CSS. */
 
+/* Variables.  */
+$page-background: white;
+$block-background = #dfe9f4;
+
+/* Load mixins. */
+@import "mixins.scss";
+
+/**
+ * padding/margin: top bottom right left;
+ */
+
+/* Header logo override. */
+.header .hgroup {
+  margin: -2px 0 0 -20px;
+}
+
+/* Feature menu. */
+#feature-menu {
+  ul > li {
+    float: left;
+
+    a {
+      @include button(#4b99c7, white);
+    }
+    &.first {
+      a {
+        @include button(#867bc3, white);
+      }
+    }
+  }
+}
+
 #background-wrapper, body.html.home.front {
   background: url('../images/back-gradient.png') #036;
   background-repeat: repeat-x;
 }
 
 #content-wrap {
-  background: #eee;
+  background: $page-background;
   float: left;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -14,4 +46,51 @@
 
 #admin-menu {
   z-index: 10000;
+}
+
+/* Blocks. */
+div.col-2 {
+  margin-left: 0px;
+  margin-right: 20px;
+
+  div.block {
+    background: $block-background;
+    margin-left: 5px;
+    padding-left: 5px;
+    margin-top: 1em;
+    margin-right: -2px;	// Visially align due to the shadow and rounded corners.
+    @include rounded(5px);
+    @include box-shadow(0, 1px, 2px, darken($block-background, 15%));
+  }
+}
+
+/* Front page Grid View. */
+.view-id-home {
+  table {
+    tbody {
+      tr, tr:nth-child(2n+1), th {
+        background: none;
+        border: 0px;
+        padding: 0px;
+      }
+      td {
+        padding: 0 10px 10px 0;
+        border: none;
+      }
+    }
+  }
+  .views-field-view-node a {
+     @include button(#3c628f, white);
+
+     &:after {
+       margin-left: 0.3em;
+       font-size: 90%;
+       content: "  >";
+       color: #999;
+    }
+  }
+}
+
+#main-content .view-id-home h3 {
+  margin-top: 0px;
 }
