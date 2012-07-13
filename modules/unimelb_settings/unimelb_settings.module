@@ -27,6 +27,12 @@ return $html;
 
 function unimelb_settings_form($form, &$form_state) {
 
+$form['unimelb_settings_custom_logo'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Use Custom Logo'),
+  '#description' => t('If you do not want to use the logo provider by the brand.unimelb.edu.au injector, check this box. You will need to use your theme\'s logo or include some custom CSS.'),
+  '#default_value' => variable_get('unimelb_settings_custom_logo', 0),
+);
 
 $form['unimelb_settings_parent-org'] = array(
 '#type' => 'textfield',
