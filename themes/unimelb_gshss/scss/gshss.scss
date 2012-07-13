@@ -13,7 +13,8 @@ $block-background = #dfe9f4;
 
 // No extra margin on a logo-only header.
 .logo .header.without-ht {
-  margin: 0px
+  margin: 0px;
+  overflow: visible;
 }
 
 // Logo header positioning override.
