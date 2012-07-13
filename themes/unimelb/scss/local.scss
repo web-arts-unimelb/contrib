@@ -1,6 +1,6 @@
 /* Local overrides to theme elements. */
 
-@include "mixins.scss";
+@import "mixins.scss";
 
 /* Give Marcus a pre-set margin on headers in the content. */
 #main-content {
