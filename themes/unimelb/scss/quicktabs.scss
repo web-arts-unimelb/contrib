@@ -1,6 +1,6 @@
 /* Quick Tabs: Override "Basic" style. */
 
-@include "mixins.scss";
+@import "mixins.scss";
 
 /* Override h2 size on the profile tabs. */
 #main-content .pane-quicktabs-staff-profile h2 {
