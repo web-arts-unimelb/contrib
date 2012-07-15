@@ -1,5 +1,6 @@
 /* Quick Tabs: Override "Basic" style. */
 
+@import "variables.scss";
 @import "mixins.scss";
 
 /* Override h2 size on the profile tabs. */
@@ -26,7 +27,7 @@ ul.quicktabs-tabs.quicktabs-style-nostyle {
       color: #666;
       margin-bottom: 0.5em;
       &:hover {
-        color: #036;
+        color: $uni-blue;
       }
     }
 
@@ -39,7 +40,7 @@ ul.quicktabs-tabs.quicktabs-style-nostyle {
         background: none;
 
         &:hover {
-          color: #036;
+          color: $uni-blue;
         }
       }
     }

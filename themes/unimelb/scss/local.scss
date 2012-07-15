@@ -1,13 +1,31 @@
 /* Local overrides to theme elements. */
 
+@import "variables.scss";
 @import "mixins.scss";
+
+/* Make ALL headings blue. ALL. */
+@for $i from 1 through 6 {
+  #main-content h#{$i} {
+    color: $uni-blue;
+  }
+}
 
 /* Give Marcus a pre-set margin on headers in the content. */
 #main-content {
-  h2, h3, h4, h5, h6 {
+  h2, h3 {
     margin-top: 1em;
   }
+  h4, h5, h6 {
+    margin-top: 1.4em;
+  }
+  h5 {
+    font-size: 16px;
+  }
+  h6 {
+    font-size: 14px;
+  }
 }
+
 
 /* Override header margin if directly following another header. */
 h1 + h1, h1 + h2,
@@ -258,13 +276,13 @@ table {
 #background-wrapper,
 body.html.home.front {
   background-image: url('../images/homepage-blue.jpg');
-  background-color: #036;
+  background-color: $uni-blue;
 }
 
 #background-wrapper,
 body.html.blue.not-front {
   background-image: url('../images/blue.jpg');
-  background-color: #036;
+  background-color: $uni-blue;
 }
 
 #background-wrapper {
