@@ -5,25 +5,23 @@
 
 /* Make ALL headings blue. ALL. */
 @for $i from 1 through 6 {
-  #main-content h#{$i} {
+  h#{$i} {
     color: $uni-blue;
   }
 }
 
 /* Give Marcus a pre-set margin on headers in the content. */
-#main-content {
-  h2, h3 {
-    margin-top: 1em;
-  }
-  h4, h5, h6 {
-    margin-top: 1.4em;
-  }
-  h5 {
-    font-size: 16px;
-  }
-  h6 {
-    font-size: 14px;
-  }
+h2, h3 {
+  margin-top: 1em;
+}
+h4, h5, h6 {
+  margin-top: 1.2em;
+}
+h5 {
+  font-size: 14px;
+}
+h6 {
+  font-size: 12px;
 }
 
 
