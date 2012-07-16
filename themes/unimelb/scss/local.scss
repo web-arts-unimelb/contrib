@@ -26,12 +26,10 @@ h6 {
 
 
 /* Override header margin if directly following another header. */
-#main-content {
-  @for $i from 1 through 6 {
-    @for $j from 1 through 6 {
-      h#{$i} + h#{$i}, h#{$i} + h#{$j} {
-        margin-top: 0em;
-      }
+@for $i from 1 through 6 {
+  @for $j from 1 through 6 {
+    h#{$i} + h#{$i}, h#{$i} + h#{$j} {
+      margin-top: 0em;
     }
   }
 }
