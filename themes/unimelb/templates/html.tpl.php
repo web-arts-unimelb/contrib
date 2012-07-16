@@ -94,11 +94,11 @@
 
   <!-- GLOBAL RESOURCES -->
   <!-- DO NOT CHANGE -->
-  <link rel="stylesheet" href="http://brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
-  <script type="text/javascript" src="http://brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
+  <link rel="stylesheet" href="<?php print $protocol; ?>brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
+  <script type="text/javascript" src="<?php print $protocol; ?>brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
 
-  <link rel="stylesheet" href="http://brand.unimelb.edu.au/global-header/css/style.css" />
-  <script type="text/javascript" src="http://brand.unimelb.edu.au/global-header/js/injection.js"></script>
+  <link rel="stylesheet" href="<?php print $protocol; ?>brand.unimelb.edu.au/global-header/css/style.css" />
+  <script type="text/javascript" src="<?php print $protocol; ?>brand.unimelb.edu.au/global-header/js/injection.js"></script>
   <!-- /GLOBAL RESOURCES -->
 
   <!-- THEME STYLES -->

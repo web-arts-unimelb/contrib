@@ -43,6 +43,16 @@ function unimelb_preprocess_html(&$variables) {
   $variables['unimelb_meta_authoriser'] = variable_get('unimelb_settings_auth-name');
 
   $variables['unimelb_meta_email'] = variable_get('unimelb_settings_ad-email');
+
+  // Including injector CSS and JS via HTTP throws up a warning if the site is
+  // on HTTPS. Detect and adjust the protocol accordingly.
+  global $is_https;
+
+  $variables['protocol'] = 'http://';
+
+  if ($is_https) {
+    $variables['protocol'] = 'https://';
+  }
 }
 
 /**
