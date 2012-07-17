@@ -311,11 +311,11 @@ body.html.blue.not-front {
 /* End align profile image */
 
 /* Event presenter and location. */
-.view-id-events .views-table {
-  .views-field-field-event-speaker-organisation {
+.views-table {
+  th.views-field-field-event-speaker-organisation {
     min-width: 150px;
   }
-  .views-field-field-location {
+  th.views-field-field-location {
     min-width: 130px;
   }
 }
