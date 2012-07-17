@@ -305,8 +305,17 @@ body.html.blue.not-front {
 }
 
 /* Start align profile image */
-.profile_align img
-{
-	margin-top: 30px;
+.profile_align img {
+  margin-top: 30px;
 }
 /* End align profile image */
+
+/* Event presenter and location. */
+.view-id-events .views-table {
+  .views-field-field-event-speaker-organisation {
+    min-width: 150px;
+  }
+  .views-field-field-location {
+    min-width: 130px;
+  }
+}
