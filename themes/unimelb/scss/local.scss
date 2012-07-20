@@ -24,11 +24,14 @@ h6 {
   font-size: 12px;
 }
 
-
 /* Override header margin if directly following another header. */
 @for $i from 1 through 6 {
+  div.account-images + h#{$i} {
+    margin-top: 0em;
+  }
   @for $j from 1 through 6 {
-    h#{$i} + h#{$i}, h#{$i} + h#{$j} {
+    h#{$i} + h#{$i},
+    h#{$i} + h#{$j} {
       margin-top: 0em;
     }
   }
@@ -298,5 +301,21 @@ body.html.blue.not-front {
 /* Float account-images right. */
 .account-images {
   float: right;
-  margin: 30px 10px 0px 20px;
+  margin: 20px 10px 0px 20px;
+}
+
+/* Start align profile image */
+.profile_align img {
+  margin-top: 30px;
+}
+/* End align profile image */
+
+/* Event presenter and location. */
+.views-table {
+  th.views-field-field-event-speaker-organisation {
+    min-width: 150px;
+  }
+  th.views-field-field-location {
+    min-width: 130px;
+  }
 }
