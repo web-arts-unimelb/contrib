@@ -1,0 +1,37 @@
+diff --git a/entity_translation.module b/entity_translation.module
+index 534fb9c..2341065 100644
+--- a/entity_translation.module
++++ b/entity_translation.module
+@@ -152,6 +152,8 @@ function entity_translation_entity_info_alter(&$entity_info) {
+     $entity_info[$entity_type]['translation']['entity_translation'] += array('class' => 'EntityTranslationDefaultHandler');
+ 
+     if (entity_translation_enabled($entity_type, TRUE)) {
++      // Add 'language' entity key to make sure the entity is saved with the correct source language
++      $entity_info[$entity_type]['entity keys']['language'] = 'language';
+       $entity_info[$entity_type]['language callback'] = 'entity_translation_language';
+ 
+       // If no base path is provided we default to the common "node/%node"
+diff --git a/includes/translation.handler.inc b/includes/translation.handler.inc
+index d1389b4..37005ee 100644
+--- a/includes/translation.handler.inc
++++ b/includes/translation.handler.inc
+@@ -724,7 +724,7 @@ class EntityTranslationDefaultHandler implements EntityTranslationHandlerInterfa
+     $language_widget = isset($form['language']) && $form['language']['#type'] == 'select';
+     if ($language_widget) {
+       foreach ($translations->data as $translation) {
+-        if (!empty($translation['source'])) {
++        if (!empty($translation['source']) && $translation['language'] != $form_langcode) {
+           unset($form['language']['#options'][$translation['language']]);
+         }
+       }
+@@ -742,8 +742,8 @@ class EntityTranslationDefaultHandler implements EntityTranslationHandlerInterfa
+       // widget and not current one.
+       // @todo Consider supporting the ability to change translation language.
+       if ($language_widget) {
+-        $form['language']['#options'][$langcode] = $languages[$langcode]->name;
+-        $form['language']['#default_value'] = $langcode;
++        $form['language']['#options'][$form_langcode] = $languages[$form_langcode]->name;
++        $form['language']['#default_value'] = $form_langcode;
+         $form['language']['#disabled'] = TRUE;
+       }
+ 

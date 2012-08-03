@@ -11,22 +11,22 @@
 define('ENTITY_TRANSLATION_ENABLED', 4);
 
 /**
- * Do not show translation metadata.
+ * Hides translation metadata.
  */
 define('ENTITY_TRANSLATION_METADATA_HIDE', 0);
 
 /**
- * Add translation metadata to the original authoring information.
+ * Adds translation metadata to the original authoring information.
  */
 define('ENTITY_TRANSLATION_METADATA_SHOW', 1);
 
 /**
- * Replace the original authoring information with translation metadata.
+ * Replaces the original authoring information with translation metadata.
  */
 define('ENTITY_TRANSLATION_METADATA_REPLACE', 2);
 
 /**
- * Check if the given entity has node translation enabled.
+ * Checks if the given entity has node translation enabled.
  */
 function entity_translation_node($entity_type, $node) {
   return $entity_type == 'node' && function_exists('translation_supported_type') && translation_supported_type($node->type);
@@ -86,46 +86,14 @@ function entity_translation_node_supported_type($type) {
 }
 
 /**
- * Perform alterations on the node edit form.
- *
- * Clean up the language selector to avoid the possibility to change the node
- * language to a value already assigned to an existing translation.
- * Convert the translation update status fieldset into a vartical tab.
- */
-function entity_translation_node_alter_form(&$form, $form_state, $handler) {
-  $translations = $handler->getTranslations();
-
-  // Disable languages for existing translations, so it is not possible to
-  // switch this node to some language which is already in the translation set.
-  foreach ($translations->data as $langcode => $translation) {
-    if ($langcode != $translations->original) {
-      unset($form['language']['#options'][$langcode]);
-    }
-  }
-  if (count($translations->data) > 1) {
-    unset($form['language']['#options']['']);
-  }
-
-  if (isset($form['translation'])) {
-    $form['translation'] += array(
-      '#group' => 'additional_settings',
-      '#weight' => 100,
-      '#attached' => array(
-        'js' => array(drupal_get_path('module', 'entity_translation') . '/entity_translation.node-form.js'),
-      ),
-    );
-  }
-}
-
-/**
  * Implements hook_node_view().
  *
- * Provide content language switcher links to navigate among node translations.
+ * Provides content language switcher links to navigate among node translations.
  */
 function entity_translation_node_view($node, $build_mode) {
   if (!empty($node->translations) && drupal_multilingual() && entity_translation_node_supported_type($node->type)) {
     $path = 'node/' . $node->nid;
-    $links = language_negotiation_get_switch_links(LANGUAGE_TYPE_CONTENT, $path);
+    $links = EntityTranslationDefaultHandler::languageSwitchLinks($path);
 
     if (is_object($links) && !empty($links->links)) {
       $handler = entity_translation_get_handler('node', $node);
@@ -153,7 +121,7 @@ function entity_translation_node_view($node, $build_mode) {
 /**
  * Implements hook_form_FORM_ID_alter().
  *
- * Provide settings into the node content type form to choose for entity
+ * Provides settings into the node content type form to choose for entity
  * translation metadata and comment filtering.
  */
 function entity_translation_form_node_type_form_alter(&$form, &$form_state) {
@@ -183,7 +151,7 @@ function entity_translation_form_node_type_form_alter(&$form, &$form_state) {
 /**
  * Implements hook_preprocess_node().
  *
- * Alter node template variables to show/replace entity translation metadata.
+ * Alters node template variables to show/replace entity translation metadata.
  */
 function entity_translation_preprocess_node(&$variables) {
   $node = $variables['node'];
@@ -229,7 +197,7 @@ function entity_translation_preprocess_node(&$variables) {
 /**
  * Implements hook_query_TAG_alter().
  *
- * Filter out node comments by content language.
+ * Filters out node comments by content language.
  *
  * @todo Find a way to track node comment statistics per language.
  */
