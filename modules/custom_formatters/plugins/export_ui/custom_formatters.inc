@@ -42,8 +42,13 @@ function custom_formatters_custom_formatters_ctools_export_ui() {
  * Custom Formatters settings form.
  */
 function custom_formatters_export_ui_form(&$form, &$form_state) {
-  $form['#attached']['js'] = array(
-    drupal_get_path('module', 'custom_formatters') . '/scripts/custom_formatters.admin.js'
+  $form['#attached'] = array(
+    'css' => array(
+      drupal_get_path('module', 'custom_formatters') . '/styles/custom_formatters.css',
+    ),
+    'js' => array(
+      drupal_get_path('module', 'custom_formatters') . '/scripts/custom_formatters.admin.js',
+    ),
   );
 
   $item = $form_state['item'];
@@ -233,17 +238,19 @@ function _custom_formatters_preview_variables($form, $form_state) {
   $options['entities'] = array();
   if (!empty($options['fields'])) {
     $field = !empty($item['preview']['field']) ? $item['preview']['field'] : key($options['fields']);
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', $entity_type)
-      ->entityCondition('bundle', $bundle)
-      ->addTag('random')
-      ->range(0, 50)
-      ->fieldCondition($field);
-    $result = $query->execute();
-    if (!empty($result)) {
-      $entities = entity_load($entity_type, array_keys($result[$entity_type]));
-      foreach ($entities as $key => $entity) {
-        $options['entities'][$key] = entity_label($entity_type, $entity) . " [eid:{$key}]";
+    if (strstr($field, 'field_')) {
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', $entity_type)
+        ->entityCondition('bundle', $bundle)
+        ->addTag('random')
+        ->range(0, 50)
+        ->fieldCondition($field);
+      $result = $query->execute();
+      if (!empty($result)) {
+        $entities = entity_load($entity_type, array_keys($result[$entity_type]));
+        foreach ($entities as $key => $entity) {
+          $options['entities'][$key] = entity_label($entity_type, $entity) . " [eid:{$key}]";
+        }
       }
     }
   }
@@ -278,6 +285,7 @@ function custom_formatters_export_ui_form_js_preview($form, $form_state, $object
   // Clear messages.
   drupal_get_messages(NULL, TRUE);
 
+  // Build preview elements.
   $obj_type = $form_state['values']['preview']['entity_type'];
   if (is_null($object)) {
     $objects = entity_load($obj_type, array($form_state['values']['preview']['entity']));
@@ -286,10 +294,16 @@ function custom_formatters_export_ui_form_js_preview($form, $form_state, $object
   $field = field_info_field($form_state['values']['preview']['field']);
   $instance = field_info_instance($obj_type, $field['field_name'], $form_state['values']['preview']['bundle']);
   $langcode = field_language($obj_type, $object, $field['field_name']);
-  if (function_exists($function = "{$field['module']}_field_load")) {
-    $items = array(field_get_items($obj_type, $object, $instance['field_name'], $langcode));
-    $function($obj_type, array($object), $field, array($instance), $langcode, $items, FIELD_LOAD_CURRENT);
-    $items = $items[0];
+  $items = field_get_items($obj_type, $object, $instance['field_name'], $langcode);
+
+  // Prepare field view.
+  $functions = array("{$field['module']}_field_prepare_view", "{$field['module']}_field_load");
+  foreach ($functions as $function) {
+    if (function_exists($function)) {
+      $items = array($items);
+      $function($entity_type, array($entity), $field, array($instance), $langcode, $items, FIELD_LOAD_CURRENT);
+      $items = $items[0];
+    }
   }
 
   $display = $instance['display']['default'];
@@ -300,13 +314,32 @@ function custom_formatters_export_ui_form_js_preview($form, $form_state, $object
   $display['#cf_options'] = array('#contextual_links' => FALSE);
   $formatter = (object) $form_state['values'];
 
+  // Build the preview html.
+  $element = custom_formatters_field_formatter_view($obj_type, $object, $field, $instance, $langcode, $items, $display, $formatter);
+  $variables = array(
+    'element' => array_merge($element, array(
+      '#label_display' => 'hidden',
+      '#title' => NULL,
+      '#items' => $element,
+      '#field_name' => $field['field_name'],
+      '#field_type' => $field['type']
+    )),
+  );
+  foreach (array_keys($element) as $delta) {
+    $variables['item_attributes'][$delta] = NULL;
+  }
+
   $js = drupal_add_js();
   $form['engine']['preview']['preview']['content'] = array(
-    '#markup' => render(custom_formatters_field_formatter_view($obj_type, $object, $field, $instance, $langcode, $items, $display, $formatter)),
+    '#markup' => theme('field', $variables),
   );
-
   $js = array_diff_assoc(drupal_add_js(), $js);
   $form['engine']['preview']['preview']['content']['#markup'] .= drupal_get_js('header', $js);
+
+  // Preview debugging; Show the output HTML.
+  if (module_exists('devel') && isset($formatter->preview) && $formatter->preview['options']['dpm']['html']) {
+    dpm(theme('field', $variables));
+  }
 
   return $form['engine']['preview']['preview'];
 }

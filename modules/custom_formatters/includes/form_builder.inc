@@ -11,6 +11,8 @@
 function form_builder_custom_formatters_form_alter_alter(&$form, &$form_state, $form_id) {
   if (in_array($form_id, array('ctools_export_ui_edit_item_form', 'ctools_export_ui_edit_item_wizard_form')) && isset($form['#formatters']) && isset($form['engine']['settings'])) {
     if ($form_state['op'] == 'add' || ($form_state['op'] == 'edit' && !custom_formatters_formatter_is_active($form_state['item']))) {
+      drupal_add_css(drupal_get_path('module', 'custom_formatters') . '/styles/custom_formatters.form_builder.css');
+
       $form['engine']['settings'] = array(
         '#type' => 'fieldset',
         '#title' => t('Formatter settings'),
@@ -51,7 +53,9 @@ function custom_formatters_form_builder_submit($form, &$form_state) {
 
   $form_id = drupal_substr($form['form_build_id']['#value'], 0, 32);
   $form_cache = form_builder_cache_load('custom_formatters', $form_id);
-  $form_state['item']->fapi = form_builder_examples_export_recurse($form_cache);
+  if (is_array($form_cache)) {
+    $form_state['item']->fapi = form_builder_examples_export_recurse($form_cache);
+  }
 
   // Remove the cached form_builder form.
   form_builder_cache_delete('custom_formatters', $form_id);
@@ -194,6 +198,9 @@ function custom_formatters_form_builder_types() {
       '#type' => 'textarea',
     ),
   );
+
+  // Allow other modules to modify the fields.
+  drupal_alter('custom_formatters_form_builder_types', $fields);
 
   return array(
     'custom_formatters' => $fields

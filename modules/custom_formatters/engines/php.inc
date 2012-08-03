@@ -82,13 +82,9 @@ function custom_formatters_engine_php_render($formatter, $obj_type, $object, $fi
   $output = !empty($output) ? $output : ob_get_contents();
   ob_end_clean();
 
-  // Additional debugging options.
+  // Preview debugging; Show the available variables data.
   if (module_exists('devel') && isset($formatter->preview) && $formatter->preview['options']['dpm']['vars']) {
     dpm($variables);
-  }
-  if (module_exists('devel') && isset($formatter->preview) && $formatter->preview['options']['dpm']['html']) {
-    $html = $output;
-    dpm(is_array($html) ? render($html) : $html);
   }
 
   // Recover original theme path.
@@ -134,6 +130,6 @@ function custom_formatters_engine_php_export($item, $module) {
  * Help callback for Custom Formatters PHP engine.
  */
 function custom_formatters_engine_php_help() {
-  return t('A PHP Formatter is essentially a standard Drupal API Field Formatter, the primary difference is that all availble parameters have been bundled into a !variables array for ease of use.', array('!variables' => '<strong>$variables</strong>')) . "<br />\n"
-       . t('The Formatter should be PHP code that returns a value and it should NOT include %php tags.', array('%php' => '<?php ?>')) . "\n";
+  return t('A PHP Formatter is essentially a standard Drupal API Field Formatter, the primary difference is that all availble parameters have been bundled into a <strong>$variables</strong> array for ease of use.') . "<br />\n"
+       . t('The Formatter should be PHP code that returns either a value or <a href="http://drupal.org/node/930760">Render Array</a> and it should NOT include <em><?php ?></em> tags.') . "\n";
 }
