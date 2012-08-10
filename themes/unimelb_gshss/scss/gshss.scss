@@ -2,7 +2,11 @@
 
 /* Variables.  */
 $page-background: white;
-$block-background = #dfe9f4;
+$block-background: #dfe9f4;
+$button-menu-background: #4b99c7;
+$button-first-background: #54479C;
+$button-background: #3c628f;
+$button-text: white;
 
 /* Load mixins. */
 @import "mixins.scss";
@@ -28,11 +32,11 @@ $block-background = #dfe9f4;
     float: left;
 
     a {
-      @include button(#4b99c7, white);
+      @include button($button-menu-background, $button-text);
     }
     &.first {
       a {
-        @include button(#867bc3, white);
+        @include button($button-first-background, $button-text);
       }
     }
   }
@@ -86,7 +90,7 @@ div.col-2 {
     }
   }
   .views-field-view-node a {
-     @include button(#3c628f, white);
+     @include button($button-background, $button-text);
 
      &:after {
        margin-left: 0.3em;
@@ -99,4 +103,15 @@ div.col-2 {
 
 #main-content .view-id-home h3 {
   margin-top: 0px;
+}
+
+a.button {
+   @include button($button-background, $button-text);
+
+   &:after {
+     margin-left: 0.3em;
+     font-size: 90%;
+     content: "  >";
+     color: #999;
+  }
 }
