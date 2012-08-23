@@ -80,6 +80,12 @@
 		<?php if ($brand_logo == 'logo' && !empty($logo)): ?>
 			<a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
 		<?php else: ?>
+			<?php
+				// Set up variables
+				$unimelb_parent_org_short = variable_get('unimelb_settings_parent-org');
+				$unimelb_parent_org_url = variable_get('unimelb_settings_parent-org-url');
+			?>
+
 			<?php if (!empty($unimelb_parent_org_short)): ?><p>
 				<?php if (!empty($unimelb_parent_org_url)): ?>
 					<a href="<?php print $unimelb_parent_org_url ?>">
