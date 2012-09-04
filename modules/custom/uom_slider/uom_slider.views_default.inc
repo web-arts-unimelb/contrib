@@ -13,7 +13,7 @@ function uom_slider_views_default_views() {
   $view = new view;
   $view->name = 'slider';
   $view->description = '';
-  $view->tag = 'default, sliider';
+  $view->tag = 'default, slider';
   $view->base_table = 'node';
   $view->human_name = 'Slider';
   $view->core = 7;
@@ -112,7 +112,7 @@ function uom_slider_views_default_views() {
   $handler->display->display_options['fields']['path']['hide_empty'] = 0;
   $handler->display->display_options['fields']['path']['empty_zero'] = 0;
   $handler->display->display_options['fields']['path']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['path']['absolute'] = 0;
+  $handler->display->display_options['fields']['path']['absolute'] = 1;
   /* Field: Content: Pager Label */
   $handler->display->display_options['fields']['field_slider_pager']['id'] = 'field_slider_pager';
   $handler->display->display_options['fields']['field_slider_pager']['table'] = 'field_data_field_slider_pager';
@@ -139,10 +139,11 @@ function uom_slider_views_default_views() {
   $handler->display->display_options['fields']['field_slider_pager']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_slider_pager']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_slider_pager']['field_api_classes'] = 0;
-  /* Field: Content: Image Caption */
+  /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['relationship'] = 'translation';
   $handler->display->display_options['fields']['body']['label'] = '';
   $handler->display->display_options['fields']['body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['alter_text'] = 0;
@@ -206,7 +207,7 @@ function uom_slider_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['path'] = '[path]';
   $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 1;
   $handler->display->display_options['fields']['nothing']['alter']['trim_whitespace'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
@@ -243,6 +244,20 @@ function uom_slider_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $translatables['slider'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Slider Link'),
+    t('[path]'),
+    t('[field_slider_image]
+<div class="caption">[body]</div>'),
+    t('Block'),
+  );
   $export['slider'] = $view;
 
   return $export;

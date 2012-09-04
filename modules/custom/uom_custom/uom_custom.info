@@ -1,0 +1,7 @@
+name = "Custom D7 Module"
+description = Custom module that provides functionality specific to University of Melbourne Drupal 7 sites.
+
+package = University of Melbourne
+core = 7.x
+version = 7.x-1.0
+
