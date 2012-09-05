@@ -1,0 +1,17 @@
+/* GSHSS Specific CSS. */
+
+#background-wrapper, body.html.home.front {
+  background: url('../images/back-gradient.png') #036;
+  background-repeat: repeat-x;
+}
+
+#content-wrap {
+  background: #eee;
+  float: left;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#admin-menu {
+  z-index: 10000;
+}

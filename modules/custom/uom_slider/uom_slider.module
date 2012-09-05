@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Slider feature.
+ */
+
+include_once 'uom_slider.features.inc';
