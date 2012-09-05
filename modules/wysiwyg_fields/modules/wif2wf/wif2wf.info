@@ -3,9 +3,9 @@ description = "Wysiwyg ImageField 1.x to Wysiwyg Fields migration tool"
 dependencies[] = "wysiwyg_fields"
 core = "6.x"
 
-; Information added by drupal.org packaging script on 2012-05-30
+; Information added by drupal.org packaging script on 2012-09-04
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "wysiwyg_fields"
-datestamp = "1338382317"
+datestamp = "1346764123"
 
