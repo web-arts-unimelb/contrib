@@ -14,15 +14,6 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
   protected $admin_user;
   protected $translator_user;
 
-  function setUp() {
-    call_user_func_array(array('parent', 'setUp'), func_get_args());
-
-    // Reset user fields to make test object reusable.
-    unset($this->current_user);
-    unset($this->admin_user);
-    unset($this->translator_user);
-  }
-
   /**
    * Retrieves a Drupal path or an absolute path with language.
    *
@@ -46,13 +37,10 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
 
   /**
    * Returns a user with administration rights.
-   *
-   * @param $permissions
-   *   Additional permissions for administrative user.
    */
-  function getAdminUser(array $permissions = array()) {
+  function getAdminUser() {
     if (!isset($this->admin_user)) {
-      $this->admin_user = $this->drupalCreateUser(array_merge(array(
+      $this->admin_user = $this->drupalCreateUser(array(
         'bypass node access',
         'administer nodes',
         'administer languages',
@@ -60,25 +48,21 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
         'administer blocks',
         'access administration pages',
         'administer site configuration',
-      ), $permissions));
+      ));
     }
     return $this->admin_user;
   }
 
   /**
    * Returns a user with minimal translation rights.
-   *
-   * @param $permissions
-   *   Additional permissions for administrative user.
    */
-  function getTranslatorUser(array $permissions = array()) {
+  function getTranslatorUser() {
     if (!isset($this->translator_user)) {
-      $this->translator_user = $this->drupalCreateUser(array_merge(array(
+      $this->translator_user = $this->drupalCreateUser(array(
         'create page content',
         'edit own page content',
-        'edit original values', // @todo required for "edit own page content"
         'translate any entity',
-      ), $permissions));
+      ));
     }
     return $this->translator_user;
   }
@@ -91,23 +75,6 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
     $edit = array();
     $edit['clean_url'] = TRUE;
     $this->drupalPost(NULL, $edit, t('Save configuration'));
-  }
-
-  /**
-   * Enable URL language detection.
-   */
-  function enableUrlLanguageDetection() {
-    // Enable URL language detection and selection.
-    $edit = array(
-      'language[enabled][locale-url]' => TRUE,
-      'language_content[enabled][locale-interface]' => TRUE
-    );
-    $this->drupalPost('admin/config/regional/language/configure', $edit, t('Save settings'));
-    $this->assertRaw(t('Language negotiation configuration saved.'), t('URL language detection enabled.'));
-    $this->drupalGet('admin/config/regional/language/configure');
-    // Reset caches.
-    drupal_static_reset('locale_url_outbound_alter');
-    drupal_static_reset('language_list');
   }
 
   /**
@@ -222,7 +189,7 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
    *   The language code to be assigned to the specified values.
    */
   function createTranslation($node, $title, $body, $langcode) {
-    $this->drupalGet('node/' . $node->nid . '/edit/add/en/es');
+    $this->drupalGet('node/' . $node->nid . '/translate/add/es/en');
 
     $body_key = "body[$langcode][0][value]";
     $this->assertFieldByXPath("//textarea[@name='$body_key']", $node->body[$node->language][0]['value'], 'Original body value correctly populated.');
@@ -231,9 +198,8 @@ class EntityTranslationTestCase extends DrupalWebTestCase {
     $edit = array();
     $edit[$body_key] = $body;
 
-    $this->drupalPost(NULL, $edit, t('Save'));
-    $this->drupalGet('node/' . $node->nid . '/translate');
-    $this->assertLinkByHref('node/' . $node->nid . '/edit/' . $langcode, 0, t('Translation edit link found. Translation created.'));
+    $this->drupalPost(NULL, $edit, t('Save translation'));
+    $this->assertLinkByHref('node/' . $node->nid . '/translate/edit/' . $langcode, 0, t('Translation edit link found. Translation created.'));
 
     return $node;
   }

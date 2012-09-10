@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Implementation of hook_menu().
  */
@@ -10,73 +9,41 @@ function prepro_menu() {
       'title' => 'Preprocessors',
       'description' => 'Configure media preprocessors',
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('prepro_admin_form', 'css'),
+      'page arguments' => array('prepro_admin_form'),
       'access arguments' => array('administer site configuration'),
       'file' => 'prepro.admin.inc',
-    ),
-    'admin/config/media/prepro/css' => array(
-      'title' => 'CSS',
-      'description' => 'CSS preprocessors',
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-    ),
-    'admin/config/media/prepro/js' => array(
-      'title' => 'Javascript',
-      'description' => 'Javascript preprocessors',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('prepro_admin_form', 'js'),
-      'access arguments' => array('administer site configuration'),
-      'file' => 'prepro.admin.inc',
-      'type' => MENU_LOCAL_TASK,
     ),
   );
+}
+
+/**
+ * Helper function for getting settings for prepro.
+ */
+function _prepro_get_settings($overwrite = array()) {
+  $settings = variable_get('prepro', array()) + array(
+    'filetypes' => array(),
+    'additional' => array(),
+    'show_warnings' => TRUE, # show the "files are being recompiled on every request" warning
+    'fcb_compile' => TRUE, # use file-content based compilation rules
+  );
+  return $overwrite + $settings;
 }
 
 /**
  * Implementation of hook_element_info_alter().
  */
 function prepro_element_info_alter(&$type) {
-	array_unshift($type['styles']['#pre_render'], 'prepro_pre_render');
+  array_unshift($type['styles']['#pre_render'], 'prepro_pre_render');
 }
 
-
 /**
- * Helper function for getting settings for prepro.
- */
-function _prepro_get_settings($ext = NULL, $overwrite = array()) {
-	$settings = array();
-	if (!isset($ext) || $ext == 'css') {
-		$settings['css'] = variable_get('prepro', array()) + array(
-			'filetypes' => array(),
-			'additional' => array(),
-		);
-	}
-	if (!isset($ext) || $ext == 'js') {
-		$settings['js'] = variable_get('prepro_js', array()) + array(
-			'filetypes' => array(),
-			'additional' => array(),
-		);
-	}
-	if (isset($ext)) {
-		$settings = isset($settings[$ext]) ? $settings[$ext] : array();
-	}
-	return $overwrite + $settings;
-}
-
-
-/**
- * Builds the preprocessed cache. Should only be invoked by drupal_render().
- *
- * @param $elements
- *   A render array containing:
- *   '#items': The CSS items as returned by drupal_add_css() and altered by
- *   drupal_get_css().
- *
- * @return $elements
- *   The modified (pre-rendered) $elements parameter.
+ * Passes the outgoing stylesheets list to Prepro, via hook_element_info_alter().
+ * We use this instead of hook_css_alter to allow other modules to alter stuff
+ * before prepro.
  */
 function prepro_pre_render($elements) {
   _prepro_process_assets('css', $elements['#items']);
-	return $elements;
+  return $elements;
 }
 
 /**
@@ -92,92 +59,106 @@ function prepro_js_alter(&$js) {
  * Main helper function which preprocesses an array of css / js files.
  */
 function _prepro_process_assets($target_ext, &$items) {
-	$settings = _prepro_get_settings($target_ext);
-	$filetypes = _prepro_get_types($target_ext);
-	$filenames = array();
-	$map = cache_get('prepro:map:' . $target_ext);
-	$map = $map ? $map->data : array();
-	$original = $map;
+  $settings = _prepro_get_settings();
+  $filetypes = _prepro_get_types();
+  $filenames = array();
+  $map = cache_get('prepro:map');
+  $map = $map ? $map->data : array();
+  $original = $map;
 
-	foreach ($items as $key => $file) {
-		if ($file['type'] != 'file') {
-			continue;
-		}
+  foreach ($items as $key => $file) {
+    if ($file['type'] != 'file') {
+      continue;
+    }
 
-		preg_match('/([^\/]+?)\.([^\.\/]+)$/', $file['data'], $match);
-		$file['basename']  = $name = $match[1]; # path/to/lol.sass => lol
-		$file['extension'] = $ext = $match[2]; # path/to/lol.sass => sass
-		$file['target_extension'] = $target_ext;
+    preg_match('/([^\/]+?)\.([^\.\/]+)$/', $file['data'], $match);
+    $file['basename']  = $name = $match[1]; # path/to/lol.sass => lol
+    $file['extension'] = $ext = $match[2]; # path/to/lol.sass => sass
+    $file['target_extension'] = $target_ext;
 
-		if (!isset($filetypes[$ext])) {
-			continue;
-		}
+    if (!isset($filetypes[$ext])) {
+      continue;
+    }
 
-		$settings['filetypes'] += array($ext => array());
-		$settings['filetypes'][$ext] += array(
-			'cache' => 'onload',
-			'cache_location' => 'public://prepro/',
-			'preprocessor' => NULL,
-		);
-		$additional = $settings['filetypes'][$ext];
+    $settings['filetypes'] += array($ext => array());
+    $settings['filetypes'][$ext] += array(
+      'cache' => 'onload',
+      'cache_location' => 'public://prepro/',
+      'preprocessor' => NULL,
+    );
+    $additional = $settings['filetypes'][$ext];
 
-		// If the file is set to recompile on every page load then we don't want
-		// it to be aggregated.
-		$file['recompile'] = isset($file['recompile']) ? $file['recompile'] : FALSE;
-		$file['preprocess'] = !empty($file['recompile']) ? FALSE : $file['preprocess'];
+    // If the file is set to recompile on every page load then we don't want
+    // it to be aggregated.
+    $file['recompile'] = isset($file['recompile']) ? $file['recompile'] : FALSE;
+    $file['preprocess'] = $file['recompile'] && $file['preprocess'];
+    # if we are using "content based" compilation decision, then get the mtime of the file
+    # if not, use rand() to force a hash change.
+    $file['mtime'] = ($settings['fcb_compile'] && file_exists($file['data'])) ? filemtime($file['data']) : rand();
 
-		// Create a unique identifier for the file.
-		if ($file['recompile'] !== TRUE) {
-			$hash = hash('sha256', serialize($file));
-			$path = isset($map[$hash]) ? $map[$hash] : NULL;
-		}
+    // Create a unique identifier for the file.
+    $hash = hash('md5', serialize($file));
 
-		// We recompile this file if recompile equals TRUE, array (and thereby the
-		// hash value) changed, if the file doesn't exist, or if we are in development
-		// mode. NOTE: You can use the 'recompile' array for your CSS files to cache
-		// them based on advanced criteria.
-		if ($additional['cache'] != 'cache' || $file['recompile'] === TRUE || !isset($path) || !file_exists($path)) {
-			if ($additional['cache'] != 'cache') {
-				$message = t('Prepro - your @type files are being processed on every page load, this may cause slowdown on production servers. !link', array('@type' => strtoupper($target_ext), '!link' => l('Click here to change', 'admin/config/media/prepro/'. $target_ext)));
-				drupal_set_message($message, 'warning', false);
-			}
-			if (!$output = _prepro_compile($target_ext, $file)) {
-				if ($ext != 'css') {
-					unset($items[$key]);
-				}
-				continue;
-			}
-			# ensure we have a unique filename.
-			if (isset($filenames[$name])) {
-				$name = $name . '-' . substr(drupal_hash_base64($output), 0, 6);
-			}
-			$path = $additional['cache_location'] . '/' . $name . '.' . $target_ext;
+    # recompile is a "force recompile" flag
+    # unless that is set we do a "no recompile unless changed" mode
+    $path = ($file['recompile'] !== TRUE && isset($map[$hash])) ? $map[$hash] : NULL;
 
-			// Create the CSS file.
-			if (empty($filenames)) {
-				file_prepare_directory($additional['cache_location'], FILE_CREATE_DIRECTORY);
-			}
-			$filenames[$name] = true;
-			if (!file_unmanaged_save_data($output, $path, FILE_EXISTS_REPLACE)) {
-				unset($items[$key]);
-				continue;
-			}
-		}
+    # if $path doesn't exist it's easier to just unset than anything else
+    if (!file_exists($path) || $additional['cache'] != 'cache') {
+      $file['recompile'] = true;
+      unset ($path);
+    }
 
-		// Update the item in the stylesheets array.
-		$items[$key] = $file;
-		$items[$key]['data'] = $path;
-		if ($file['recompile'] !== TRUE) {
-			// Don't cache this item if it is set to recompile on every page load.
-			$map[$hash] = $path;
-		}
-	}
-	// If $map and $original don't match anymore that means we need to update the
-	// CSS cache.
-	if ($original !== $map) {
-		cache_set('prepro:map:' . $target_ext, $map, 'cache', CACHE_TEMPORARY);
-	}
-	return TRUE;
+    // Recompilation occurs when one of:
+    //  - the file is completely new to Prepro
+    //  - the contents of the file have changed
+    //  - the file is "known" but a cached version doesn't exist
+    // AND
+    //  - when we are in development mode
+    //  - the file is specifically marked to be recompiled
+    if (!isset($path) && $file['recompile'] === TRUE) {
+     # Print out a warning message if we're in devel mode, sporadically.
+      if ($additional['cache'] != 'cache' && $settings['show_warnings']) {
+        $message = t('Prepro - your @type files are being processed on every page load, this may cause slowdown on production servers. !link', array('@type' => strtoupper($target_ext), '!link' => l('Click here to change', 'admin/config/media/prepro/'. $target_ext)));
+        drupal_set_message($message, 'warning', false);
+      }
+      if (!$output = _prepro_compile($file)) {
+        if ($ext != 'css') {
+          unset($items[$key]);
+        }
+        continue;
+      }
+      # ensure we have a unique filename.
+      if (isset($filenames[$name])) {
+        $name = $name . '-' . substr(drupal_hash_base64($output), 0, 6);
+      }
+      $path = rtrim($additional['cache_location'], '/') . '/' . $name . '.' . $target_ext;
+      // Create the CSS file.
+      if (empty($filenames)) {
+        file_prepare_directory($additional['cache_location'], FILE_CREATE_DIRECTORY);
+      }
+      $filenames[$name] = true;
+      if (!file_unmanaged_save_data($output, $path, FILE_EXISTS_REPLACE)) {
+        unset($items[$key]);
+        continue;
+      }
+      $map[$hash] = $path;
+    }
+
+    // Update the item in the stylesheets array.
+    $items[$key] = $file;
+    $items[$key]['data'] = $path;
+    if ($file['recompile'] !== TRUE) {
+      // Don't cache this item if it is set to recompile on every page load.
+      $map[$hash] = $path;
+    }
+  }
+  // If $map and $original don't match anymore that means we need to update the
+  // CSS cache.
+  if ($original !== $map) {
+    cache_set('prepro:map', $map, 'cache', CACHE_TEMPORARY);
+  }
+  return TRUE;
 }
 
 /**
@@ -186,72 +167,66 @@ function _prepro_process_assets($target_ext, &$items) {
  * @ext
  *  Return file types for either just 'css' or 'js'.
  */
-function _prepro_get_types($ext = NULL) {
-	$types =& drupal_static(__FUNCTION__);
-	if (empty($types)) {
-		$types = array('css' => array(), 'js' => array());
-		foreach ($types as $file_ext => $void) {
-			$hook = $file_ext . '_preprocessor_info';
-			foreach (module_implements($hook) as $module) {
-				foreach (module_invoke($module, $hook) as $name => $info) {
-					$info['machine_name'] = $name;
-					$info['module'] = $module;
-					$info += array('callback' => $file_ext . '_preprocess_' . $name);
-					foreach ($info['filetypes'] as $type) {
-						$types[$file_ext] += array($type => array());
-						$types[$file_ext][$type][$name] = $info;
-					}
-				}
-			}
-		}
-	}
-	if (isset($ext)) {
-		return isset($types[$ext]) ? $types[$ext] : NULL;
-	}
-	return $types;
+function _prepro_get_types() {
+  $types =& drupal_static(__FUNCTION__, array());
+  if (empty($types)) {
+    $hook = 'preprocessor_info';
+    foreach (module_implements($hook) as $module) {
+      foreach (module_invoke($module, $hook) as $name => $info) {
+        $info['machine_name'] = $name;
+        $info['module'] = $module;
+        $info += array('callback' => 'preprocess_' . $name);
+        foreach ($info['filetypes'] as $type) {
+          $types += array($type => array());
+          $types[$type][$name] = $info;
+        }
+      }
+    }
+  }
+  return $types;
 }
 
-function _prepro_compile($target_ext, $file) {
-	$hook = $target_ext . '_preprocessor_info';
-	$settings = _prepro_get_settings($target_ext);
-	$types = _prepro_get_types($target_ext);
-	$ext = $file['extension'];
+function _prepro_compile($file) {
+  $settings = _prepro_get_settings();
+  $types = _prepro_get_types();
+  $ext = $file['extension'];
+  $target_ext = $file['target_extension'];
 
-	if (isset($settings['filetypes'][$ext])) {
-		$name = $settings['filetypes'][$ext]['preprocessor'];
-		if (isset($types[$ext][$name])) {
-			$info = $types[$ext][$name];
-		}
-	}
-	if (!isset($info)) {
-		$info = current($types[$ext]);
-	}
+  if (isset($settings['filetypes'][$ext])) {
+    $name = $settings['filetypes'][$ext]['preprocessor'];
+    if (isset($types[$ext][$name])) {
+      $info = $types[$ext][$name];
+    }
+  }
+  if (!isset($info)) {
+    $info = current($types[$ext]);
+  }
 
-	$compiler = $info['machine_name'];
-	$settings['additional'] += array($compiler => array());
-	$local = $settings['additional'][$compiler];
-	$local['filetype'] = $settings['filetypes'][$file['extension']];
+  $compiler = $info['machine_name'];
+  $settings['additional'] += array($compiler => array());
+  $settings['filetypes'] += array($file['extension'] => array());
+  $local = $settings['additional'][$compiler];
+  $local['filetype'] = $settings['filetypes'][$file['extension']];
 
-	$file['contents'] = '';
-	if (!$contents = file_get_contents($file['data'])) {
-		watchdog('Prepro', 'Prepro could not find the file %file for compilation', array('%file' => $file['data']), WATCHDOG_ERROR);
-		return null;
-	}
-	drupal_alter('prepro_precompile', $contents, $file, $local);
-	drupal_alter('prepro_precompile_' . $ext, $contents, $file, $local);
-	drupal_alter('prepro_precompile_' . $target_ext, $contents, $file, $local);
-	$file['contents'] = $contents;
+  if (!$file['contents'] = file_get_contents($file['data'])) {
+    watchdog('Prepro', 'Prepro could not find the file %file for compilation', array('%file' => $file['data']), WATCHDOG_ERROR);
+    continue;
+  }
 
-	if ($result = module_invoke($info['module'], $info['callback'], $file, $local, $settings)) {
-		if ($target_ext === 'css') {
-		  _drupal_build_css_path(NULL, base_path() . dirname($file['data']) .'/');
-		  $result = preg_replace_callback('/url\([\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\)/i', '_drupal_build_css_path', $result);
-		}
-		drupal_alter('prepro_postcompile', $result, $file, $local);
-		drupal_alter('prepro_postcompile_' . $ext, $result, $file, $local);
-		drupal_alter('prepro_postcompile_' . $target_ext, $result, $file, $local);
-		return $result;
-	}
+  drupal_alter('prepro_precompile', $file['contents'], $file, $local);
+  drupal_alter('prepro_precompile_' . $ext, $file['contents'], $file, $local);
+  drupal_alter('prepro_precompile_' . $target_ext, $file['contents'], $file, $local);
+
+  if ($result = module_invoke($info['module'], $info['callback'], $file, $local, $settings)) {
+    if ($target_ext === 'css') {
+      _drupal_build_css_path(NULL, base_path() . dirname($file['data']) .'/');
+      $result = preg_replace_callback('/url\([\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\)/i', '_drupal_build_css_path', $result);
+    }
+    drupal_alter('prepro_postcompile', $result, $file, $local);
+    drupal_alter('prepro_postcompile_' . $ext, $result, $file, $local);
+    drupal_alter('prepro_postcompile_' . $target_ext, $result, $file, $local);
+    return $result;
+  }
 }
 
 /**
@@ -260,11 +235,11 @@ function _prepro_compile($target_ext, $file) {
 function prepro_module_implements_alter(&$implementations, $hook) {
 
   // Move our hook_js_alter() after everyone else's for consistency.
-	if ($hook == 'js_alter') {
-		$group = $implementations['prepro'];
-		unset($implementations['prepro']);
-		$implementations['prepro'] = $group;
-	}
+  if ($hook == 'js_alter') {
+    $group = $implementations['prepro'];
+    unset($implementations['prepro']);
+    $implementations['prepro'] = $group;
+  }
 }
 
 /**
@@ -277,14 +252,11 @@ function prepro_flush_caches() {
  * Deletes old cached SCSS files.
  */
 function prepro_clear_cache() {
-	$settings = _prepro_get_settings();
-
-  foreach ($settings as $ext => $ext_settings) {
-		foreach ($ext_settings['filetypes'] as $type) {
-			$type += array(
-				'cache_location' => 'public://prepro/'
-			);
-			file_scan_directory($type['cache_location'], '/.*/', array('callback' => 'drupal_delete_file_if_stale'));
-		}
-	}
+  $cache = cache_get('prepro:map', 'cache');
+  if (isset($cache, $cache->data) && $cache = $cache->data) {
+    foreach ($cache as $hash => $file) {
+      file_unmanaged_delete($file);
+    }
+  }
+  cache_set('prepro:map', array(), 'cache', CACHE_TEMPORARY);
 }

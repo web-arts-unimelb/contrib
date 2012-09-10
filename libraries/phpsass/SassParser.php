@@ -256,6 +256,11 @@ class SassParser {
     }
 
     $options = array_merge($defaultOptions, $options);
+    
+    // We don't want to allow setting of internal only property syntax value
+    if (isset($options["property_syntax"]) && $options["property_syntax"] == "scss") {
+        unset($options["property_syntax"]);
+    }
 
     self::$instance = $this;
     self::$functions = $options['functions'];
@@ -263,6 +268,10 @@ class SassParser {
 
     foreach ($options as $name=>$value) {
       $this->$name = $value;
+    }
+    
+    if (!$this->property_syntax && $this->syntax == SassFile::SCSS) {
+        $this->property_syntax = "scss";
     }
 
     $GLOBALS['SassParser_debug'] = $this->debug;
@@ -359,7 +368,7 @@ class SassParser {
       'line_numbers' => $this->line_numbers,
       'load_path_functions' => $this->load_path_functions,
       'load_paths' => $this->load_paths,
-      'property_syntax' => $this->property_syntax,
+      'property_syntax' => ($this->property_syntax == "scss" ? null : $this->property_syntax),
       'quiet' => $this->quiet,
       'style' => $this->style,
       'syntax' => $this->syntax,
@@ -404,6 +413,11 @@ class SassParser {
         $this->filename = $file;
 
         $this->syntax = substr($this->filename, -4);
+            
+        if (!$this->property_syntax && $this->syntax == SassFile::SCSS) {
+            $this->property_syntax = "scss";
+        }
+        
         if ($this->syntax !== SassFile::SASS && $this->syntax !== SassFile::SCSS) {
           if ($this->debug) {
             throw new SassException('Invalid {what}', array('{what}' => 'syntax option'));

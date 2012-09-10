@@ -29,5 +29,5 @@ function sassy_compass__elements_of_type($type) {
   if (isset($types[$type])) {
     return new SassString(str_replace(' ', ',', $types[$type]));
   }
-  return new SassString('.no-such-type-' . $type);
+  throw new SassException('Elements-of-type does not support the type ' . $type);
 }

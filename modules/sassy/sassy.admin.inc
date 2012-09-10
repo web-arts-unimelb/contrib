@@ -1,6 +1,6 @@
 <?php
 
-function sassy_css_preprocessor_settings_form($form, $form_state) {
+function sassy_preprocessor_settings_form($form, $form_state) {
   extract($form_state['prepro']);
   $local += array(
     'debug' => FALSE,

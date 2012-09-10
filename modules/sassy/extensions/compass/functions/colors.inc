@@ -36,18 +36,6 @@ function sassy_compass__scale_saturation($color, $amount) {
 	return sassy_compass__scale_color_value($color, 'saturation', $amount);
 }
 
-/**
- * returns an IE hex string for a color with an alpha channel
- * suitable for passing to IE filters.
- */
-function sassy_compass__ie_hex_str($color) {
-	SassLiteral::assertType($color,  'SassColour');
-	$alpha = round($color->alpha * 255);
-	$alpha_str = str_pad(dechex($alpha), 2, '0', STR_PAD_LEFT);
-	$col = $color->asHex(FALSE);
-	return new SassString(strtoupper("##{$alpha_str}#{$col}"));
-}
-
 function sassy_compass__adjust_color_value($color, $attribute, $amount) {
 	if (!is_object($color)) {
 		$color = new SassColour($color);

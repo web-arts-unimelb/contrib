@@ -21,6 +21,28 @@
 module_load_include('inc', 'title', 'title.core');
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function title_module_implements_alter(&$implementations, $hook) {
+  if (isset($implementations['title'])) {
+    $group = $implementations['title'];
+    unset($implementations['title']);
+
+    switch ($hook) {
+      // The following hook implementations should be executed as last ones.
+      case 'entity_info_alter':
+      case 'entity_presave':
+        $implementations['title'] = $group;
+        break;
+
+      // Normally Title needs to act as first module to perform synchronization.
+      default:
+        $implementations = array('title' => $group) + $implementations;
+    }
+  }
+}
+
+/**
  * Implements hook_entity_info_alter().
  */
 function title_entity_info_alter(&$info) {
@@ -109,45 +131,6 @@ function title_entity_label($entity, $type, $langcode = NULL) {
  */
 function title_entity_presave($entity, $type) {
   title_entity_sync($type, $entity, NULL, TRUE);
-  // Store a copy of the synchronized values to check if they have been altered
-  // before saving.
-  $entity->field_replacement = clone($entity);
-}
-
-/**
- * Implements hook_entity_insert().
- */
-function title_entity_insert($entity, $type) {
-  title_entity_update($entity, $type);
-}
-
-/**
- * Implements hook_entity_update().
- *
- * Since Title is supposed to act as the first module on hook invocation, legacy
- * field values might be altered by subsequent hook implementations after
- * reverse synchronization has happened. If this happens the field values must
- * be synchronized again and the updated versions must be saved.
- */
-function title_entity_update($entity, $type) {
-  $fr_info = title_field_replacement_info($type);
-
-  if ($fr_info) {
-    $update = FALSE;
-    list(, , $bundle) = entity_extract_ids($type, $entity);
-
-    foreach ($fr_info as $legacy_field => $info) {
-      if (isset($entity->{$legacy_field}) && isset($entity->field_replacement->{$legacy_field}) && $entity->{$legacy_field} !== $entity->field_replacement->{$legacy_field} && title_field_replacement_enabled($type, $bundle, $legacy_field)) {
-        title_field_sync_set($type, $entity, $legacy_field, $info);
-        $update = TRUE;
-      }
-    }
-
-    if ($update) {
-      // Save updated field values.
-      field_attach_update($type, $entity);
-    }
-  }
 }
 
 /**
@@ -298,10 +281,20 @@ function title_field_replacement_batch_set($entity_type, $bundle, $legacy_field)
  * Batch operation: initialize a batch of replacing field values.
  */
 function title_field_replacement_batch($entity_type, $bundle, $legacy_field, &$context) {
+  $info = entity_get_info($entity_type);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type);
+
+  // There is no general way to tell if an entity supports bundle conditions
+  // (for instance taxonomy terms and comments do not), hence we may need to
+  // loop over all the entities of the given type.
+  if (!empty($info['efq bundle conditions'])) {
+    $query->entityCondition('bundle', $bundle);
+  }
+
   if (empty($context['sandbox'])) {
-    $query = new EntityFieldQuery();
-    $total = $query
-      ->entityCondition('entity_type', $entity_type)
+    $count_query = clone $query;
+    $total = $count_query
       ->count()
       ->execute();
 
@@ -310,8 +303,18 @@ function title_field_replacement_batch($entity_type, $bundle, $legacy_field, &$c
     $context['sandbox']['total'] = $total;
   }
 
-  $step = 5;
-  $context['sandbox']['progress'] += title_field_replacement_init($entity_type, $bundle, $legacy_field, $step * $context['sandbox']['steps']++, $step);
+  $step = variable_get('title_field_replacement_batch_size', 5);
+  $start = $step * $context['sandbox']['steps']++;
+  $results = $query
+    ->entityCondition('entity_type', $entity_type)
+    ->range($start, $step)
+    ->execute();
+
+  if (!empty($results[$entity_type])) {
+    $ids = array_keys($results[$entity_type]);
+    title_field_replacement_init($entity_type, $bundle, $legacy_field, $ids);
+    $context['sandbox']['progress'] += count($ids);
+  }
 
   if ($context['sandbox']['progress'] != $context['sandbox']['total']) {
     $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['total'];
@@ -327,39 +330,23 @@ function title_field_replacement_batch($entity_type, $bundle, $legacy_field, &$c
  *   The bundle the legacy field belongs to.
  * @param $legacy_field
  *   The name of the legacy field to be replaced.
- * @param $start
- *   The first entity from the result set to return.
- * @param $length
- *   The number of entities to return from the result set.
+ * @param $ids
+ *   An array of entity IDs.
  *
  * @return
  *   The number of entities processed.
  */
-function title_field_replacement_init($entity_type, $bundle, $legacy_field, $start = 0, $length = 10) {
-  $query = new EntityFieldQuery();
-
-  $results = $query
-    ->entityCondition('entity_type', $entity_type)
-    ->range($start, $length)
-    ->execute();
-
-  if (!empty($results[$entity_type])) {
-    $GLOBALS['title_field_replacement_init'] = TRUE;
-    $entities = entity_load($entity_type, array_keys($results[$entity_type]));
-
-    foreach ($entities as $id => $entity) {
-      list(, , $entity_bundle) = entity_extract_ids($entity_type, $entity);
-      if ($entity_bundle == $bundle) {
-        field_attach_presave($entity_type, $entity);
-        field_attach_update($entity_type, $entity);
-      }
+function title_field_replacement_init($entity_type, $bundle, $legacy_field, $ids) {
+  $GLOBALS['title_field_replacement_init'] = TRUE;
+  $entities = entity_load($entity_type, $ids);
+  foreach ($entities as $id => $entity) {
+    list(, , $entity_bundle) = entity_extract_ids($entity_type, $entity);
+    if ($entity_bundle == $bundle) {
+      field_attach_presave($entity_type, $entity);
+      field_attach_update($entity_type, $entity);
     }
-
-    unset($GLOBALS['title_field_replacement_init']);
-    return count($results[$entity_type]);
   }
-
-  return 0;
+  unset($GLOBALS['title_field_replacement_init']);
 }
 
 /**
@@ -378,7 +365,7 @@ function title_entity_sync($entity_type, &$entity, $langcode = NULL, $set = FALS
   $langcode = field_valid_language($langcode, FALSE);
 
   // We do not need to perform this more than once.
-  if (!empty($sync[$entity_type][$id][$langcode][$set])) {
+  if (!empty($id) && !empty($sync[$entity_type][$id][$langcode][$set])) {
     return;
   }
 
@@ -412,7 +399,9 @@ function title_entity_sync($entity_type, &$entity, $langcode = NULL, $set = FALS
  *   The field language to use for the source value.
  */
 function title_field_sync_get($entity_type, $entity, $legacy_field, $info, $langcode = NULL) {
-  if (isset($entity->{$legacy_field})) {
+  if (property_exists($entity, $legacy_field)) {
+    // Save the legacy field value to LEGACY_FIELD_NAME_original.
+    $entity->{$legacy_field . '_original'} = $entity->{$legacy_field};
     // Find out the actual language to use (field might be untranslatable).
     $langcode = field_language($entity_type, $entity, $info['field']['field_name'], $langcode);
     $entity->{$legacy_field} = $info['callbacks']['sync_get']($entity_type, $entity, $legacy_field, $info, $langcode);
@@ -436,7 +425,7 @@ function title_field_sync_get($entity_type, $entity, $legacy_field, $info, $lang
  *   The field language to use for the source value.
  */
 function title_field_sync_set($entity_type, $entity, $legacy_field, $info) {
-  if (isset($entity->{$legacy_field})) {
+  if (property_exists($entity, $legacy_field)) {
     $langcode = title_entity_language($entity_type, $entity);
     $info['callbacks']['sync_set']($entity_type, $entity, $legacy_field, $info, $langcode);
   }
@@ -456,18 +445,12 @@ function title_field_sync_set($entity_type, $entity, $legacy_field, $info) {
  *   A language code
  */
 function title_entity_language($entity_type, $entity) {
-  if (module_exists('entity_translation')) {
+  if (module_exists('entity_translation') && entity_translation_enabled($entity_type)) {
     $handler = entity_translation_get_handler($entity_type, $entity);
     $langcode = $handler->getLanguage();
   }
   else {
-    // If a language property is defined for the current entity we synchronize
-    // the field value using the entity language, otherwise we fall back to
-    // LANGUAGE_NONE.
-    try {
-      $langcode = entity_metadata_wrapper($entity_type, $entity)->language->value();
-    }
-    catch (EntityMetadataWrapperException $e) {}
+    $langcode = entity_language($entity_type, $entity);
   }
   return !empty($langcode) ? $langcode : LANGUAGE_NONE;
 }
@@ -501,29 +484,30 @@ function title_field_attach_submit($entity_type, $entity, $form, &$form_state) {
   $fr_info = title_field_replacement_info($entity_type);
 
   if (!empty($fr_info)) {
-    $values = &$form_state['values'];
+    // We copy (rather than reference) the values from $form_state because the
+    // subsequent call to drupal_array_get_nested_value() is destructive and
+    // will affect other hooks relying on data in $form_state. At the end, we
+    // copy any modified value back into the $form_state array using
+    // drupal_array_set_nested_value().
+    $values = $form_state['values'];
     $values = drupal_array_get_nested_value($values, $form['#parents']);
-    $fr_info = title_field_replacement_info($entity_type);
     $langcode = title_entity_language($entity_type, $entity);
-    list($id) = entity_extract_ids($entity_type, $entity);
 
     foreach ($fr_info as $legacy_field => $info) {
       if (!empty($form[$legacy_field]['#field_replacement'])) {
         $field_name = $info['field']['field_name'];
 
-        // Perform synchronization only when dealing with the original values or
-        // when creating a new entity.
-        if (empty($id) || $langcode == $form[$field_name]['#language']) {
-          // Give a chance to operate on submitted values either.
-          if (!empty($info['callbacks']['submit'])) {
-            $info['callbacks']['submit']($values, $legacy_field, $info, $langcode);
-          }
-
-          drupal_static_reset('field_language');
-          title_field_sync_get($entity_type, $entity, $legacy_field, $info, $langcode);
+        // Give a chance to operate on submitted values either.
+        if (!empty($info['callbacks']['submit'])) {
+          $info['callbacks']['submit']($entity_type, $entity, $legacy_field, $info, $langcode, $values);
         }
+
+        drupal_static_reset('field_language');
+        title_field_sync_get($entity_type, $entity, $legacy_field, $info, $langcode);
       }
     }
+
+    drupal_array_set_nested_value($form_state['values'], $form['#parents'], $values);
   }
 }
 
@@ -566,6 +550,15 @@ function title_menu() {
       }
     }
   }
+
+  $items['admin/config/content/title'] = array(
+    'title' => 'Title settings',
+    'description' => 'Settings for the Title module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('title_admin_settings_form'),
+    'access arguments' => array('administer content types'),
+    'file' => 'title.admin.inc',
+  );
 
   return $items;
 }
@@ -760,5 +753,50 @@ function title_field_replacement_hide_label($entity_type, $entity, &$variables, 
     // We cannot simply unset the variable value since this may cause templates
     // to throw notices.
     $variables[$key] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function title_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'title') . '/views',
+  );
+}
+
+/**
+ * Implements hook_field_attach_create_bundle().
+ *
+ * Automatically attach the replacement field to the new bundle.
+ */
+function title_field_attach_create_bundle($entity_type, $bundle) {
+  $entity_info = entity_get_info($entity_type);
+  if (empty($entity_info['field replacement'])) {
+    return;
+  }
+
+  $options = variable_get('title_auto_attach', array());
+
+  foreach (array_keys($entity_info['field replacement']) as $field_name) {
+    if (!isset($options[$entity_type . ':' . $field_name])) {
+      continue;
+    }
+
+    // Do not continue if the replacement field already exists.
+    if (field_info_instance($entity_type, $field_name, $bundle)) {
+      continue;
+    }
+
+    title_field_replacement_toggle($entity_type, $bundle, $field_name);
+
+    $params = array(
+      '@entity_name' => strtolower($entity_info['label']),
+      '@field_name' => $entity_info['field replacement'][$field_name]['field']['field_name'],
+      '@bundle_name' => $bundle,
+    );
+
+    drupal_set_message(t('The field @field_name was attached automatically to @entity_name - @bundle_name.', $params));
   }
 }

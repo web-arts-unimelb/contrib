@@ -146,4 +146,147 @@ class TitleFieldReplacementTestCase extends DrupalWebTestCase {
       }
     }
   }
+
+  /**
+   * Check for automated title_field attachment.
+   */
+  function testAutomatedFieldAttachement() {
+    $admin_user = $this->drupalCreateUser(array('administer content types', 'administer taxonomy'));
+    $this->drupalLogin($admin_user);
+
+    $edit['title_auto_attach[]'] = array('taxonomy_term:name', 'taxonomy_term:description');
+    $this->drupalPost('admin/config/content/title', $edit, t('Save configuration'));
+
+    $edit = array(
+      'name' => 'Foo',
+      'machine_name' => 'foo',
+      'description' => 'Bar',
+    );
+
+    $this->drupalPost('admin/structure/taxonomy/add', $edit, t('Save'));
+
+    $this->assertText('The field name_field was attached automatically to taxonomy term - foo.');
+    $this->assertText('The field description_field was attached automatically to taxonomy term - foo.');
+  }
+}
+
+/**
+ * Tests for legacy field replacement.
+ */
+class TitleTranslationTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Replaced fields translation',
+      'description' => 'Test replaced field translation.',
+      'group' => 'Title',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('locale', 'entity_translation', 'title');
+
+    // Create a power user.
+    $admin_user = $this->drupalCreateUser(array('administer modules',  'view the administration theme', 'administer languages', 'administer taxonomy', 'administer entity translation', 'translate taxonomy_term entities', 'edit original values'));
+    $this->drupalLogin($admin_user);
+
+    // Enable a translation language.
+    $edit = array('langcode' => 'it');
+    $this->drupalPost('admin/config/regional/language/add', $edit, t('Add language'));
+    $this->assertTrue(drupal_multilingual(), t('Italian language installed.'));
+
+    // Enable URL language negotiation.
+    $name = 'language_content[enabled][locale-url]';
+    $edit = array($name => 1);
+    $this->drupalPost('admin/config/regional/language/configure', $edit, t('Save settings'));
+    $this->assertFieldByName($name, 1, t('URL language negotiation enabled.'));
+
+    // Enable taxonomy translation.
+    $name = 'entity_translation_entity_types[taxonomy_term]';
+    $edit = array($name => 1);
+    $this->drupalPost('admin/config/regional/entity_translation', $edit, t('Save configuration'));
+    $this->assertFieldByName($name, 'taxonomy_term', t('Taxonomy translation enabled.'));
+
+    // Create a new vocabulary.
+    $name = drupal_strtolower($this->randomName());
+    $edit = array(
+      'name' => $this->randomString(),
+      'machine_name' => $name,
+    );
+    $this->drupalPost('admin/structure/taxonomy/add', $edit, t('Save'));
+    $this->vocabulary = taxonomy_vocabulary_machine_name_load($name);
+    $this->assertTrue($this->vocabulary, t('Vocabulary created.'));
+
+    // Replace both taxonomy term legacy fields.
+    $entity_type = 'taxonomy_term';
+    foreach (title_field_replacement_info($entity_type) as $legacy_field => $info) {
+      title_field_replacement_toggle($entity_type, $name, $legacy_field);
+      $t_args = array('%legacy_field' => $legacy_field);
+      $this->assertTrue(field_info_instance($entity_type, $info['field']['field_name'], $name), t('The %legacy_field field has been correctly replaced.', $t_args));
+    }
+  }
+
+  /**
+   * Test taxonomy translation workflow.
+   */
+  function testTranslationWorkflow() {
+    // Create a taxonomy term and check that legacy fields are properly
+    // populated.
+    $original_values = array(
+      'name' => $this->randomName(),
+      'description' => $this->randomName(),
+    );
+    $edit = $this->editValues($original_values, 'en');
+    $this->drupalPost('admin/structure/taxonomy/' . $this->vocabulary->machine_name . '/add', $edit, t('Save'));
+    $term = current(entity_load('taxonomy_term', FALSE, array('name' => $original_values['name']), TRUE));
+    $this->assertEqual($term->description, $original_values['description'], t('Taxonomy term created.'));
+
+    // Translate the taxonomy term and check that both the original values and
+    // the translations were correctly stored.
+    $translated_values = array(
+      'name' => $this->randomName(),
+      'description' => $this->randomName(),
+    );
+    $edit = $this->editValues($translated_values, 'it');
+    $this->drupalPost('it/taxonomy/term/' . $term->tid . '/edit/add/en/it', $edit, t('Save'));
+    $term = current(entity_load('taxonomy_term', array($term->tid), array(), TRUE));
+    $this->assertTrue($this->checkFieldValues($term, $translated_values, 'it'), t('Taxonomy term translation created.'));
+    $this->assertTrue($this->checkFieldValues($term, $original_values, 'en'), t('Taxonomy term original values preserved.'));
+
+    // Check that legacy fields have the correct values.
+    $this->assertEqual($term->name, $original_values['name'], t('Taxonomy term name correctly stored.'));
+    $this->assertEqual($term->description, $original_values['description'], t('Taxonomy term description correctly stored.'));
+
+    // Updated the taxonomy term translation and check that both the original
+    // values and the translations were correctly stored.
+    $translated_values = array(
+      'name' => $this->randomName(),
+      'description' => $this->randomName(),
+    );
+    $edit = $this->editValues($translated_values, 'it');
+    $this->drupalPost('it/taxonomy/term/' . $term->tid . '/edit/it', $edit, t('Save'));
+    $term = current(entity_load('taxonomy_term', array($term->tid), array(), TRUE));
+    $this->assertTrue($this->checkFieldValues($term, $translated_values, 'it'), t('Taxonomy term translation updated.'));
+    $this->assertTrue($this->checkFieldValues($term, $original_values, 'en'), t('Taxonomy term original values preserved.'));
+
+    // Check that legacy fields have the correct values.
+    $this->assertEqual($term->name, $original_values['name'], t('Taxonomy term name correctly stored.'));
+    $this->assertEqual($term->description, $original_values['description'], t('Taxonomy term description correctly stored.'));
+  }
+
+  protected function editValues($values, $langcode) {
+    $edit = array();
+    foreach ($values as $key => $value) {
+      $edit["{$key}_field[{$langcode}][0][value]"] = $value;
+    }
+    return $edit;
+  }
+
+  protected function checkFieldValues($term, $values, $langcode) {
+    foreach ($values as $key => $value) {
+      if ($term->{$key . '_field'}[$langcode][0]['value'] != $value) {
+        return FALSE;
+      }
+    }
+    return TRUE;
+  }
 }

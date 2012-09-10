@@ -3,9 +3,9 @@
 include 'sassy.admin.inc';
 
 /**
- * Implements hook_css_preprocessor_info().
+ * Implements hook_preprocessor_info().
  */
-function sassy_css_preprocessor_info() {
+function sassy_preprocessor_info() {
   return array(
     'sassy' => array(
       'label' => 'Sassy PHPSass',
@@ -65,7 +65,8 @@ function sassy_parse($file, $local, $global) {
       );
       // Execute the compiler.
       $parser = new SassParser($options);
-      return $parser->toCss($file['contents'], false);
+      $result = $parser->toCss($file['contents'], false);
+      return $result;
     }
     catch (Exception $e) {
       if ($errors == 'watchdog') {
@@ -165,10 +166,13 @@ function sassy_load_callback($file) {
   if (!($path = drupal_get_path('module', $namespace))) {
     $path = drupal_get_path('theme', $namespace);
   }
+  if (!$path && $namespace == 'public') {
+    $path = 'public:/';
+  }
   if ($path) {
     $path = $path . '/' . $file[0];
     if (file_exists($path)) {
-      $path = realpath($path);
+      $path = drupal_realpath($path);
       return array($path);
     }
   }

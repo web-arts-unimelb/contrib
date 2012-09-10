@@ -30,7 +30,6 @@ function wysiwyg_schema() {
         'description' => 'Configuration settings for the editor.',
         'type' => 'text',
         'size' => 'normal',
-        'serialize' => TRUE,
       ),
     ),
     'primary key' => array('format'),

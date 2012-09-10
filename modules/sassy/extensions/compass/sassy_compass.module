@@ -13,13 +13,21 @@ require_once('functions/lists.inc');
 require_once('functions/selectors.inc');
 require_once('functions/sprites.inc');
 require_once('functions/trig.inc');
+require_once('functions/transitions.inc');
 require_once('functions/urls.inc');
 
 /**
  * Implementation of hook_sassy_resolve_path_NAMESPACE().
  */
 function sassy_compass_sassy_resolve_path_compass($filename, $syntax = 'scss') {
-  $path = drupal_get_path('module', 'sassy_compass');
+
+  // Check for compass installed as a Library, if not use ours.
+  // The latest Compass build can be found at https://github.com/chriseppstein/compass
+  $path = libraries_get_path('compass') . '/frameworks/compass';
+  if (!file_exists($path)) {
+    $path = drupal_get_path('module', 'sassy_compass');
+  }
+
   if ($filename == '*') {
     $filename = 'compass';
   }
@@ -46,7 +54,7 @@ function sassy_compass_sassy_resolve_path_compass($filename, $syntax = 'scss') {
  */
 function sassy_compass_sassy_functions() {
   $functions  = 'if resolve-path ';
-  $functions .= 'adjust-lightness scale-lightness adjust-saturation scale-saturation ie-hex-str scale-color-value ';
+  $functions .= 'adjust-lightness scale-lightness adjust-saturation scale-saturation scale-color-value ';
   $functions .= 'is-position is-position-list opposite-position ';
   $functions .= '-webkit -moz -o -ms -svg -pie -css2 owg prefixed prefix ';
   $functions .= 'elements-of-type ';
@@ -57,6 +65,7 @@ function sassy_compass_sassy_functions() {
   $functions .= 'blank compact -compass-nth -compass-list -compass-list -compass-space-list -compass-list-size -compass-slice first-value-of ';
   $functions .= 'nest append-selector headers ';
   $functions .= 'pi sin cos tan ';
+  $functions .= 'comma-list prefixed-for-transition ';
   $functions .= 'stylesheet-url font-url image-url';
   $output = array();
   $functions = explode(' ', $functions);

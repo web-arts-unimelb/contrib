@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Converts node translations into field-based translations.
+ * Convert node translations into field-based translations.
  */
 
 /**
@@ -11,12 +11,12 @@
 define('ENTITY_TRANSLATION_UPGRADE_BATCH_SIZE', 10);
 
 /**
- * Starts the batch process to perform the upgrade.
+ * Start the batch process to perform the upgrade.
  */
-function entity_translation_upgrade_start($types) {
+function entity_translation_upgrade_start() {
   $batch = array(
     'operations' => array(
-      array('entity_translation_upgrade_do', array($types)),
+      array('entity_translation_upgrade_do', array()),
       array('entity_translation_upgrade_complete', array()),
     ),
     'finished' => 'entity_translation_upgrade_end',
@@ -47,16 +47,13 @@ function entity_translation_upgrade_end($success, $results, $operations, $elapse
 /**
  * Batch process to convert node translations to field-based translations.
  */
-function entity_translation_upgrade_do($types, &$context) {
-  $query = db_select('node', 'n');
-  $query->addJoin('LEFT', 'entity_translation_upgrade_history', 'etuh', 'n.nid = etuh.nid');
-  $query
+function entity_translation_upgrade_do(&$context) {
+  // @todo Exclude previously migrated nodes.
+  $query = db_select('node', 'n')
     ->fields('n', array('nid', 'tnid'))
-    ->where('etuh.complete IS NULL OR etuh.complete = 0')
-    ->condition('n.tnid', 0, '<>')
-    ->condition('n.tnid <> n.nid', array(), '')
-    ->condition('n.type', $types)
-    ->orderBy('n.nid');
+    ->condition('tnid', 0, '!=')
+    ->condition('tnid != nid', array(), '')
+    ->orderBy('nid');
 
   // Initialize the batch process.
   if (empty($context['sandbox'])) {
@@ -70,9 +67,8 @@ function entity_translation_upgrade_do($types, &$context) {
     $context['finished'] = $total == 0;
   }
   else {
-    $batch_size = variable_get('entity_translation_upgrade_batch_size', ENTITY_TRANSLATION_UPGRADE_BATCH_SIZE);
     $result = $query
-      ->range($context['sandbox']['count'], $batch_size)
+      ->range($context['sandbox']['count'], ENTITY_TRANSLATION_UPGRADE_BATCH_SIZE)
       ->execute()
       ->fetchAllKeyed();
 
@@ -113,14 +109,15 @@ function entity_translation_upgrade_do($types, &$context) {
 
       // Add the new translation.
       $handler->setTranslation(array(
-        'translate' => $node->translate,
-        'status' => $node->status,
-        'language' => $node->language,
-        'source' => $original->language,
-        'uid' => $node->uid,
-        'created' => $node->created,
-        'changed' => $node->changed,
-      ));
+          'translate' => $node->translate,
+          'status' => $node->status,
+          'language' => $node->language,
+          'source' => $original->language,
+          'uid' => $node->uid,
+          'created' => $node->created,
+          'changed' => $node->changed,
+        )
+      );
 
       // Build a list of updated nodes. They will be saved after all the node
       // translation conversions.
@@ -144,7 +141,6 @@ function entity_translation_upgrade_do($types, &$context) {
 
     // Save field data and translations for the updated nodes.
     foreach ($updated_nodes as $nid => $node) {
-      field_attach_presave('node', $node);
       field_attach_update('node', $node);
       entity_translation_get_handler('node', $node)->saveTranslations();
 
@@ -181,43 +177,29 @@ function entity_translation_upgrade_do($types, &$context) {
 
     $context['finished'] = $context['sandbox']['count'] / $context['sandbox']['total'];
 
-    if ($context['finished'] >= 1) {
+    if ($context['finished']) {
       $context['results'] = $context['sandbox']['total'];
     }
   }
 }
 
 /**
- * Removes the translation sets for all the upgraded nodes.
+ * Remove the translation sets for all the upgraded nodes.
  */
 function entity_translation_upgrade_complete(&$context) {
-  // Remove translation sets for migrated nodes.
-  db_query('UPDATE {node} SET tnid = 0 WHERE nid IN (SELECT DISTINCT etuh.tnid FROM {entity_translation_upgrade_history} etuh WHERE etuh.complete = 0)');
-  // Mark nodes as migrated.
-  db_query('UPDATE {entity_translation_upgrade_history} SET complete = 1 WHERE complete = 0');
+  db_query('UPDATE {node} SET tnid = 0 WHERE nid IN (SELECT DISTINCT etuh.tnid FROM {entity_translation_upgrade_history} etuh)');
 }
 
-
 /**
- * Implementations of hook_entity_translation_upgrade() on behalf of core
- * modules.
+ * Implements hook_entity_translation_upgrade_translation().
  */
-
-/**
- * Implements hook_entity_translation_upgrade().
- */
-function path_entity_translation_upgrade($node, $translation) {
+function entity_translation_upgrade_entity_translation_upgrade($node, $translation) {
   // Update URL aliases.
   db_update('url_alias')
     ->fields(array('source' => 'node/' . $node->nid))
     ->condition('source', 'node/' . $translation->nid)
     ->execute();
-}
 
-/**
- * Implements hook_entity_translation_upgrade().
- */
-function comment_entity_translation_upgrade($node, $translation) {
   // Attach comments to the original node.
   db_update('comment')
     ->fields(array('nid' => $node->nid, 'language' => $translation->language))

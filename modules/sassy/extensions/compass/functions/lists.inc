@@ -62,6 +62,7 @@ function sassy_compass___compass_nth() {
 
 function sassy_compass___compass_list() {
 	$args = func_get_args();
+	$list = array();
 	foreach ($args as $arg) {
 		$list = array_merge($list, sassy_compass__list($arg));
 	}

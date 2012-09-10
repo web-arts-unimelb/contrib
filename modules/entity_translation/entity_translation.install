@@ -147,10 +147,9 @@ function entity_translation_disable() {
 function entity_translation_uninstall() {
   variable_del('translation_language_type');
   variable_del('locale_field_language_fallback');
+  variable_del('entity_translation_edit_form_info');
   variable_del('entity_translation_entity_types');
   variable_del('entity_translation_disabled_content_types');
-  variable_del('entity_translation_languages_enabled');
-  variable_del('entity_translation_shared_labels');
 
   foreach (node_type_get_types() as $type => $object) {
     variable_del("entity_translation_node_metadata_$type");

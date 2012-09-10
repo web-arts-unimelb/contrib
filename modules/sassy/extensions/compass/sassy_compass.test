@@ -1,56 +1,26 @@
 <?php
 
-class SassyCompassUnitTest extends DrupalUnitTestCase {
+class SassyCompassUnitTest extends SassyBaseUnitTest {
 
-	function getInfo() {
-		return array(
-			'name' => 'Sassy Compass unit tests',
-			'description' => 'Tests Sassy Compass integration',
-			'group' => 'Theme',
-		);
-	}
+  function getInfo() {
+    return array(
+      'name' => 'Sassy Compass unit tests',
+        'description' => 'Tests Sassy Compass integration',
+        'group' => 'Theme',
+      );
+  }
 
-	function setUp() {
-		parent::setUp('sassy');
-		$path = dirname(__FILE__);
-		require_once($path . '/../../phpsass/SassParser.php');
-	}
+  function setUp() {
+    parent::setUp('sassy_compass');
 
-	function testCompass() {
-		$compare = 'body { background: red; }';
-		$input = "@import compass/compass;\n" . $compare;
+    $this->css_tests_path = drupal_get_path('module', 'sassy_compass') . '/tests/';
+  }
 
-		try {
-			$settings = array(
-				'style' => 'expanded',
-				'cache' => FALSE,
-				'syntax' => 'scss',
-				'debug' => FALSE,
-				'debug_info' => FALSE,
-				'load_path_functions' => array('sassy_load_callback'),
-				'functions' => sassy_get_functions(),
-			);
-			$parser = new SassParser($settings);
-			$result = $parser->toCss($input, FALSE);
-		}
-		catch (Exception $e) {
-			$this->fail(t('Exception occured when compiling file') . ': ' . ((string) $e));
-		}
-
-		$_result = $this->trimResult($result);
-		$_compare = $this->trimResult($compare);
-		if ($_result != $_compare) {
-			$this->fail(t('Result did not match comparison file'));
-		}
-		else {
-			$this->pass(t('Compass integration is correct'));
-		}
-	}
-
-	function trimResult(&$input) {
-		$trim = preg_replace('/[\s;]+/', '', $input);
-		$trim = preg_replace('/\/\*.+?\*\//m', '', $trim);
-		return $trim;
-	}
+  function testCompass() {
+    $this->runTest('compass.scss');
+    $this->runTest('image-dimensions.scss');
+    $this->runTest('inline-image.scss');
+    $this->runTest('text-replacement.scss');
+  }
 
 }

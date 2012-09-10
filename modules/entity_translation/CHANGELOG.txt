@@ -1,35 +1,6 @@
 
 Entity translation 7.x-1.x, xxxx-xx-xx
 --------------------------------------
-#1444866 by plach: Removed bogus hook menu link alteration (follow-up).
-#1699060 by plach: Fixed Bogus form elements on the taxonomy delete confirm
-  form.
-#1699052 by plach: Fixed Global entity form submit handlers are not invoked on
-  delete except for node.
-#1661348 by plach | liquidcms: Fixed minimal i18n Taxonomy integration.
-#1444866 by plach: Fixed the invocation order on presave and menu alteration
-  (follow-up).
-#1691026 by plach | FrancescoQ: Fixed Fatal error when enabling ET with just one
-  language installed.
-#1698622 by plach: Fixed Field data is not properly massaged before being stored
-  during an upgrade.
-#1224590 by bforchhammer: Added entity translation CRUD hooks.
-#1694472 by bforchhammer: Change module package names to 'Multilingual - Entity
-  Translation'.
-#1444866 by bforchhammer, plach, peximo: Added UI for translation of menu items
-  for entity-translated nodes.
-#1133038 by plach: Added support for field column synchronization.
-#1528624 by plach | phm: Fixed error on user translations overview.
-#1667582 by peximo: Fixed PDOException (ambiguous tnid field) on upgrade.
-#1658424 by torpy: Fixed Non-multilingual taxonomy terms attached to
-  multilingual nodes do not display.
-#1643394 by plach: Allow repeating the upgrade process.
-#1643414 by plach: Added Allow to select which content types to upgrade.
-#1643390 by plach: Implement hook_entity_translation_upgrade_translation() on
-  behalf of core modules.
-#1155134 by das-peter, plach, GiorgosK, zambrey: Added Integrate pathauto.
-#1282018 by plach, Gábor Hojtsy, webchick, bforchhammer: Drop the translation
-  form in favor of a language-aware edit form.
 
 
 Entity translation 7.x-1.0-alpha2, 2012-06-16
@@ -51,6 +22,7 @@ Entity translation 7.x-1.0-alpha2, 2012-06-16
   switch operation.
 #1279372 by getgood, loganfsmyth, evolvingweb, plach, Kristen Pol: Enable bulk
   field language updates when switching field translatability.
+#1155134 by das-peter, GiorgosK, zambrey: Added Integrate pathauto.
 #1380380 by bojanz: Fixed Prevent notice when translation has been removed from
   the form.
 #1367832 by floretan: Fixed Check #parents and #field_parents() for source

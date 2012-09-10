@@ -495,7 +495,7 @@ function _ldap_authorization_ldap_authorization_maps_alter(&$user, &$user_ldap_e
       }
     }
     elseif (isset($user_ldap_entry[$consumer_conf->deriveFromEntryAttrMatchingUserAttr]) ||
-      isset($user_ldap_entry['attr'][$consumer_conf->deriveFromEntryAttrMatchingUserAttr])) {
+      isset($user_ldap_entry['attr'][ldap_server_massage_text($consumer_conf->deriveFromEntryAttrMatchingUserAttr, 'attr_name', LDAP_SERVER_MASSAGE_QUERY_ARRAY)])) {
       // $derive_from_entries_entries, $derive_from_entry_attr, $derive_from_entry_user_ldap_attr, $user_ldap_entry, $nested = FALSE
       $derive_from_entry_authorizations = $ldap_server->deriveFromEntryGroups(
         $consumer_conf->deriveFromEntryEntries,
@@ -505,6 +505,7 @@ function _ldap_authorization_ldap_authorization_maps_alter(&$user, &$user_ldap_e
         $user_ldap_entry,
         $consumer_conf->deriveFromEntryNested
       );
+      //  deriveFromEntryGroups($entries, $entries_attr
       if (count($derive_from_entry_authorizations)) {
         foreach ($derive_from_entry_authorizations as $i => $authorization) {
           if ($consumer_conf->deriveFromEntryUseFirstAttr) {

@@ -74,3 +74,29 @@ function title_field_replacement_form_submit($form, &$form_state) {
   }
   $form_state['redirect'] = _field_ui_bundle_admin_path($form['#entity_type'], $form['#bundle']) . '/fields';
 }
+
+/**
+ * Form settings for automated title_field attachement.
+ */
+function title_admin_settings_form() {
+  foreach (entity_get_info() as $entity_type => $entity) {
+    if (empty($entity['field replacement'])) {
+      continue;
+    }
+
+    foreach (array_keys($entity['field replacement']) as $replacement) {
+      $options[$entity_type . ':' . $replacement] = $entity['label'] ." - ". ucfirst($replacement);
+    }
+  }
+
+  $form['title_auto_attach'] = array(
+    '#type' => 'select',
+    '#title' => t('Auto attach replacement field'),
+    '#options' => $options,
+    '#multiple' => TRUE,
+    '#default_value' => variable_get('title_auto_attach', array()),
+    '#description' => t('Enable to auto-attach a replacement field when a bundle is created.'),
+  );
+
+  return system_settings_form($form);
+}

@@ -40,7 +40,7 @@ class SassColour extends SassLiteral {
    * Regexes for matching and extracting colours
    */
   const MATCH = '/^((#([\da-f]{6}|[\da-f]{3}))|transparent|{CSS_COLOURS})/';
-  const EXTRACT_3 = '/#([\da-f])([\da-f])([\da-f])/';
+  const EXTRACT_3 = '/#([\da-f])([\da-f])([\da-f])$/';
   const EXTRACT_6 = '/#([\da-f]{2})([\da-f]{2})([\da-f]{2})/';
   const TRANSPARENT = 'transparent';
   /**@#-*/
@@ -295,8 +295,7 @@ class SassColour extends SassLiteral {
         if (array_key_exists($colour, self::$svgColours)) {
           $colour = self::$svgColours[$colour];
         }
-        if (strlen($colour) == 4) {
-          preg_match(self::EXTRACT_3, $colour, $matches);
+        if (preg_match(self::EXTRACT_3, $colour, $matches)) {
           for ($i = 1; $i < 4; $i++) {
             $matches[$i] = str_repeat($matches[$i], 2);
           }
@@ -792,6 +791,7 @@ class SassColour extends SassLiteral {
     }
   }
 
+
   public function asHex($inc_hash = TRUE) {
     return sprintf(($inc_hash ? '#' : '') . '%02x%02x%02x', round($this->red), round($this->green), round($this->blue));
   }
@@ -858,7 +858,10 @@ class SassColour extends SassLiteral {
 
     $l = ($max + $min) / 2;
 
-    $s = $l > 0.5 ? $d / (2 - $max - $min) : $d / ($max + $min);
+   if ($l > 0.5)
+      $s = (2 - $max - $min) != 0 ? $d / (2 - $max - $min) : 0;
+    else
+      $s = ($max + $min) != 0 ? $d / ($max + $min) : 0;
 
     while ($h > 360) $h -= 360;
     while ($h < 0) $h += 360;

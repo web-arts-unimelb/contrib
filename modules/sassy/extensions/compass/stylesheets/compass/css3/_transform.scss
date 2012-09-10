@@ -2,14 +2,14 @@
 
 // @doc off
 // Note ----------------------------------------------------------------------
-// Safari is the only browser that currently supports 3D transforms.
-// Because of that it can be important to control whether a given 2D transform
-// uses the full range of experimental browser prefixes, or only the 3D list.
+// Safari, Chrome, and Firefox all support 3D transforms. However,
+// only in the most recent builds. You should also provide fallback 2d support for
+// Opera and IE. IE10 is slated to have 3d enabled, but is currently unreleased.
 // To make that easy, all 2D transforms include an browser-targeting toggle ($only3d)
 // to switch between the two support lists. The toggle defaults to 'false' (2D),
 // and also accepts 'true' (3D). Currently the lists are as follows:
 // 2D: Mozilla, Webkit, Opera, Official
-// 3D: Webkit, Official **(Only Safari Supports 3D perspective)**
+// 3D: Webkit, Firefox.
 
 // Available Transforms ------------------------------------------------------
 // - Scale (2d and 3d)
@@ -104,7 +104,7 @@ $default-skew-y      : 5deg                  !default;
   $only3d: $only3d or -compass-list-size(-compass-list($origin)) > 2;
   @if $only3d {
     @include experimental(transform-origin, $origin,
-      not -moz, -webkit, not -o, not -ms, not -khtml, official
+      -moz, -webkit, -o, -ms, not -khtml, official
     );
   } @else {
     @include experimental(transform-origin, $origin,
@@ -140,14 +140,14 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include transform( transforms [, 3D-only ] )
 //
-// where 'transforms' is a space separated list of all the transforms to be applied
+// where 'transforms' is a space separated list of all the transforms to be applied.
 @mixin transform(
   $transform,
   $only3d: false
 ) {
   @if $only3d {
     @include experimental(transform, $transform,
-      not -moz, -webkit, not -o, not -ms, not -khtml, official
+      -moz, -webkit, -o, -ms, not -khtml, official
     );
   } @else {
     @include experimental(transform, $transform,
@@ -174,12 +174,12 @@ $default-skew-y      : 5deg                  !default;
 //
 //      @include perspective( perspective )
 //
-// where 'perspective' is a uniless number representing the depth of the z-axis
-// the higher the perspective, the more exagerated the foreshortening.
+// where 'perspective' is a unitless number representing the depth of the
+// z-axis. The higher the perspective, the more exaggerated the foreshortening.
 // values from 500 to 1000 are more-or-less "normal" - a good starting-point.
 @mixin perspective($p) {
   @include experimental(perspective, $p,
-    not -moz, -webkit, not -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -190,7 +190,7 @@ $default-skew-y      : 5deg                  !default;
 // where the two arguments represent x/y coordinates
 @mixin perspective-origin($origin: 50%) {
   @include experimental(perspective-origin, $origin,
-    not -moz, -webkit, not -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -198,11 +198,11 @@ $default-skew-y      : 5deg                  !default;
 //
 //      @include transform-style( [ style ] )
 //
-// where `style` can be either `flat` or `preserve-3d`
-// browsers default to `flat`, mixin defaults to `preserve-3d`
+// where `style` can be either `flat` or `preserve-3d`.
+// Browsers default to `flat`, mixin defaults to `preserve-3d`.
 @mixin transform-style($style: preserve-3d) {
   @include experimental(transform-style, $style,
-    not -moz, -webkit, not -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -210,11 +210,11 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include backface-visibility( [ visibility ] )
 //
-// where `visibility` can be either `visible` or `hidden`
-// browsers default to visible, mixin defaults to hidden
+// where `visibility` can be either `visible` or `hidden`.
+// Browsers default to visible, mixin defaults to hidden
 @mixin backface-visibility($visibility: hidden) {
   @include experimental(backface-visibility, $visibility,
-    not -moz, -webkit, not -o, not -ms, not -khtml, official
+    -moz, -webkit, -o, -ms, not -khtml, official
   );
 }
 
@@ -362,9 +362,9 @@ $default-skew-y      : 5deg                  !default;
 
 // Rotate an object around an arbitrary axis (3D)
 // @include rotate( [ vector-x, vector-y, vector-z, rotation, perspective ] )
-// where the 'vector-' arguments accept unitless numbers
-// these numbers are not important on their own, but in relation to one another
-// creating an axis from your transform-origin, along the axis of Xx = Yy = Zz
+// where the 'vector-' arguments accept unitless numbers.
+// These numbers are not important on their own, but in relation to one another
+// creating an axis from your transform-origin, along the axis of Xx = Yy = Zz.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin rotate3d(
@@ -385,7 +385,7 @@ $default-skew-y      : 5deg                  !default;
 
 // Move an object along the x or y axis (2D)
 // @include translate( [ translate-x, translate-y, perspective, 3D-only ] )
-// where the 'translate-' arguments accept any distance in percentages or absolute (px, cm, in, em etc..) units
+// where the 'translate-' arguments accept any distance in percentages or absolute (px, cm, in, em etc..) units.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin translate(
@@ -463,7 +463,7 @@ $default-skew-y      : 5deg                  !default;
 //
 //     @include skew( [ skew-x, skew-y, 3D-only ] )
 //
-// where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units
+// where the 'skew-' arguments accept css angles in degrees (deg) or radian (rad) units.
 //
 // **Note** This mixin cannot be combined with other transform mixins.
 @mixin skew(
@@ -504,8 +504,8 @@ $default-skew-y      : 5deg                  !default;
 
 // Full transform mixins
 // For settings any combination of transforms as arguments
-// These are complex and not highly recommended for daily use
-// They are mainly here for backwards-compatability purposes
+// These are complex and not highly recommended for daily use. They are mainly
+// here for backward-compatibility purposes.
 //
 // * they include origin adjustments
 // * scale takes a multiplier (unitless), rotate and skew take degrees (deg)

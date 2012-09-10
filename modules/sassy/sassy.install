@@ -11,15 +11,21 @@ function sassy_requirements($phase) {
   if ($phase == "runtime") {
     if (module_exists('libraries') && $libraries = @libraries_get_libraries()) {
       if (isset($libraries['phpsass'])) {
-        if (_sassy_check_phpsass_version()) {
+        $version = _sassy_check_phpsass_version();
+        if ($version > 0) {
           $requirements['phpsass']['title'] = $t('Sassy - PHPSass');
           $requirements['phpsass']['value'] = $t('PHPSass is installed and up to date.');
           $requirements['phpsass']['severity'] = REQUIREMENT_OK;
-        } else {
+        } else if ($version == 0) {
           $requirements['phpsass']['title'] = $t('Sassy - PHPSsass');
           $requirements['phpsass']['value'] = $t('PHPSass is installed, but there is a newer version.');
           $requirements['phpsass']['description'] = $t('Please download and replace the existing library with the latest version from !github.', array('!github' => l($github, $github)));
           $requirements['phpsass']['severity'] = REQUIREMENT_ERROR;
+        } else {
+          $requirements['phpsass']['title'] = $t('Sassy - PHPSsass');
+          $requirements['phpsass']['value'] = $t('PHPSass is installed, but it is unable to fetch new version info.');
+          $requirements['phpsass']['description'] = $t('There may be a newer version available, but automated checking failed. Please download and replace the existing library from !github if there is a newer version.', array('!github' => l($github, $github)));
+          $requirements['phpsass']['severity'] = REQUIREMENT_WARNING;          
         }
       }
       else {
@@ -47,8 +53,7 @@ function _sassy_check_phpsass_version() {
   if ($result && $result->code == 200 && preg_match($pattern, $result->data, $matches))  {
     $remote = intval($matches[1], 10);
   } else {
-    drupal_set_message('Sassy version check for PHPSass failed because it could not fetch remote version number', 'error');
-    return FALSE;
+    return -1;
   }
 
   if (!$path = libraries_get_path('phpsass')) {
@@ -59,8 +64,8 @@ function _sassy_check_phpsass_version() {
 
   if (preg_match($pattern, $local, $matches)) {
     $local = intval($matches[1], 10);
-    return ($local >= $remote);
+    return ($local >= $remote) ? 1 : 0;
   }
 
-  return FALSE;
+  return 0;
 }
