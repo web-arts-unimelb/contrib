@@ -15,10 +15,17 @@
 			});
 
 			/* Start academic self profile editing */
+
+			/* Start academic staff category */
+			__handle_academic_category();
+			/* End academic staff category */
+
+			/* Start fix style issues */
 			__adjust_uploader();
-			
 			__adjust_group();
-			__adjust_ungroup()
+			__adjust_ungroup();
+			/* End fix style issues */
+
 			/* End academic self profile editing */
 
 		}
@@ -104,3 +111,46 @@ function __adjust_ungroup_style(tag_name)
 	$(tag_name).width(width);
 	$(tag_name).css("padding-top", "10px");
 }
+
+
+function __handle_academic_category()
+{
+	// Academic staff category
+	var academic_staff_category_tag = "#edit-field-academic-staff-type-und";
+	var academic_staff_category_value = "18";
+
+	// Academic administor input
+	var academic_administrator_role_session = "#edit-field-academic-admin-role"; // The wrapper for the input
+	var academic_administrator_role_tag = "#edit-field-academic-admin-role-und-0-value";
+
+	// Initial 
+	if($(academic_staff_category_tag).val() == academic_staff_category_value)		
+	{
+		$(academic_administrator_role_session).show();
+		$(academic_administrator_role_tag).removeAttr('disabled');
+	}
+	else
+	{
+		$(academic_administrator_role_session).hide();
+		$(academic_administrator_role_tag).attr("disabled", "disabled");
+		$(academic_administrator_role_tag).attr("value", "");
+	}
+
+	// Listen
+	$(academic_staff_category_tag).change(function(){
+		// If "academic administrator" is selected in "Academic staff category"				
+		if($(academic_staff_category_tag).val() == academic_staff_category_value)
+		{
+			$(academic_administrator_role_session).show();
+			$(academic_administrator_role_tag).removeAttr('disabled');
+		}
+		else
+		{
+			$(academic_administrator_role_session).hide();
+			$(academic_administrator_role_tag).attr("disabled", "disabled");
+			$(academic_administrator_role_tag).attr("value", "");
+		}
+	});
+}
+
+
