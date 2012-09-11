@@ -19,30 +19,35 @@ function unimelb_preprocess_html(&$variables) {
   }
 
   // Body class that is used by templates to show or not show the university logo.
-  $variables['brand_logo'] = variable_get('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
+  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo') ? 'logo' : 'no-logo';
 
   // Generate the meta tag content here, simply print the content in the tpl.php.
-  if ($keywords = variable_get('unimelb_settings_meta-keywords')) {
-    $keywords[] = variable_get('unimelb_settings_meta-keywords');
+  if ($keywords = theme_get_setting('unimelb_settings_meta-keywords')) {
+    $keywords[] = theme_get_setting('unimelb_settings_meta-keywords');
   }
   $keywords[] = $variables['page_title'];
   $keywords[] = $variables['site_name'];
   $variables['unimelb_meta_keywords']  = implode(', ', $keywords);
 
   $variables['unimelb_meta_description'] = $variables['site_name'] . ': ' . $variables['page_title'];
-  if ($variables['is_front'] && $description = variable_get('unimelb_settings_ht-right')) {
+  if ($variables['is_front'] && $description = theme_get_setting('unimelb_settings_ht-right')) {
     $variables['unimelb_meta_description'] .= ' - ' . $description;
   }
 
-  if ($creator = variable_get('unimelb_settings_maint-name')) {
-    $creators[] = variable_get('unimelb_settings_maint-name');
+  if ($creator = theme_get_setting('unimelb_settings_maint-name')) {
+    $creators[] = theme_get_setting('unimelb_settings_maint-name');
   }
   $creators[] = $variables['site_name'];
   $variables['unimelb_meta_creator'] = implode(', ', $creators);
 
-  $variables['unimelb_meta_authoriser'] = variable_get('unimelb_settings_auth-name');
+  $variables['unimelb_meta_authoriser'] = theme_get_setting('unimelb_settings_auth-name');
 
-  $variables['unimelb_meta_email'] = variable_get('unimelb_settings_ad-email');
+  $variables['unimelb_meta_email'] = theme_get_setting('unimelb_settings_ad-email');
+
+  $variables['unimelb_meta_date'] = theme_get_setting('unimelb_settings_date-created');
+  if (empty($variables['unimelb_meta_date'])) {
+    $variables['unimelb_meta_date'] = format_date(time(), 'custom', 'Y-m-d');
+  }
 
   // Including injector CSS and JS via HTTP throws up a warning if the site is
   // on HTTPS. Detect and adjust the protocol accordingly.
@@ -78,21 +83,21 @@ function unimelb_preprocess_page(&$variables) {
    * making Unimelb Settings variables available to js
    */
   // Body class that is used by templates to show or not show the university logo.
-  $variables['brand_logo'] = variable_get('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
+  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
 
-  $variables['unimelb_ht_right'] = variable_get('unimelb_settings_ht-right', '');
-  $variables['unimelb_ht_left'] = variable_get('unimelb_settings_ht-left', '');
+  $variables['unimelb_ht_right'] = theme_get_setting('unimelb_settings_ht-right', '');
+  $variables['unimelb_ht_left'] = theme_get_setting('unimelb_settings_ht-left', '');
 
   $vars = array();
-  if ($value = variable_get('unimelb_settings_site-name-short')){
+  if ($value = theme_get_setting('unimelb_settings_site-name-short')){
     $vars['sitename'] = $variables['unimelb_site_name_short'] = $value;
   }
 
-  if ($value = variable_get('unimelb_settings_parent-org-short')) {
+  if ($value = theme_get_setting('unimelb_settings_parent-org-short')) {
     $vars['parentorg'] = $variables['unimelb_parent_org_short'] = $value;
   }
 
-  if ($value = variable_get('unimelb_settings_parent-org-url')) {
+  if ($value = theme_get_setting('unimelb_settings_parent-org-url')) {
     $vars['parentorgurl'] = $variables['unimelb_parent_org_url'] = $value;
   }
 
