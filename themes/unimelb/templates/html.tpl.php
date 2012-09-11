@@ -81,8 +81,8 @@
 <!-- End static meta data -->
 
 <!-- Meta data to be autofilled -->
-	<meta name="DC.Date" content="DATE" />
-	<meta name="DC.Date.Modified" content="DATE" />
+	<meta name="DC.Date" content="<?php print $unimelb_meta_date; ?>" />
+	<meta name="DC.Date.Modified" content="<?php print $unimelb_meta_date; ?>" />
 <!-- End meta data to be autofilled -->
 
 	<meta content="width=device-width; initial-scale=0.67;" name="viewport" />

@@ -24,6 +24,28 @@ regions[home_column_6]	= home_column_6
 regions[home_event]		= home_event
 regions[home_promo]		= home_promo
 
+; Settings.
+settings[unimelb_settings_custom_logo]		= 0
+settings[unimelb_settings_parent-org]		= ""
+settings[unimelb_settings_parent-org-url]	= http://www.arts.unimelb.edu.au
+settings[unimelb_settings_ht-left]			= ""
+settings[unimelb_settings_ht-right]			= The Faculty of Arts is...
+settings[unimelb_settings_meta-keywords]	= ""
+settings[unimelb_settings_ad-line1] 		= Babel building
+settings[unimelb_settings_ad-line2] 		= University of Melbourne
+settings[unimelb_settings_ad-sub] 			= Parkville
+settings[unimelb_settings_ad-postcode] 		= 3010
+settings[unimelb_settings_ad-state] 		= VIC
+settings[unimelb_settings_ad-country] 		= Australia
+settings[unimelb_settings_ad-phone]			= <a href="tel:136352">13 MELB</a> (13 63 52)
+settings[unimelb_settings_ad-fax]			= ""
+settings[unimelb_settings_ad-email]			= ""
+settings[unimelb_settings_fb-url]			= http://www.facebook.com/melbuni
+settings[unimelb_settings_tw-url]			= http://www.twitter.com/GSHSS
+settings[unimelb_settings_auth-name]		= ""
+settings[unimelb_settings_maint-name]		= ""
+settings[unimelb_settings_date-created]		= ""
+
 ; Manual stylesheets.
 stylesheets[all][] = css/unimelb_drupal_distro.css
 stylesheets[all][] = css/override/admin_menu.css
