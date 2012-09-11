@@ -1,0 +1,91 @@
+<?php
+/**
+ * @file unimelb_settings.install
+ * Install and uninstall functions for this module.
+ */
+
+/**
+ * Implements hook_disable()
+ */
+function unimelb_settings_disable() {
+  // Load the unimelb theme settings and check if the correct items
+  // are already present there.
+  $settings = variable_get('theme_unimelb_settings', array());
+
+  $variables = array(
+    'unimelb_settings_custom_logo',
+    'unimelb_settings_parent-org',
+    'unimelb_settings_parent-org-url',
+    'unimelb_settings_ht-left',
+    'unimelb_settings_ht-right',
+    'unimelb_settings_meta-keywords',
+    'unimelb_settings_ad-line1',
+    'unimelb_settings_ad-line2',
+    'unimelb_settings_ad-sub',
+    'unimelb_settings_ad-postcode',
+    'unimelb_settings_ad-state',
+    'unimelb_settings_ad-country',
+    'unimelb_settings_ad-phone',
+    'unimelb_settings_ad-fax',
+    'unimelb_settings_ad-email',
+    'unimelb_settings_fb-url',
+    'unimelb_settings_tw-url',
+    'unimelb_settings_auth-name',
+    'unimelb_settings_maint-name',
+    'unimelb_settings_date-created',
+  );
+
+  // Check if each variable is in the theme settings already and only
+  // transpose ones that are not.
+  foreach ($variables as $variable) {
+    if (!isset($settings[$variable])) {
+      $default = theme_get_setting($variable);
+      $existing = variable_get($variable, '');
+      if ($default != $existing) {
+        $settings[$variable] = $default;
+        drupal_set_message(t('The %variable setting was set to "%value"', array('%variable' => $variable, '%value' => $default)));
+      }
+      else {
+        $settings[$variable] = $existing;
+        drupal_set_message(t('The %variable setting was set to "%value"', array('%variable' => $variable, '%value' => $existing)));
+      }
+    }
+    else {
+      drupal_set_message(t('The %variable setting already existed and was not overwritten with "%value"', array('%variable' => $variable, '%value' => $settings[$variable])), 'warning');
+    }
+  }
+
+  variable_set('theme_unimelb_settings', $settings);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function unimelb_settings_uninstall() {
+  $variables = array(
+    'unimelb_settings_custom_logo',
+    'unimelb_settings_parent-org',
+    'unimelb_settings_parent-org-url',
+    'unimelb_settings_ht-left',
+    'unimelb_settings_ht-right',
+    'unimelb_settings_meta-keywords',
+    'unimelb_settings_ad-line1',
+    'unimelb_settings_ad-line2',
+    'unimelb_settings_ad-sub',
+    'unimelb_settings_ad-postcode',
+    'unimelb_settings_ad-state',
+    'unimelb_settings_ad-country',
+    'unimelb_settings_ad-phone',
+    'unimelb_settings_ad-fax',
+    'unimelb_settings_ad-email',
+    'unimelb_settings_fb-url',
+    'unimelb_settings_tw-url',
+    'unimelb_settings_auth-name',
+    'unimelb_settings_maint-name',
+    'unimelb_settings_date-created',
+  );
+
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}
