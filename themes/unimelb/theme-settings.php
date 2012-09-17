@@ -27,6 +27,14 @@ function unimelb_form_system_theme_settings_alter(&$form, $form_state) {
     '#required' => FALSE,
   );
 
+  $form['unimelb']['unimelb_settings_site_search_box'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Site search box'),
+    '#description' => t('Display a site search box'),
+    '#default_value' => theme_get_setting('unimelb_settings_site_search_box'),
+    '#required' => false,
+  );
+
   $form['unimelb']['unimelb_settings_parent-org'] = array(
     '#type' => 'textfield',
     '#title' => t('Parent organisational unit (optional)'),

@@ -495,6 +495,20 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
     }
   }
 
+	// Gary
+	// If this is previous Drupal account being authenticated on LDAP for the first time
+	// we need to set the authentication init data
+	if (empty($account->data['ldap_authentication']['init']['sid'])) {
+		// save 'init' data to know the origin of the ldap authentication provisioned account
+		$edit['data']['ldap_authentication']['init'] = array(
+			'sid'  => $sid,
+			'dn'   => $ldap_user['dn'],
+		'mail' => $ldap_user['mail'],
+		);
+		user_save($account, $edit);
+	}
+	
+
   /**
   * we now have valid, ldap authenticated username with an account authmapped to ldap_authentication.
   * since user_external_login_register can't deal with user mail attribute and doesn't do much else, it is not
