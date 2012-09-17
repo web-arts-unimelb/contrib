@@ -94,13 +94,13 @@
 
   <!-- GLOBAL RESOURCES -->
   <!-- DO NOT CHANGE -->
-  <link rel="stylesheet" href="<?php print $protocol; ?>brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
-  <script type="text/javascript" src="<?php print $protocol; ?>brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
+  <link rel="stylesheet" href="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
+  <script type="text/javascript" src="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
 
 <!-- Not sure that this works the right way around. Investigate -->
 <?php if (empty($overlay)) { ?>
-  <link rel="stylesheet" href="<?php print $protocol; ?>brand.unimelb.edu.au/global-header/css/style.css" />
-  <script type="text/javascript" src="<?php print $protocol; ?>brand.unimelb.edu.au/global-header/js/injection.js"></script>
+  <link rel="stylesheet" href="<?php print $scheme; ?>brand.unimelb.edu.au/global-header/css/style.css" />
+  <script type="text/javascript" src="<?php print $scheme; ?>brand.unimelb.edu.au/global-header/js/injection.js"></script>
 <?php } ?>
   <!-- /GLOBAL RESOURCES -->
 

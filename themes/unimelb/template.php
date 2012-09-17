@@ -53,10 +53,10 @@ function unimelb_preprocess_html(&$variables) {
   // on HTTPS. Detect and adjust the protocol accordingly.
   global $is_https;
 
-  $variables['protocol'] = 'http://';
+  $variables['scheme'] = 'http://';
 
   if ($is_https) {
-    $variables['protocol'] = 'https://';
+    $variables['scheme'] = 'https://';
   }
 }
 
