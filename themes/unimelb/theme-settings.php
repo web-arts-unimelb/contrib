@@ -195,6 +195,16 @@ function unimelb_form_system_theme_settings_alter(&$form, $form_state) {
     '#required' => FALSE,
   );
 
+  $form['unimelb']['unimelb_settings_wordpress-url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Wordpress (optional)'),
+    '#description' => t('eg. Your wordpress url'),
+    '#default_value' => theme_get_setting('unimelb_settings_wordpress-url'),
+    '#size' => 60,
+    '#maxlength' => 1024,
+    '#required' => FALSE,
+  );
+
   $form['unimelb']['unimelb_settings_auth-name'] = array(
     '#type' => 'textfield',
     '#title' => t('Authoriser Name and or Position (required)'),
