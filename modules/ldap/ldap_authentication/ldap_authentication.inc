@@ -502,13 +502,13 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
   // @TODO: This should ideally go in a custom module and work via an alter hook.
   //
   if (empty($account->data['ldap_authentication']['init']['sid'])) {
-	// save 'init' data to know the origin of the ldap authentication provisioned account
-	$edit['data']['ldap_authentication']['init'] = array(
-		'sid'  => $sid,
-		'dn'   => $ldap_user['dn'],
-		'mail' => $ldap_user['mail'],
-	);
-	user_save($account, $edit);
+    // save 'init' data to know the origin of the ldap authentication provisioned account
+    $edit['data']['ldap_authentication']['init'] = array(
+      'sid'  => $sid,
+      'dn'   => $ldap_user['dn'],
+      'mail' => $ldap_user['mail'],
+    );
+    user_save($account, $edit);
   }
 
   /**
