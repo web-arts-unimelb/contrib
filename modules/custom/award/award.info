@@ -8,6 +8,7 @@ project = award
 dependencies[] = conditional_fields
 dependencies[] = ctools
 dependencies[] = date
+dependencies[] = date_popup
 dependencies[] = email
 dependencies[] = features
 dependencies[] = feeds_tamper
