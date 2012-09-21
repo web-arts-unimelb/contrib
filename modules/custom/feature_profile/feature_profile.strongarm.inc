@@ -31,6 +31,9 @@ function feature_profile_strongarm() {
         'title' => array(
           'weight' => '2',
         ),
+        'path' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),
@@ -59,6 +62,13 @@ function feature_profile_strongarm() {
   $strongarm->name = 'node_submitted_feature_profile';
   $strongarm->value = 0;
   $export['node_submitted_feature_profile'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_feature_profile_pattern';
+  $strongarm->value = 'profile/[node:field_profile_type]/[node:title]';
+  $export['pathauto_node_feature_profile_pattern'] = $strongarm;
 
   return $export;
 }
