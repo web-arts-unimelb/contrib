@@ -53,7 +53,6 @@ features[field_group][] = group_profile_teach_or_study|node|feature_profile|form
 features[field_group][] = group_shared_syndication|node|award|form
 features[field_group][] = group_shared_syndication|node|feature_profile|form
 features[node][] = feature_profile
-features[taxonomy][] = site
 features[variable][] = field_bundle_settings_node__feature_profile
 features[variable][] = node_options_feature_profile
 features[variable][] = node_preview_feature_profile
