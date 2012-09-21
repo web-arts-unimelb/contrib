@@ -32,7 +32,7 @@ function feature_profile_strongarm() {
           'weight' => '2',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '9',
         ),
       ),
       'display' => array(),

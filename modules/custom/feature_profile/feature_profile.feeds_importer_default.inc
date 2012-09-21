@@ -48,6 +48,7 @@ function feature_profile_feeds_importer_default() {
           'xpathparser:16' => 'About',
           'xpathparser:17' => 'Published',
           'xpathparser:18' => 'PostDate',
+          'xpathparser:19' => 'Image',
         ),
         'rawXML' => array(
           'xpathparser:16' => 'xpathparser:16',
@@ -69,6 +70,7 @@ function feature_profile_feeds_importer_default() {
           'xpathparser:15' => 0,
           'xpathparser:17' => 0,
           'xpathparser:18' => 0,
+          'xpathparser:19' => 0,
         ),
         'context' => '//node',
         'exp' => array(
@@ -94,6 +96,7 @@ function feature_profile_feeds_importer_default() {
             'xpathparser:16' => 0,
             'xpathparser:17' => 0,
             'xpathparser:18' => 0,
+            'xpathparser:19' => 0,
           ),
         ),
         'allow_override' => 1,
@@ -199,6 +202,11 @@ function feature_profile_feeds_importer_default() {
           18 => array(
             'source' => 'xpathparser:18',
             'target' => 'created',
+            'unique' => FALSE,
+          ),
+          19 => array(
+            'source' => 'xpathparser:19',
+            'target' => 'field_profile_images',
             'unique' => FALSE,
           ),
         ),
