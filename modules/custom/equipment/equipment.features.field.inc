@@ -56,7 +56,7 @@ function equipment_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -161,11 +161,11 @@ function equipment_field_default_fields() {
       'description' => 'Link to the University of Melbourne library booking system where this item can be booked. On the front end will display as a button labelled <em>Book</em>.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => 3,
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -255,14 +255,14 @@ function equipment_field_default_fields() {
       'description' => 'Upload an image of the equipment. Will display as thumbnail in list and link to a full-size version when clicked.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
+            'image_link' => 'file',
+            'image_style' => 'equipment_thumbnail',
           ),
           'type' => 'image',
-          'weight' => 2,
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -280,6 +280,9 @@ function equipment_field_default_fields() {
         'default_image' => 0,
         'file_directory' => 'equipment',
         'file_extensions' => 'png gif jpg jpeg',
+        'focus' => 0,
+        'focus_lock_ratio' => 0,
+        'focus_min_size' => '',
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -362,11 +365,11 @@ function equipment_field_default_fields() {
       'description' => 'Web link to the manual for this equipment. E.g. manual for a Sony DVC hosted on the Sony site. The name of the product will link to the manual.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => 1,
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -461,7 +464,7 @@ function equipment_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => 4,
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -558,11 +561,10 @@ function equipment_field_default_fields() {
       'description' => 'Some equipment can be categorised in multiple way. Eg, a search for a video camera would bring up products listed as “Camera, video” (standalone item) and “Production kit” (camera as part of the kit).',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'list',
+          'label' => 'hidden',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 5,
+          'type' => 'hidden',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -641,11 +643,10 @@ function equipment_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
+          'label' => 'hidden',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 6,
+          'type' => 'hidden',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
