@@ -1,0 +1,15 @@
+/* Contains styles used by (and in) the WYSIWYG Editor. */
+
+.wysiwg-left {
+  float: left;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-right: 3em;
+}
+
+.wysiwg-right {
+  float: right;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-left: 3em;
+}
