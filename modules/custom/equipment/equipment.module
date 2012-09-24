@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Equipment feature.
+ */
+
+include_once 'equipment.features.inc';
