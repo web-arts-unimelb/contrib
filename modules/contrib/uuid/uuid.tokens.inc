@@ -45,6 +45,10 @@ function uuid_token_info() {
  * Implements hook_tokens().
  */
 function uuid_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  // PETER
+  // This is fixed in uuid-7.x-1.x-dev but that is also a rewrite. Simple fix here.
+  $replacements = array();
+
   switch ($type) {
     case 'node':
       $node = $data['node'];
