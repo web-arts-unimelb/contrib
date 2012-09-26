@@ -106,7 +106,7 @@ function unimelb_preprocess_page(&$variables) {
     drupal_add_js($vars, 'setting');
   }
 
-  __set_unimelb_meta_info($variables);
+  _set_unimelb_meta_info($variables);
 }
 
 /**
@@ -209,7 +209,7 @@ function _unimelb_space_tags($text) {
 }
 
 
-function __set_unimelb_meta_info(&$variables)
+function _set_unimelb_meta_info(&$variables)
 {
 	$variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
 	$variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
