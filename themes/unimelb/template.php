@@ -38,10 +38,9 @@ function unimelb_preprocess_html(&$variables) {
     $creators[] = theme_get_setting('unimelb_settings_maint-name');
   }
   $creators[] = $variables['site_name'];
+
   $variables['unimelb_meta_creator'] = implode(', ', $creators);
-
   $variables['unimelb_meta_authoriser'] = theme_get_setting('unimelb_settings_auth-name');
-
   $variables['unimelb_meta_email'] = theme_get_setting('unimelb_settings_ad-email');
 
   $variables['unimelb_meta_date'] = theme_get_setting('unimelb_settings_date-created');
@@ -58,6 +57,7 @@ function unimelb_preprocess_html(&$variables) {
   if ($is_https) {
     $variables['scheme'] = 'https://';
   }
+
 }
 
 /**
@@ -105,6 +105,8 @@ function unimelb_preprocess_page(&$variables) {
   if (!empty($vars)) {
     drupal_add_js($vars, 'setting');
   }
+
+  __set_unimelb_meta_info($variables);
 }
 
 /**
@@ -206,4 +208,19 @@ function _unimelb_space_tags($text) {
   return check_plain($text);
 }
 
+
+function __set_unimelb_meta_info(&$variables)
+{
+	$variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
+	$variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
+	$variables['unimelb_meta_fax'] = theme_get_setting("unimelb_settings_ad-fax");
+	
+	$variables['unimelb_meta_facebook'] = theme_get_setting("unimelb_settings_fb-url");
+	$variables['unimelb_meta_twitter'] = theme_get_setting("unimelb_settings_tw-url");
+
+	$variables['unimelb_meta_auth_name'] = theme_get_setting("unimelb_settings_auth-name");
+	$variables['unimelb_meta_maint_name'] = theme_get_setting("unimelb_settings_maint-name");
+	
+	$variables['unimelb_meta_date_created'] = theme_get_setting("unimelb_settings_date-created");
+}
 
