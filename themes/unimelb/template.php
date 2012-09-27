@@ -109,6 +109,7 @@ function unimelb_preprocess_page(&$variables) {
   _set_unimelb_meta_info($variables);
 }
 
+
 /**
  * Implements theme_date_display_range()
  *
@@ -223,4 +224,3 @@ function _set_unimelb_meta_info(&$variables)
 	
 	$variables['unimelb_meta_date_created'] = theme_get_setting("unimelb_settings_date-created");
 }
-
