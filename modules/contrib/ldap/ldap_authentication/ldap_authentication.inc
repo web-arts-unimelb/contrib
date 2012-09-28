@@ -130,7 +130,6 @@ function _ldap_authentication_form_user_profile_form_alter(&$form, $form_state) 
   * ldap authentication exclusively
   */
 function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
-
   $detailed_watchdog_log = variable_get('ldap_help_watchdog_detail', 0);
   $authname = $form_state['values']['name']; // $name = $form_state['values']['name']; // patch 1599632
   $pass = $form_state['values']['pass'];
@@ -144,7 +143,6 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
    */
   $sso_login = (isset($form_state['sso_login']) && $form_state['sso_login']) ? TRUE : FALSE;
 
-
   $watchdog_tokens = array('%username' => $authname); // $watchdog_tokens = array('%username' => $name); // patch 1599632
   if ($detailed_watchdog_log) {
     watchdog('ldap_authentication', '%username : Beginning authentification....', $watchdog_tokens, WATCHDOG_DEBUG);
@@ -157,11 +155,15 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
   }
 
  // if already succeeded at authentication, see if LDAP Exclusive is set
-  if (isset($form_state['uid']) && is_numeric($form_state['uid'])) {
-    if ($auth_conf->authenticationMode == LDAP_AUTHENTICATION_MIXED || $form_state['uid'] == 1) {
+  if (isset($form_state['uid']) && is_numeric($form_state['uid'])) {  
+	 if ($auth_conf->authenticationMode == LDAP_AUTHENTICATION_MIXED || $form_state['uid'] == 1) {
       if ($detailed_watchdog_log) {
       watchdog('ldap_authentication', '%username : Previously authenticated in mixed mode or uid=1', $watchdog_tokens, WATCHDOG_DEBUG);
       }
+
+	  // Gary
+	  __assign_ldap_server($authname, $auth_conf);
+
       return;  // already passed previous authentication validation
     }
     elseif ($auth_conf->authenticationMode == LDAP_AUTHENTICATION_EXCLUSIVE) {
@@ -171,7 +173,7 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
       }
       $form_state['uid'] = NULL;  // passed previous authentication, but only ldap should be used
     }
-  }
+  }	
 
   if (!count($auth_conf->enabledAuthenticationServers)) {
     watchdog('ldap_authentication',  'No LDAP servers configured.', array(), WATCHDOG_ERROR);
@@ -376,9 +378,6 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
   }  // end loop through servers
 
 
-
-
-
   $watchdog_tokens['%result'] = $result;
   $watchdog_tokens['%auth_result'] = $authentication_result;
   $watchdog_tokens['%err_text'] =  _ldap_authentication_err_text($authentication_result) ;
@@ -457,8 +456,6 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
     if ($account === FALSE) {
       // need to throw error that account was not created
     }
-
-
   }
   else {  // account already exists
     if ($ldap_authentication_authmap == FALSE) {  // LDAP_authen.AC.disallow.ldap.drupal
@@ -493,22 +490,6 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
           drupal_set_message(t('Your e-mail has been updated to match your LDAP account (@mail).', $watchdog_tokens), 'status');
       }
     }
-  }
-
-  // Gary
-  // If this is previous Drupal account being authenticated on LDAP for the first time
-  // we need to set the authentication init data
-  //
-  // @TODO: This should ideally go in a custom module and work via an alter hook.
-  //
-  if (empty($account->data['ldap_authentication']['init']['sid'])) {
-    // save 'init' data to know the origin of the ldap authentication provisioned account
-    $edit['data']['ldap_authentication']['init'] = array(
-      'sid'  => $sid,
-      'dn'   => $ldap_user['dn'],
-      'mail' => $ldap_user['mail'],
-    );
-    user_save($account, $edit);
   }
 
   /**
@@ -579,4 +560,40 @@ function ldap_authentication_redirect_to_ldap_help() {
     return "Misconfigured LDAP Help Link";
   }
 
+}
+
+
+function __assign_ldap_server($authname, $auth_conf)
+{
+
+	$account = user_load_by_name($authname);
+
+	__get_ldap_server($auth_conf, $sid, $ldap_server);
+	$ldap_user = $ldap_server->user_lookup($authname);
+
+	if(empty($account->data['ldap_authentication']['init']['sid'])) 
+	{
+  		// save 'init' data to know the origin of the ldap authentication provisioned account
+		$edit['data']['ldap_authentication']['init'] = array(
+			'sid'  => $sid,
+			'dn'   => $ldap_user['dn'],
+			'mail' => $ldap_user['mail'],
+		);
+		user_save($account, $edit);
+    }
+}
+
+// NOTE:
+// We hard code centaur server here.
+// We need to find a better way to retrieve a ldap server name
+function __get_ldap_server($auth_conf, &$sid, &$ldap_server)
+{
+	$ldap_server_name = "centaur";
+	foreach($auth_conf->enabledAuthenticationServers as $sid => $ldap_server)
+	{
+		if($ldap_server->name == $ldap_server_name)
+		{
+			return $sid;
+		}
+	}
 }
