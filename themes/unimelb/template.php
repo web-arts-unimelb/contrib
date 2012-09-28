@@ -18,6 +18,12 @@ function unimelb_preprocess_html(&$variables) {
     $variables['page_title'] = $variables['site_name'];
   }
 
+  // MARCOM templates version.
+  $variables['version'] = theme_get_setting('unimelb_settings_template');
+  if (empty($variables['version'])) {
+    $variables['version'] = '1-1-0';
+  }
+
   // Body class that is used by templates to show or not show the university logo.
   $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo') ? 'logo' : 'no-logo';
 
@@ -57,6 +63,13 @@ function unimelb_preprocess_html(&$variables) {
 
   if ($is_https) {
     $variables['scheme'] = 'https://';
+  }
+
+  // Avoid warnings if the css_splitter module is not present.
+  if (!module_exists('css_splitter')) {
+    $variables['styles_system'] = drupal_get_css();
+    $variables['styles_default'] = '';
+    $variables['styles_theme'] = '';
   }
 }
 
