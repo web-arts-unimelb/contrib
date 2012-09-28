@@ -258,29 +258,75 @@
 
 <?php if(variable_get('unimelb_settings_ad-line1') || variable_get('unimelb_settings_ad-line2')) { ?><div id="org-details" class="col-2"><?php if(variable_get('unimelb_settings_parent-org')) { ?><p><strong><?php print variable_get('unimelb_settings_parent-org'); ?></strong></p><?php } ?><p class="location"><?php if(variable_get('unimelb_settings_ad-line1')) { ?><?php print variable_get('unimelb_settings_ad-line1'); ?><br /><?php } ?><?php if(variable_get('unimelb_settings_ad-line2')) { ?><?php print variable_get('unimelb_settings_ad-line2'); ?><br /><?php } ?><?php print variable_get('unimelb_settings_ad-sub'); ?>&nbsp;<?php print variable_get('unimelb_settings_ad-postcode'); ?>&nbsp;<?php print variable_get('unimelb_settings_ad-state'); ?>&nbsp;<?php print variable_get('unimelb_settings_ad-country'); ?></p></div><?php } ?>
 
-<?php if (variable_get('unimelb_settings_ad-email')) { ?>
+
+<?php if(!empty($unimelb_meta_email)): ?>
 	<ul class="col-2">
 		<li>
-			<strong>Email:</strong> <a href="mailto:<?php print variable_get('unimelb_settings_ad-email'); ?>"><?php print variable_get('unimelb_settings_ad-email'); ?></a>
+			<strong>Email: </strong> 
+			<a href="mailto:<?php print $unimelb_meta_email; ?>">
+				<?php print $unimelb_meta_email; ?>
+			</a>
 		</li>
 
-		<?php if (variable_get('unimelb_settings_ad-phone')) { ?>
+		<?php if(!empty($unimelb_meta_phone)): ?>
 			<li>
-				<strong>Phone:</strong> <?php print variable_get('unimelb_settings_ad-phone'); ?>
+				<strong>Phone:</strong> <?php print $unimelb_meta_phone; ?>
 			</li>
-		<?php } ?>
+		<?php endif; ?>
 
-		<?php if (variable_get('unimelb_settings_ad-fax')) { ?>
+
+		<?php if(!empty($unimelb_meta_fax)): ?>
 			<li>
-				<strong>Fax:</strong> <?php print variable_get('unimelb_settings_ad-fax'); ?>
+				<strong>Fax:</strong> <?php print $unimelb_meta_fax; ?>
 			</li>
-		<?php } ?>
+		<?php endif; ?>
 
-			<?php if (variable_get('unimelb_settings_fb-url') || variable_get('unimelb_settings_tw-url')) { ?><li class="social"><a class="facebook" href="<?php print variable_get('unimelb_settings_fb-url'); ?>">Facebook</a>&nbsp;<a class="twitter" href="<?php print variable_get('unimelb_settings_tw-url'); ?>">Twitter</a></li><?php } ?></ul><?php } ?>
 
-<?php if (variable_get('unimelb_settings_auth-name') || variable_get('unimelb_settings_maint-name')) { ?><ul class="col-2"><?php if (variable_get('unimelb_settings_auth-name')) { ?><li><strong>Authoriser:</strong><br /><?php print variable_get('unimelb_settings_auth-name'); ?></li><?php } ?><?php if (variable_get('unimelb_settings_maint-name')) { ?><li><strong>Maintainer:</strong><br /><?php print variable_get('unimelb_settings_maint-name'); ?></li><?php } ?></ul><?php } ?>
+		<?php if(!empty($unimelb_meta_facebook) || !empty($unimelb_meta_twitter)): ?>
+			<li class="social">
+				<?php if(!empty($unimelb_meta_facebook)): ?>				
+					<a class="facebook" href="<?php print $unimelb_meta_facebook; ?>">Facebook</a>
+					&nbsp;
+				<?php endif; ?>
+				<?php if(!empty($unimelb_meta_twitter)): ?>			
+					<a class="twitter" href="<?php print $unimelb_meta_twitter; ?>">Twitter</a>
+				<?php endif; ?>
+			</li>
+		<?php endif; ?>
+	</ul>
 
-<ul class="col-2"><?php if (variable_get('unimelb_settings_date-created')) { ?><li><strong>Date created:</strong><br /><?php print variable_get('unimelb_settings_date-created'); ?></li><?php } ?><li><strong>Last modified:</strong><br /><?php print date('j F Y'); ?></li></ul>
+<?php endif; ?>
+
+<?php if(!empty($unimelb_meta_auth_name) || !empty($unimelb_meta_maint_name)): ?>
+	<ul class="col-2">
+		<?php if(!empty($unimelb_meta_auth_name)): ?>	
+			<li>
+				<strong>Authoriser:</strong><br />
+				<?php print $unimelb_meta_auth_name; ?>
+			</li>
+		<?php endif; ?>
+
+		<?php if(!empty($unimelb_meta_maint_name)): ?>	
+			<li>
+				<strong>Maintainer:</strong><br />
+				<?php print $unimelb_meta_maint_name; ?>
+			</li>
+		<?php endif; ?>
+	</ul>
+<?php endif; ?>
+
+<ul class="col-2">
+	<?php if(!empty($unimelb_meta_date_created)): ?>
+		<li>
+			<strong>Date created:</strong><br />
+			<?php print $unimelb_meta_date_created; ?>
+		</li>
+	<?php endif; ?>
+	<li>
+		<strong>Last modified:</strong><br />
+		<?php print date('j F Y'); ?>
+	</li>
+</ul>
 
 <hr /></div></div><!-- end footer -->
 
