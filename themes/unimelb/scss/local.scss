@@ -216,16 +216,35 @@ body.home.front div.view-content a {
   margin: 0.2em 0 0.5em 1.5em;
 }
 
-/* Hack up the node create and edit forms. */
 .page-node-add,
 .page-node-edit {
+  legend {
+    display: none;
+  }
+}
+
+/* Hide the field label on long text fields inside fieldsets on the user profile page. */
+.page-user-edit {
+  .fieldset-wrapper {
+    .field-type-text-long {
+      label {
+        display: none;
+      }
+    }
+  }
+}
+
+/* Hack up the node create and edit forms. */
+.page-user-edit,
+.page-node-add,
+.page-node-edit {
+  form legend {
+    text-indent: 0em;
+  }
   form fieldset {
     padding: 0px;
     border: none;
     background: transparent;
-    legend {
-      display: none;
-    }
   }
   span.cke_skin_kama {
     border: none;
@@ -259,9 +278,13 @@ body.home.front div.view-content a {
   }
 }
 
-.page-node-add .tabledrag-toggle-weight-wrapper, .page-node-edit .tabledrag-toggle-weight-wrapper {
-  position: relative;
-  top: 3em;
+.page-node-add,
+.page-node-edit,
+.page-user-edit {
+  .tabledrag-toggle-weight-wrapper {
+    position: relative;
+    top: 3em;
+  }
 }
 
 /* Fixes for IE. */
