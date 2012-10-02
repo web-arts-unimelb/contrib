@@ -94,8 +94,8 @@
 
   <!-- GLOBAL RESOURCES -->
   <!-- DO NOT CHANGE -->
-  <link rel="stylesheet" href="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/1-1-0/css/complete.css" />
-  <script type="text/javascript" src="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/1-1-0/js/complete.js"></script>
+  <link rel="stylesheet" href="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/<?php print $version; ?>/css/complete.css" />
+<script type="text/javascript" src="<?php print $scheme; ?>brand.unimelb.edu.au/web-templates/<?php print $version; ?>/js/complete.js"></script>
 
 <!-- Not sure that this works the right way around. Investigate -->
 <?php if (empty($overlay)) { ?>
