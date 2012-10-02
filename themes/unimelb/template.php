@@ -47,12 +47,14 @@ function unimelb_preprocess_html(&$variables) {
 
   $variables['unimelb_meta_creator'] = implode(', ', $creators);
   $variables['unimelb_meta_authoriser'] = theme_get_setting('unimelb_settings_auth-name');
-  $variables['unimelb_meta_email'] = theme_get_setting('unimelb_settings_ad-email');
 
   $variables['unimelb_meta_date'] = theme_get_setting('unimelb_settings_date-created');
   if (empty($variables['unimelb_meta_date'])) {
     $variables['unimelb_meta_date'] = format_date(time(), 'custom', 'Y-m-d');
   }
+
+  // Add in common theme specific meta info.
+  $variables += _unimelb_meta_info();
 
   // Including injector CSS and JS via HTTP throws up a warning if the site is
   // on HTTPS. Detect and adjust the protocol accordingly.
@@ -66,9 +68,8 @@ function unimelb_preprocess_html(&$variables) {
 
   // Avoid warnings if the css_splitter module is not present.
   if (!module_exists('css_splitter')) {
-    $variables['styles_system'] = drupal_get_css();
-    $variables['styles_default'] = '';
-    $variables['styles_theme'] = '';
+    $variables['styles_system'] = $variables['styles_default'] = '';
+    $variables['styles_theme'] = drupal_get_css();
   }
 }
 
@@ -91,16 +92,19 @@ function unimelb_preprocess_page(&$variables) {
     }
   }
 
-  /**
-   * making Unimelb Settings variables available to js
-   */
   // Body class that is used by templates to show or not show the university logo.
   $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
 
-  $variables['site_search_box'] = theme_get_setting('unimelb_settings_site_search_box');	
+  $variables['site_search_box'] = theme_get_setting('unimelb_settings_site_search_box');
   $variables['unimelb_ht_right'] = theme_get_setting('unimelb_settings_ht-right', '');
   $variables['unimelb_ht_left'] = theme_get_setting('unimelb_settings_ht-left', '');
 
+  // Add in common theme specific meta info.
+  $variables += _unimelb_meta_info();
+
+  /**
+   * Making Unimelb Settings variables available to js
+   */
   $vars = array();
   if ($value = theme_get_setting('unimelb_settings_site-name-short')){
     $vars['sitename'] = $variables['unimelb_site_name_short'] = $value;
@@ -117,8 +121,6 @@ function unimelb_preprocess_page(&$variables) {
   if (!empty($vars)) {
     drupal_add_js($vars, 'setting');
   }
-
-  _set_unimelb_meta_info($variables);
 }
 
 
@@ -202,6 +204,33 @@ function unimelb_preprocess_views_view_grid(&$vars) {
   }
 }
 
+
+/**
+ * Helper to populate template vars from theme settings.
+ *
+ * @return
+ *   A keyed array to be merged into $variables.
+ *
+ * Used by the html and page preprocess functions.
+ */
+function _unimelb_meta_info() {
+  $variables = array();
+
+  $variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
+  $variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
+  $variables['unimelb_meta_fax'] = theme_get_setting("unimelb_settings_ad-fax");
+
+  $variables['unimelb_meta_facebook'] = theme_get_setting("unimelb_settings_fb-url");
+  $variables['unimelb_meta_twitter'] = theme_get_setting("unimelb_settings_tw-url");
+
+  $variables['unimelb_meta_auth_name'] = theme_get_setting("unimelb_settings_auth-name");
+  $variables['unimelb_meta_maint_name'] = theme_get_setting("unimelb_settings_maint-name");
+
+  $variables['unimelb_meta_date_created'] = theme_get_setting("unimelb_settings_date-created");
+
+  return $variables;
+}
+
 /**
  * Helper to replace tags in page title with spaces.
  *
@@ -219,20 +248,4 @@ function _unimelb_space_tags($text) {
   $text = html_entity_decode($text);
   $text = preg_replace('/<[^>]*?>/', ' ', $text);
   return check_plain($text);
-}
-
-
-function _set_unimelb_meta_info(&$variables)
-{
-	$variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
-	$variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
-	$variables['unimelb_meta_fax'] = theme_get_setting("unimelb_settings_ad-fax");
-	
-	$variables['unimelb_meta_facebook'] = theme_get_setting("unimelb_settings_fb-url");
-	$variables['unimelb_meta_twitter'] = theme_get_setting("unimelb_settings_tw-url");
-
-	$variables['unimelb_meta_auth_name'] = theme_get_setting("unimelb_settings_auth-name");
-	$variables['unimelb_meta_maint_name'] = theme_get_setting("unimelb_settings_maint-name");
-	
-	$variables['unimelb_meta_date_created'] = theme_get_setting("unimelb_settings_date-created");
 }
