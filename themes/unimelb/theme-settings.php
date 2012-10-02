@@ -18,7 +18,19 @@ function unimelb_form_system_theme_settings_alter(&$form, $form_state) {
     '#description' => t('Settings specific to the University of Melbourne theme.'),
   );
 
+  $version = theme_get_setting('unimelb_settings_template');
   // Create the settings form.
+  $form['unimelb']['unimelb_settings_template'] = array(
+    '#type' => 'select',
+    '#title' => t('Web Templates Version'),
+    '#description' => t('Choose the version of the MARCOM web templates you want to use.'),
+    '#options' => array(
+      '1-1-0' => t('Version 1.1.0'),
+      '1-2-0-ALPHA' => t('Version 1.2.0 alpha'),
+    ),
+    '#default_value' => empty($version) ? '1-1-0' : $version,
+  );
+
   $form['unimelb']['unimelb_settings_custom_logo'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use Custom Logo'),

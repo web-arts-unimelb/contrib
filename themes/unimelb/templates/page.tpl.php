@@ -74,180 +74,211 @@
 ?>
 
 <div class="wrapper">
-	<div class="header <?php if(!empty($unimelb_ht_right) && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
+  <div class="header <?php if(!empty($unimelb_ht_right) && $is_front) { ?>with-ht<?php } else { ?>without-ht<?php } ?>">
 
-	<div class="hgroup">
-		<?php if ($brand_logo == 'logo' && !empty($logo)): ?>
-			<a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
-		<?php else: ?>
-			<?php if (!empty($unimelb_parent_org_short)): ?><p>
-				<?php if (!empty($unimelb_parent_org_url)): ?>
-					<a href="<?php print $unimelb_parent_org_url ?>">
-				<?php else: ?>
-					<a href="<?php print $front_page; ?>">
-				<?php endif; ?>
-				<?php print $unimelb_parent_org_short; ?></a></p>
-			<?php endif; ?>
-			<h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
-		<?php endif; ?>
-	</div><!-- end hgroup -->
+  <div class="hgroup">
+    <?php if ($brand_logo == 'logo' && !empty($logo)): ?>
+      <a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
+    <?php else: ?>
+      <?php if (!empty($unimelb_parent_org_short)): ?><p>
+        <?php if (!empty($unimelb_parent_org_url)): ?>
+          <a href="<?php print $unimelb_parent_org_url ?>">
+        <?php else: ?>
+          <a href="<?php print $front_page; ?>">
+        <?php endif; ?>
+        <?php print $unimelb_parent_org_short; ?></a></p>
+      <?php endif; ?>
+      <h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
+    <?php endif; ?>
+  </div><!-- end hgroup -->
 
-	<?php if (!empty($unimelb_ht_right) && $is_front): ?>
-		<div id="headingtext">
+  <?php if (!empty($unimelb_ht_right) && $is_front): ?>
+    <div id="headingtext">
         <p class="title col-1"><?php print $unimelb_ht_left; ?></p>
         <p class="col-7"><?php print $unimelb_ht_right; ?></p>
         <hr />
       </div>
-	<?php endif; ?>
+  <?php endif; ?>
 
-	</div><!-- end header -->
+  </div><!-- end header -->
 
-	<?php if($is_front): ?>
-		<div class="main col-6" role="main" id="main-content">
-			<?php print $messages; ?>
-			<div class="col-6 first">
-				<div class="col-2 first page-preview">		
-					<?php if($page["home_column_1"]): ?>
-						<?php print render($page['home_column_1']); ?>	
-					<?php endif; ?>		    
-				</div>
+  <?php if($is_front): ?>
+    <div class="main col-6" role="main" id="main-content">
+      <?php print $messages; ?>
 
-				<div class="col-2 page-preview">
-					<?php if($page["home_column_2"]): ?>
-						<?php print render($page['home_column_2']); ?>	
-					<?php endif; ?>
-				</div>
+      <?php if ($page["home_column_1"] || $page["home_column_2"] || $page["home_column_3"] || $page["home_column_4"] || $page["home_column_5"] || $page["home_column_6"]): ?>
+        <!-- Three by two responsive blocks front page. -->
 
+        <div class="col-6 first">
+          <div class="col-2 first page-preview">
+            <?php if($page["home_column_1"]): ?>
+              <?php print render($page['home_column_1']); ?>
+            <?php endif; ?>
+          </div>
 
-				<div class="col-2 page-preview">
-					<?php if($page["home_column_3"]): ?>
-						<?php print render($page['home_column_3']); ?>	
-					<?php endif; ?>
-				</div>
-			</div>
+          <div class="col-2 page-preview">
+            <?php if($page["home_column_2"]): ?>
+              <?php print render($page['home_column_2']); ?>
+            <?php endif; ?>
+          </div>
 
-			<div class="col-6 first">
-				<div class="col-2 first page-preview">		
-					<?php if($page["home_column_4"]): ?>
-						<?php print render($page['home_column_4']); ?>	
-					<?php endif; ?>		    
-				</div>
+          <div class="col-2 page-preview">
+            <?php if($page["home_column_3"]): ?>
+              <?php print render($page['home_column_3']); ?>
+            <?php endif; ?>
+          </div>
+        </div>
 
-				<div class="col-2 page-preview">
-					<?php if($page["home_column_5"]): ?>
-						<?php print render($page['home_column_5']); ?>	
-					<?php endif; ?>
-				</div>
+        <div class="col-6 first">
+          <div class="col-2 first page-preview">
+            <?php if($page["home_column_4"]): ?>
+              <?php print render($page['home_column_4']); ?>
+            <?php endif; ?>
+          </div>
 
+          <div class="col-2 page-preview">
+            <?php if($page["home_column_5"]): ?>
+              <?php print render($page['home_column_5']); ?>
+            <?php endif; ?>
+          </div>
 
-				<div class="col-2 page-preview">
-					<?php if($page["home_column_6"]): ?>
-						<?php print render($page['home_column_6']); ?>	
-					<?php endif; ?>
-				</div>
-			</div>
-		</div>
-	
-		<div class="col-2 rightside">
-			<div class="aside" role="complementary">
-			<?php if($page["navigation"]): ?>
-				<?php print render($page["navigation"]); ?>
-			<?php endif; ?>
-			
-			<?php if($page["home_event"]): ?>
-				<?php print render($page["home_event"]); ?>
-			<?php endif; ?>
+          <div class="col-2 page-preview">
+            <?php if($page["home_column_6"]): ?>
+              <?php print render($page['home_column_6']); ?>
+            <?php endif; ?>
+          </div>
+        </div>
 
-			<?php if($page["home_promo"]): ?>
-				<?php print render($page["home_promo"]); ?>
-			<?php endif; ?>
+      <?php else: ?>
+        <!-- Simple node or view front page. -->
+        <div class="main col-6" role="main" id="main-content">
+        <?php print $messages; ?>
+        <?php if ($tabs = render($tabs)): ?>
+          <div class="tabs"><?php print $tabs; ?></div>
+        <?php endif; ?>
+        <?php print render($page['help']); ?>
+        <?php if ($action_links): ?>
+          <ul class="action-links"><?php print render($action_links); ?></ul>
+        <?php endif; ?>
+        <?php if ($title): ?>
+          <?php print render($title_prefix); ?>
+          <?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
+          <?php print render($title_suffix); ?>
+        <?php endif; ?>
+        <?php print render($page['content']); ?>
+        <?php if ($page['content_bottom']): ?>
+          <div id="main-content-bottom">
+          <?php print render($page['content_bottom']); ?>
+          </div>
+        <?php endif; ?>
+        </div>
 
-			<?php if($page["sidebar_right"]): ?>
-                        	<div class="sidebar-right">
-					<?php print render($page["sidebar_right"]); ?>
-				</div>
-			<?php endif; ?>
-			</div>
-		</div>
-	<?php elseif( !empty( $page['highlight'] ) ): ?>
-		<div class="col-2">
-			<div class="events">
-				<?php print render($page['highlight']); ?>
-			</div>		
-		</div>	
+      <?php endif; ?>
 
-		<div class="main col-4" role="main" id="main-content">
-			<?php print $messages; ?>
-			<?php if ($tabs = render($tabs)): ?>
-				<div class="tabs"><?php print $tabs; ?></div>
-			<?php endif; ?>
-			<?php print render($page['help']); ?>
-			<?php if ($action_links): ?>
-				<ul class="action-links"><?php print render($action_links); ?></ul>
-			<?php endif; ?>
-			<?php if ($title): ?>
-				<?php print render($title_prefix); ?>
-				<?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
-				<?php print render($title_suffix); ?>
-			<?php endif; ?>
-			<?php print render($page['content']); ?>
-			<?php if ($page['content_bottom']): ?>
-				<div id="main-content-bottom">
-					<?php print render($page['content_bottom']); ?>
-				</div>
-			<?php endif; ?>
-		</div>
+    </div>
 
-		<div class="col-2">
-			<div class="the_nav first" role="navigation">
-				<?php if($page["navigation"]): ?>
-					<?php print render($page["navigation"]); ?>
-				<?php endif; ?>
-			</div>
+    <div class="col-2 rightside">
+      <div class="aside" role="complementary">
+      <?php if($page["navigation"]): ?>
+        <?php print render($page["navigation"]); ?>
+      <?php endif; ?>
 
-			<?php if($page["sidebar_right"]): ?>
-				<div class="sidebar-right">
-					<?php print render($page["sidebar_right"]); ?>
-				</div>
-			<?php endif; ?>
-		</div>
-	<?php else: ?>
-		<div class="main col-6" role="main" id="main-content">
-			<?php print $messages; ?>
-			<?php if ($tabs = render($tabs)): ?>
-				<div class="tabs"><?php print $tabs; ?></div>
-			<?php endif; ?>
-			<?php print render($page['help']); ?>
-			<?php if ($action_links): ?>
-				<ul class="action-links"><?php print render($action_links); ?></ul>
-			<?php endif; ?>
-			<?php if ($title): ?>
-				<?php print render($title_prefix); ?>
-				<?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
-				<?php print render($title_suffix); ?>
-			<?php endif; ?>
-			<?php print render($page['content']); ?>
-			<?php if ($page['content_bottom']): ?>
-				<div id="main-content-bottom">
-					<?php print render($page['content_bottom']); ?>
-				</div>
-			<?php endif; ?>
-		</div>
+      <?php if($page["home_event"]): ?>
+        <?php print render($page["home_event"]); ?>
+      <?php endif; ?>
 
-		<div class="col-2">
-			<div class="the_nav first" role="navigation">
-				<?php if($page["navigation"]): ?>
-					<?php print render($page["navigation"]); ?>
-				<?php endif; ?>
-			</div>
+      <?php if($page["home_promo"]): ?>
+        <?php print render($page["home_promo"]); ?>
+      <?php endif; ?>
 
-			<?php if($page["sidebar_right"]): ?>
-				<div class="sidebar-right">
-					<?php print render($page["sidebar_right"]); ?>
-				</div>
-			<?php endif; ?>
-		</div>
-	<?php endif; ?>
+      <?php if($page["sidebar_right"]): ?>
+        <div class="sidebar-right">
+          <?php print render($page["sidebar_right"]); ?>
+        </div>
+      <?php endif; ?>
+      </div>
+    </div>
+
+  <?php elseif( !empty( $page['highlight'] ) ): ?>
+    <!-- Not the front page. -->
+    <div class="col-2">
+      <div class="events">
+        <?php print render($page['highlight']); ?>
+      </div>
+    </div>
+
+    <div class="main col-4" role="main" id="main-content">
+      <?php print $messages; ?>
+      <?php if ($tabs = render($tabs)): ?>
+        <div class="tabs"><?php print $tabs; ?></div>
+      <?php endif; ?>
+      <?php print render($page['help']); ?>
+      <?php if ($action_links): ?>
+        <ul class="action-links"><?php print render($action_links); ?></ul>
+      <?php endif; ?>
+      <?php if ($title): ?>
+        <?php print render($title_prefix); ?>
+        <?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
+        <?php print render($title_suffix); ?>
+      <?php endif; ?>
+      <?php print render($page['content']); ?>
+      <?php if ($page['content_bottom']): ?>
+        <div id="main-content-bottom">
+          <?php print render($page['content_bottom']); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <div class="col-2">
+      <div class="the_nav first" role="navigation">
+        <?php if($page["navigation"]): ?>
+          <?php print render($page["navigation"]); ?>
+        <?php endif; ?>
+      </div>
+
+      <?php if($page["sidebar_right"]): ?>
+        <div class="sidebar-right">
+          <?php print render($page["sidebar_right"]); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  <?php else: ?>
+    <div class="main col-6" role="main" id="main-content">
+      <?php print $messages; ?>
+      <?php if ($tabs = render($tabs)): ?>
+        <div class="tabs"><?php print $tabs; ?></div>
+      <?php endif; ?>
+      <?php print render($page['help']); ?>
+      <?php if ($action_links): ?>
+        <ul class="action-links"><?php print render($action_links); ?></ul>
+      <?php endif; ?>
+      <?php if ($title): ?>
+        <?php print render($title_prefix); ?>
+        <?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
+        <?php print render($title_suffix); ?>
+      <?php endif; ?>
+      <?php print render($page['content']); ?>
+      <?php if ($page['content_bottom']): ?>
+        <div id="main-content-bottom">
+          <?php print render($page['content_bottom']); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <div class="col-2">
+      <div class="the_nav first" role="navigation">
+        <?php if($page["navigation"]): ?>
+          <?php print render($page["navigation"]); ?>
+        <?php endif; ?>
+      </div>
+
+      <?php if($page["sidebar_right"]): ?>
+        <div class="sidebar-right">
+          <?php print render($page["sidebar_right"]); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
 
 
 </div><!-- end wrapper -->
@@ -260,73 +291,70 @@
 
 
 <?php if(!empty($unimelb_meta_email)): ?>
-	<ul class="col-2">
-		<li>
-			<strong>Email: </strong> 
-			<a href="mailto:<?php print $unimelb_meta_email; ?>">
-				<?php print $unimelb_meta_email; ?>
-			</a>
-		</li>
+  <ul class="col-2">
+    <li>
+      <strong>Email: </strong> 
+      <a href="mailto:<?php print $unimelb_meta_email; ?>"><?php print $unimelb_meta_email; ?></a>
+    </li>
 
-		<?php if(!empty($unimelb_meta_phone)): ?>
-			<li>
-				<strong>Phone:</strong> <?php print $unimelb_meta_phone; ?>
-			</li>
-		<?php endif; ?>
+    <?php if(!empty($unimelb_meta_phone)): ?>
+      <li>
+        <strong>Phone:</strong> <?php print $unimelb_meta_phone; ?>
+      </li>
+    <?php endif; ?>
 
 
-		<?php if(!empty($unimelb_meta_fax)): ?>
-			<li>
-				<strong>Fax:</strong> <?php print $unimelb_meta_fax; ?>
-			</li>
-		<?php endif; ?>
+    <?php if(!empty($unimelb_meta_fax)): ?>
+      <li>
+        <strong>Fax:</strong> <?php print $unimelb_meta_fax; ?>
+      </li>
+    <?php endif; ?>
 
 
-		<?php if(!empty($unimelb_meta_facebook) || !empty($unimelb_meta_twitter)): ?>
-			<li class="social">
-				<?php if(!empty($unimelb_meta_facebook)): ?>				
-					<a class="facebook" href="<?php print $unimelb_meta_facebook; ?>">Facebook</a>
-					&nbsp;
-				<?php endif; ?>
-				<?php if(!empty($unimelb_meta_twitter)): ?>			
-					<a class="twitter" href="<?php print $unimelb_meta_twitter; ?>">Twitter</a>
-				<?php endif; ?>
-			</li>
-		<?php endif; ?>
-	</ul>
+    <?php if(!empty($unimelb_meta_facebook) || !empty($unimelb_meta_twitter)): ?>
+      <li class="social">
+        <?php if(!empty($unimelb_meta_facebook)): ?>        
+          <a class="facebook" href="<?php print $unimelb_meta_facebook; ?>">Facebook</a>
+          &nbsp;
+        <?php endif; ?>
+        <?php if(!empty($unimelb_meta_twitter)): ?>      
+          <a class="twitter" href="<?php print $unimelb_meta_twitter; ?>">Twitter</a>
+        <?php endif; ?>
+      </li>
+    <?php endif; ?>
+  </ul>
 
 <?php endif; ?>
 
 <?php if(!empty($unimelb_meta_auth_name) || !empty($unimelb_meta_maint_name)): ?>
-	<ul class="col-2">
-		<?php if(!empty($unimelb_meta_auth_name)): ?>	
-			<li>
-				<strong>Authoriser:</strong><br />
-				<?php print $unimelb_meta_auth_name; ?>
-			</li>
-		<?php endif; ?>
+  <ul class="col-2">
+    <?php if(!empty($unimelb_meta_auth_name)): ?>  
+      <li>
+        <strong>Authoriser:</strong><br />
+        <?php print $unimelb_meta_auth_name; ?>
+      </li>
+    <?php endif; ?>
 
-		<?php if(!empty($unimelb_meta_maint_name)): ?>	
-			<li>
-				<strong>Maintainer:</strong><br />
-				<?php print $unimelb_meta_maint_name; ?>
-			</li>
-		<?php endif; ?>
-	</ul>
+    <?php if(!empty($unimelb_meta_maint_name)): ?>  
+      <li>
+        <strong>Maintainer:</strong><br />
+        <?php print $unimelb_meta_maint_name; ?>
+      </li>
+    <?php endif; ?>
+  </ul>
 <?php endif; ?>
 
 <ul class="col-2">
-	<?php if(!empty($unimelb_meta_date_created)): ?>
-		<li>
-			<strong>Date created:</strong><br />
-			<?php print $unimelb_meta_date_created; ?>
-		</li>
-	<?php endif; ?>
-	<li>
-		<strong>Last modified:</strong><br />
-		<?php print date('j F Y'); ?>
-	</li>
+  <?php if(!empty($unimelb_meta_date_created)): ?>
+    <li>
+      <strong>Date created:</strong><br />
+      <?php print $unimelb_meta_date_created; ?>
+    </li>
+  <?php endif; ?>
+  <li>
+    <strong>Last modified:</strong><br />
+    <?php print date('j F Y'); ?>
+  </li>
 </ul>
 
 <hr /></div></div><!-- end footer -->
-
