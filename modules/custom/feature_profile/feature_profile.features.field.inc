@@ -978,7 +978,7 @@ function feature_profile_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           0 => array(
-            'vocabulary' => 'auto_created_voc7_902',
+            'vocabulary' => 'program',
             'parent' => '0',
           ),
         ),
