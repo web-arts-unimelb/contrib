@@ -22,7 +22,7 @@ function award_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '12',
         ),
       ),
       'display' => array(),
