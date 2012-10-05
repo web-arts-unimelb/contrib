@@ -1012,6 +1012,18 @@ function feature_profile_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Program',
+          ),
+          'status' => 0,
+        ),
       ),
       'widget' => array(
         'active' => 1,
