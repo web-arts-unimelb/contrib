@@ -170,43 +170,43 @@ function feature_profile_feeds_importer_default() {
             'unique' => FALSE,
           ),
           12 => array(
-            'source' => 'xpathparser:12',
-            'target' => 'field_profile_area',
-            'unique' => FALSE,
-          ),
-          13 => array(
             'source' => 'xpathparser:13',
             'target' => 'field_profile_previous_studies',
             'unique' => FALSE,
           ),
-          14 => array(
+          13 => array(
             'source' => 'xpathparser:14',
             'target' => 'field_profile_further_studies',
             'unique' => FALSE,
           ),
-          15 => array(
+          14 => array(
             'source' => 'xpathparser:15',
             'target' => 'field_profile_graduating_year:start',
             'unique' => FALSE,
           ),
-          16 => array(
+          15 => array(
             'source' => 'xpathparser:16',
             'target' => 'body',
             'unique' => FALSE,
           ),
-          17 => array(
+          16 => array(
             'source' => 'xpathparser:17',
             'target' => 'status',
             'unique' => FALSE,
           ),
-          18 => array(
+          17 => array(
             'source' => 'xpathparser:18',
             'target' => 'created',
             'unique' => FALSE,
           ),
-          19 => array(
+          18 => array(
             'source' => 'xpathparser:19',
             'target' => 'field_profile_images',
+            'unique' => FALSE,
+          ),
+          19 => array(
+            'source' => 'xpathparser:20',
+            'target' => 'field_profile_research_area',
             'unique' => FALSE,
           ),
         ),
