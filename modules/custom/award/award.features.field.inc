@@ -210,7 +210,7 @@ function award_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '14',
+        'weight' => '7',
       ),
     ),
   );
@@ -311,90 +311,7 @@ function award_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '12',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-award-field_award_area_of_study'.
-  $fields['node-award-field_award_area_of_study'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_award_area_of_study',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'voocab',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'award',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 5,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_award_area_of_study',
-      'label' => 'Area of study',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Area of study',
-          ),
-          'status' => 0,
-        ),
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -470,7 +387,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '8',
+        'weight' => '46',
       ),
     ),
   );
@@ -571,7 +488,7 @@ function award_field_default_fields() {
           'rows' => '10',
         ),
         'type' => 'text_textarea',
-        'weight' => '11',
+        'weight' => '4',
       ),
     ),
   );
@@ -638,7 +555,7 @@ function award_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '18',
+        'weight' => '11',
       ),
     ),
   );
@@ -713,7 +630,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '9',
+        'weight' => '47',
       ),
     ),
   );
@@ -789,7 +706,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '16',
+        'weight' => '9',
       ),
     ),
   );
@@ -890,7 +807,7 @@ function award_field_default_fields() {
           'rows' => '3',
         ),
         'type' => 'text_textarea',
-        'weight' => '10',
+        'weight' => '48',
       ),
     ),
   );
@@ -970,6 +887,89 @@ function award_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-award-field_award_research_area'.
+  $fields['node-award-field_award_research_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_award_research_area',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'research_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'award',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Select all research areas to which this award can apply.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 20,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_award_research_area',
+      'label' => 'Research area',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Research area',
+          ),
+          'status' => 0,
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '12',
+      ),
+    ),
+  );
+
   // Exported field: 'node-award-field_award_students'.
   $fields['node-award-field_award_students'] = array(
     'field_config' => array(
@@ -1040,7 +1040,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '3',
+        'weight' => '42',
       ),
     ),
   );
@@ -1118,7 +1118,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '4',
+        'weight' => '43',
       ),
     ),
   );
@@ -1213,7 +1213,7 @@ function award_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '13',
+        'weight' => '6',
       ),
     ),
   );
@@ -1287,7 +1287,7 @@ function award_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '15',
+        'weight' => '8',
       ),
     ),
   );
@@ -1362,7 +1362,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '45',
       ),
     ),
   );
@@ -1457,7 +1457,7 @@ function award_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '17',
+        'weight' => '10',
       ),
     ),
   );
@@ -1533,7 +1533,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '5',
+        'weight' => '44',
       ),
     ),
   );
@@ -1542,7 +1542,6 @@ function award_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Application open and closing dates');
   t('Application process');
-  t('Area of study');
   t('Background');
   t('Citizenship');
   t('Conditions');
@@ -1554,7 +1553,8 @@ function award_field_default_fields() {
   t('Number (of months) ');
   t('Other');
   t('Process');
-  t('Site');
+  t('Research area');
+  t('Select all research areas to which this award can apply.');
   t('Students');
   t('Study level');
   t('Submissions');

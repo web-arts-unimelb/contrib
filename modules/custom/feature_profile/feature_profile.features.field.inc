@@ -115,106 +115,7 @@ function feature_profile_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '7',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-feature_profile-field_profile_area'.
-  $fields['node-feature_profile-field_profile_area'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_profile_area',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'text',
-      'settings' => array(
-        'max_length' => '255',
-      ),
-      'translatable' => '0',
-      'type' => 'text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'feature_profile',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '11',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_profile_area',
-      'label' => 'Research area',
-      'required' => 0,
-      'settings' => array(
-        'better_formats' => array(
-          'allowed_formats' => array(
-            'html_editor' => 'html_editor',
-            'plain_text' => 'plain_text',
-          ),
-          'allowed_formats_toggle' => 0,
-          'default_order_toggle' => 0,
-          'default_order_wrapper' => array(
-            'formats' => array(
-              'html_editor' => array(
-                'weight' => '0',
-              ),
-              'plain_text' => array(
-                'weight' => '10',
-              ),
-            ),
-          ),
-        ),
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Research area',
-          ),
-          'status' => 0,
-        ),
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'size' => '60',
-        ),
-        'type' => 'text_textfield',
-        'weight' => '12',
+        'weight' => '6',
       ),
     ),
   );
@@ -636,6 +537,9 @@ function feature_profile_field_default_fields() {
         'default_image' => 0,
         'file_directory' => 'feature_profile',
         'file_extensions' => 'png gif jpg jpeg',
+        'focus' => 0,
+        'focus_lock_ratio' => 0,
+        'focus_min_size' => '',
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -714,7 +618,7 @@ function feature_profile_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'feature_profile',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Upload images, then click <em>INSERT</em> to use them in the About text area.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -738,14 +642,17 @@ function feature_profile_field_default_fields() {
       'label' => 'Image',
       'required' => 0,
       'settings' => array(
-        'alt_field' => 0,
+        'alt_field' => 1,
         'default_image' => 0,
-        'file_directory' => '',
+        'file_directory' => 'feature_profiles',
         'file_extensions' => 'png gif jpg jpeg',
+        'focus' => 0,
+        'focus_lock_ratio' => 0,
+        'focus_min_size' => '',
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
-        'title_field' => 0,
+        'title_field' => 1,
         'user_register_form' => FALSE,
         'wysiwyg_fields' => array(
           'settings' => array(
@@ -757,29 +664,20 @@ function feature_profile_field_default_fields() {
               'image' => 'image',
             ),
             'icon' => 'd50522754f0bc7cc44d2f5231a467fe8',
-            'label' => 'Insert images',
+            'label' => 'Image',
           ),
           'status' => 1,
         ),
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'media',
+        'module' => 'image',
         'settings' => array(
-          'allowed_schemes' => array(
-            'public' => 'public',
-            'youtube' => 0,
-          ),
-          'allowed_types' => array(
-            'audio' => 0,
-            'default' => 0,
-            'image' => 'image',
-            'video' => 0,
-          ),
+          'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
-        'type' => 'media_generic',
-        'weight' => '6',
+        'type' => 'image_image',
+        'weight' => '7',
       ),
     ),
   );
@@ -1062,20 +960,31 @@ function feature_profile_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_profile_program',
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
       'indexes' => array(
-        'value' => array(
-          0 => 'value',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'list',
+      'module' => 'taxonomy',
       'settings' => array(
-        'allowed_values' => array(),
-        'allowed_values_function' => '',
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'auto_created_voc7_902',
+            'parent' => '0',
+          ),
+        ),
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'feature_profile',
@@ -1084,11 +993,11 @@ function feature_profile_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
-          'module' => 'list',
+          'label' => 'above',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '9',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 18,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1103,25 +1012,84 @@ function feature_profile_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Program',
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '10',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-feature_profile-field_profile_research_area'.
+  $fields['node-feature_profile-field_profile_research_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_profile_research_area',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
           ),
-          'status' => 0,
+          'table' => 'taxonomy_term_data',
         ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'research_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'feature_profile',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 17,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_profile_research_area',
+      'label' => 'Research area',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '10',
+        'weight' => '12',
       ),
     ),
   );
@@ -1476,6 +1444,7 @@ function feature_profile_field_default_fields() {
   t('Research area');
   t('Title');
   t('Undergraduate');
+  t('Upload images, then click <em>INSERT</em> to use them in the About text area.');
   t('Video');
 
   return $fields;
