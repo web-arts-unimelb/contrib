@@ -913,7 +913,7 @@ function award_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           0 => array(
-            'vocabulary' => 'research_areas',
+            'vocabulary' => 'research_area',
             'parent' => '0',
           ),
         ),
