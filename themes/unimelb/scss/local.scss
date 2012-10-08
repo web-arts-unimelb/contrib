@@ -264,6 +264,14 @@ body.home.front div.view-content a {
       }
     }
   }
+
+  /* 
+	If profile is edited by academic, we disable the 
+	weight option and use drag and drop only 
+  */
+  .tabledrag-toggle-weight-wrapper {
+	display: none;
+  }
 }
 
 .page-node-add,
