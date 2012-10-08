@@ -216,35 +216,19 @@ body.home.front div.view-content a {
   margin: 0.2em 0 0.5em 1.5em;
 }
 
+.page-node-add,
+.page-node-edit {
+  legend {
+    display: none;
+  }
+}
+
 /* Hide the field label on long text fields inside fieldsets on the user profile page. */
 .page-user-edit {
-  fieldset {
-    legend {
-      text-indent: 0em;
-      font-weight: bold;
-    }
-  }
   .fieldset-wrapper {
-    .form-type-textarea,
     .field-type-text-long {
       label {
         display: none;
-      }
-    }
-  }
-  #edit-field-account-image-und-table {
-    thead {
-      display: none;
-    }
-    .image-widget {
-      width: 450px;
-      .image-preview {
-        width: 70px;
-      }
-      .image-widget-data {
-        position: relative;
-        top: -0.6em;
-        width: 300px;
       }
     }
   }
@@ -255,7 +239,6 @@ body.home.front div.view-content a {
 .page-node-add,
 .page-node-edit {
   form legend {
-    font-weight: bold;
     text-indent: 0em;
   }
   form fieldset {
@@ -323,9 +306,8 @@ body.home.front div.view-content a {
 .page-node-edit,
 .page-user-edit {
   .tabledrag-toggle-weight-wrapper {
-    /* position: relative; */
-    /* top: 3em; */
-    display: none;
+    position: relative;
+    top: 3em;
   }
 }
 
@@ -364,12 +346,6 @@ body.html.blue.not-front {
   background-repeat: no-repeat;
   background-color: white;
   background-position: 50% 0px;
-}
-
-/* Float content images to the right so text can wrap. */
-.field-name-field-shared-images {
-  float: right;
-  margin: 0px 0px 1em 2em;
 }
 
 /* Float account-images right. */
