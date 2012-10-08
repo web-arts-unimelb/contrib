@@ -288,6 +288,12 @@ body.home.front div.view-content a {
     display: none;
   }
 
+  /*
+	Make more space between text field and field-group
+  */
+  .text-format-wrapper {
+	margin-bottom: 15px;
+  }
 }
 
 .page-node-add,
