@@ -232,6 +232,42 @@ function _unimelb_meta_info() {
 }
 
 /**
+ * Implements phptemplate_image_widget()
+ */
+function unimelb_image_widget($variables) {
+  $element = $variables['element'];
+  if ($element['#field_name'] != 'field_account_image') {
+    return theme_image_widget($variables);
+  }
+
+  if ($element['fid']['#value'] != 0) {
+    $element['filename']['#markup'] .= ' <span class="file-size">(' . format_size($element['#file']->filesize) . ')</span> ';
+  }
+  $element['filename']['#weight'] = 100;
+
+  $output = '';
+  $output .= '<div class="image-widget form-managed-file clearfix">';
+
+  if (isset($element['preview'])) {
+    $output .= '<div class="image-preview">';
+    $output .= drupal_render($element['preview']);
+    $output .= '</div>';
+  }
+
+  hide($element['filename']);
+  $output .= '<div class="image-widget-data">';
+  $output .= drupal_render_children($element);
+  $output .= '</div>';
+  $output .= '</div>';
+  $output .= '<div class="image-filename">';
+  show($element['filename']);
+  $output .= drupal_render($element['filename']);
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
  * Helper to replace tags in page title with spaces.
  *
  * This is the last function in this file because the ?> tag in the regex
