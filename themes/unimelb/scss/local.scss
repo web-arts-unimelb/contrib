@@ -272,6 +272,22 @@ body.home.front div.view-content a {
   .tabledrag-toggle-weight-wrapper {
 	display: none;
   }
+
+  /* 
+	Increase the weight of toggle links
+  */
+  .fieldset-legend .fieldset-title {
+	font-weight: bold;
+	color: #353535;
+  }
+
+  /* 
+	Increase the weight of toggle links
+  */	
+  .form-type-managed-file label {
+    display: none;
+  }
+
 }
 
 .page-node-add,
