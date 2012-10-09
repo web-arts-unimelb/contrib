@@ -32,6 +32,8 @@ function equipment_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '15';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'nid' => 'nid',
+    'body' => 'body',
     'field_equipment_type' => 'field_equipment_type',
     'title' => 'title',
     'field_equipment_image' => 'field_equipment_image',
@@ -40,13 +42,27 @@ function equipment_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'nid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'body' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_equipment_type' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'title' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -63,7 +79,7 @@ function equipment_views_default_views() {
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => ' | ',
+      'separator' => '  ',
       'empty_column' => 0,
     ),
     'field_equipment_manual' => array(
@@ -74,6 +90,17 @@ function equipment_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  /* Field: Content: Body */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['body']['type'] = 'text_plain';
   /* Field: Content: Type */
   $handler->display->display_options['fields']['field_equipment_type']['id'] = 'field_equipment_type';
   $handler->display->display_options['fields']['field_equipment_type']['table'] = 'field_data_field_equipment_type';
@@ -84,6 +111,9 @@ function equipment_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = 'Name';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['title']['alter']['alt'] = '[body]';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Field: Content: Image */
@@ -111,10 +141,11 @@ function equipment_views_default_views() {
   $handler->display->display_options['fields']['field_equipment_manual']['table'] = 'field_data_field_equipment_manual';
   $handler->display->display_options['fields']['field_equipment_manual']['field'] = 'field_equipment_manual';
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_equipment_manual']['alter']['text'] = 'Manual';
+  $handler->display->display_options['fields']['field_equipment_manual']['alter']['text'] = 'View user manual';
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['path'] = '[field_equipment_manual-url]';
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['external'] = TRUE;
+  $handler->display->display_options['fields']['field_equipment_manual']['alter']['link_class'] = 'button';
   $handler->display->display_options['fields']['field_equipment_manual']['click_sort_column'] = 'url';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';

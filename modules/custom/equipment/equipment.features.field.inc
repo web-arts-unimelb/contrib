@@ -41,13 +41,7 @@ function equipment_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'equipment',
-      'default_value' => array(
-        0 => array(
-          'summary' => '',
-          'value' => '',
-          'format' => 'html_editor',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -75,19 +69,15 @@ function equipment_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'html_editor' => 0,
-            'php_code' => 0,
+            'full_html' => 0,
             'plain_text' => 'plain_text',
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'html_editor' => array(
+              'full_html' => array(
                 'weight' => '0',
-              ),
-              'php_code' => array(
-                'weight' => '11',
               ),
               'plain_text' => array(
                 'weight' => '10',
@@ -161,7 +151,7 @@ function equipment_field_default_fields() {
       'description' => 'Link to the University of Melbourne library booking system where this item can be booked. On the front end will display as a button labelled <em>Book</em>.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
@@ -180,7 +170,7 @@ function equipment_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'attributes' => array(
-          'class' => '',
+          'class' => 'button',
           'configurable_title' => 0,
           'rel' => 'nofollow',
           'target' => 'default',
@@ -192,7 +182,7 @@ function equipment_field_default_fields() {
         'enable_tokens' => 1,
         'title' => 'value',
         'title_maxlength' => '128',
-        'title_value' => 'Book',
+        'title_value' => 'Reserve this item',
         'url' => 0,
         'user_register_form' => FALSE,
         'validate_url' => 1,
@@ -365,7 +355,7 @@ function equipment_field_default_fields() {
       'description' => 'Web link to the manual for this equipment. E.g. manual for a Sony DVC hosted on the Sony site. The name of the product will link to the manual.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
@@ -384,7 +374,7 @@ function equipment_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'attributes' => array(
-          'class' => '',
+          'class' => 'button',
           'configurable_title' => 0,
           'rel' => 'nofollow',
           'target' => 'default',
@@ -396,7 +386,7 @@ function equipment_field_default_fields() {
         'enable_tokens' => 0,
         'title' => 'value',
         'title_maxlength' => '128',
-        'title_value' => '[node:title]',
+        'title_value' => '[node:title] user manual',
         'url' => 0,
         'user_register_form' => FALSE,
         'validate_url' => 1,
@@ -611,7 +601,6 @@ function equipment_field_default_fields() {
   t('Link to the University of Melbourne library booking system where this item can be booked. On the front end will display as a button labelled <em>Book</em>.');
   t('Manual');
   t('Resource');
-  t('Site');
   t('Some equipment can be categorised in multiple way. Eg, a search for a video camera would bring up products listed as “Camera, video” (standalone item) and “Production kit” (camera as part of the kit).');
   t('Type');
   t('Upload an image of the equipment. Will display as thumbnail in list and link to a full-size version when clicked.');

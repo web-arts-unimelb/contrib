@@ -41,13 +41,7 @@ function feature_profile_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'feature_profile',
-      'default_value' => array(
-        0 => array(
-          'summary' => '',
-          'value' => '',
-          'format' => 'html_editor',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -75,14 +69,14 @@ function feature_profile_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'html_editor' => 'html_editor',
+            'full_html' => 'full_html',
             'plain_text' => 0,
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'html_editor' => array(
+              'full_html' => array(
                 'weight' => '0',
               ),
               'plain_text' => array(
@@ -116,6 +110,87 @@ function feature_profile_field_default_fields() {
         ),
         'type' => 'text_textarea_with_summary',
         'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-feature_profile-field_profile_alumna'.
+  $fields['node-feature_profile-field_profile_alumna'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_profile_alumna',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'feature_profile',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 19,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_profile_alumna',
+      'label' => 'Alumna or alumnus',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Alumna',
+          ),
+          'status' => 0,
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '13',
       ),
     ),
   );
@@ -214,7 +289,7 @@ function feature_profile_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '14',
+        'weight' => '15',
       ),
     ),
   );
@@ -471,7 +546,7 @@ function feature_profile_field_default_fields() {
           'year_range' => '1900:+8',
         ),
         'type' => 'date_select',
-        'weight' => '15',
+        'weight' => '16',
       ),
     ),
   );
@@ -947,7 +1022,7 @@ function feature_profile_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '13',
+        'weight' => '14',
       ),
     ),
   );
@@ -1095,6 +1170,18 @@ function feature_profile_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Research area',
+          ),
+          'status' => 0,
+        ),
       ),
       'widget' => array(
         'active' => 1,
@@ -1441,6 +1528,7 @@ function feature_profile_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('About');
+  t('Alumna or alumnus');
   t('Attach an image of this person, to be displayed wherever this profile is shown.');
   t('Further studies');
   t('Graduate, coursework');
