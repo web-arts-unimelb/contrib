@@ -37,6 +37,7 @@ features[feeds_importer][] = profile_xml_feeds
 features[feeds_tamper][] = profile_xml_feeds-xpathparser_19-explode
 features[feeds_tamper][] = profile_xml_feeds-xpathparser_20-explode
 features[field][] = node-feature_profile-body
+features[field][] = node-feature_profile-field_profile_alumna
 features[field][] = node-feature_profile-field_profile_further_studies
 features[field][] = node-feature_profile-field_profile_grad_course
 features[field][] = node-feature_profile-field_profile_grad_res
