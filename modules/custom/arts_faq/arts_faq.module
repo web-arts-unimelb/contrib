@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FAQ feature.
+ */
+
+include_once 'arts_faq.features.inc';
