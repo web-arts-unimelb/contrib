@@ -15,7 +15,7 @@ function feature_profile_feeds_importer_default() {
   $feeds_importer->api_version = 1;
   $feeds_importer->id = 'profile_xml_feeds';
   $feeds_importer->config = array(
-    'name' => 'Feature Profile XML Feeds',
+    'name' => 'Feature Profile XML Importer',
     'description' => 'Imports Feature Profiles from XML feeds into the site.',
     'fetcher' => array(
       'plugin_key' => 'FeedsHTTPFetcher',
