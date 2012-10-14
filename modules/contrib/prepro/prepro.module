@@ -1,5 +1,7 @@
 <?php
 
+require_once 'prepro.admin.inc';
+
 /**
  * Implementation of hook_menu().
  */
@@ -210,7 +212,7 @@ function _prepro_compile($file) {
 
   if (!$file['contents'] = file_get_contents($file['data'])) {
     watchdog('Prepro', 'Prepro could not find the file %file for compilation', array('%file' => $file['data']), WATCHDOG_ERROR);
-    continue;
+    return;
   }
 
   drupal_alter('prepro_precompile', $file['contents'], $file, $local);
