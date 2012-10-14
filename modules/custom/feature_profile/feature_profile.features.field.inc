@@ -864,20 +864,31 @@ function feature_profile_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_profile_major',
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
       'indexes' => array(
-        'value' => array(
-          0 => 'value',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'list',
+      'module' => 'taxonomy',
       'settings' => array(
-        'allowed_values' => array(),
-        'allowed_values_function' => '',
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'major',
+            'parent' => '0',
+          ),
+        ),
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'feature_profile',
@@ -886,11 +897,11 @@ function feature_profile_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
-          'module' => 'list',
+          'label' => 'above',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '7',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 20,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -922,7 +933,7 @@ function feature_profile_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_buttons',
+        'type' => 'options_select',
         'weight' => '8',
       ),
     ),
