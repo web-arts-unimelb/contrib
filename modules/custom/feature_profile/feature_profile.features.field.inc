@@ -719,11 +719,8 @@ function feature_profile_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'default_image' => 0,
-        'file_directory' => 'feature_profiles',
+        'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
-        'focus' => 0,
-        'focus_lock_ratio' => 0,
-        'focus_min_size' => '',
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
