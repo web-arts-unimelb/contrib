@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file url_absolutify.module
+ */
+
+/**
+ * * Implements hook_field_formatter_info().
+ *
+ * A field formatter (text) that removes full links and file references.
+ */
+function url_absolutify_field_formatter_info() {
+  return array(
+    'url_absolutify' => array(
+      'label' => t('Absolute URLs'),
+      'field types' => array('text', 'text_long', 'text_with_summary')
+    )
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * Grab the current site URL and remove it from everywhere in the field.
+ */
+function url_absolutify_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'url_absolutify':
+
+      // Create an array of search/replace value pairs.
+      global $base_url;
+      $full_url = file_create_url('public:///');
+      $file_url = strtr($full_url, array($base_url => ''));
+      $replace = array(
+        $full_url => '/files/',
+        $file_url => '/files/',
+        $base_url => '',
+      );
+
+      foreach ($items as $delta => $item) {
+        if (!empty($item['summary'])) {
+          $output = text_summary($instance, $langcode, $item, 'summary');
+        }
+        else {
+          $output = _text_sanitize($instance, $langcode, $item, 'value');
+          $output = text_summary($output, $instance['settings']['text_processing'] ? $item['format'] : NULL, $display['settings']['trim_length']);
+        }
+
+        // Rewrite URLs to be absolute, excluding the hostname part
+        // and also remove the site-specific files directory path.
+        // A server rewrite rule will sort that.
+        $output = strtr($output, $replace);
+
+        $element[$delta] = array('#markup' => $output);
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory()
+ */
+function url_absolutify_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'feeds_tamper' && $plugin_type == 'plugins') {
+    return 'plugins/feeds_tamper';
+  }
+}

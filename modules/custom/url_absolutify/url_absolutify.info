@@ -1,0 +1,6 @@
+name = URL Absolutify
+description = Provides a text field formatter that outputs URLs as absolute file paths without the scheme or hostname.
+core = 7.x
+
+package = University of Melbourne
+dependencies[] = text
