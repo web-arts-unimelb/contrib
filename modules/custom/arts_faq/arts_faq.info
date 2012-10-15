@@ -12,6 +12,7 @@ dependencies[] = options
 dependencies[] = strongarm
 dependencies[] = syndication_settings
 dependencies[] = taxonomy
+dependencies[] = url_absolutify
 features[ctools][] = feeds:feeds_importer_default:1
 features[ctools][] = feeds_tamper:feeds_tamper_default:2
 features[ctools][] = strongarm:strongarm:1

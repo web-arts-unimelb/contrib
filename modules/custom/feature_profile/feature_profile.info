@@ -26,6 +26,7 @@ dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = token
+dependencies[] = url_absolutify
 dependencies[] = uuid
 features[conditional_fields][] = node:feature_profile
 features[ctools][] = feeds:feeds_importer_default:1
