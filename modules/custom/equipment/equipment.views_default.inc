@@ -24,12 +24,16 @@ function equipment_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Equipment';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    1 => '1',
+    2 => '2',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '15';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'nid' => 'nid',
@@ -147,6 +151,17 @@ function equipment_views_default_views() {
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['external'] = TRUE;
   $handler->display->display_options['fields']['field_equipment_manual']['alter']['link_class'] = 'button';
   $handler->display->display_options['fields']['field_equipment_manual']['click_sort_column'] = 'url';
+  /* Field: Content: Promoted to front page */
+  $handler->display->display_options['fields']['promote']['id'] = 'promote';
+  $handler->display->display_options['fields']['promote']['table'] = 'node';
+  $handler->display->display_options['fields']['promote']['field'] = 'promote';
+  $handler->display->display_options['fields']['promote']['label'] = 'Promoted';
+  $handler->display->display_options['fields']['promote']['not'] = 0;
+  /* Field: Content: Sticky */
+  $handler->display->display_options['fields']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['fields']['sticky']['table'] = 'node';
+  $handler->display->display_options['fields']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['fields']['sticky']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -160,29 +175,6 @@ function equipment_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'equipment' => 'equipment',
-  );
-  /* Filter criterion: Content: Type (field_equipment_type) */
-  $handler->display->display_options['filters']['field_equipment_type_value']['id'] = 'field_equipment_type_value';
-  $handler->display->display_options['filters']['field_equipment_type_value']['table'] = 'field_data_field_equipment_type';
-  $handler->display->display_options['filters']['field_equipment_type_value']['field'] = 'field_equipment_type_value';
-  $handler->display->display_options['filters']['field_equipment_type_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['operator_id'] = 'field_equipment_type_value_op';
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['label'] = 'Type';
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['description'] = 'Looking for a specific item? You can limit the types of equipment shown in this list.';
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['operator'] = 'field_equipment_type_value_op';
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['identifier'] = 'field_equipment_type_value';
-  $handler->display->display_options['filters']['field_equipment_type_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_equipment_type_value']['group_info']['label'] = 'Type (field_equipment_type)';
-  $handler->display->display_options['filters']['field_equipment_type_value']['group_info']['identifier'] = 'field_equipment_type_value';
-  $handler->display->display_options['filters']['field_equipment_type_value']['group_info']['remember'] = FALSE;
-  $handler->display->display_options['filters']['field_equipment_type_value']['group_info']['group_items'] = array(
-    1 => array(),
-    2 => array(),
-    3 => array(),
   );
 
   /* Display: Page */
