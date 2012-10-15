@@ -19,11 +19,15 @@ function feeds_tamper_convert_case_form($importer, $element_key, $settings) {
     '#type' => 'radios',
     '#title' => t('How to convert case'),
     '#default_value' => isset($settings['mode']) ? $settings['mode'] : MB_CASE_TITLE,
-    '#options' => array(MB_CASE_TITLE => t('Title case'), MB_CASE_LOWER => t('Lower Case'), MB_CASE_UPPER => t('Upper case'))
+    '#options' => array(
+      MB_CASE_TITLE => t('Title Case'),
+      MB_CASE_LOWER => t('lower case'),
+      MB_CASE_UPPER => t('UPPER CASE'),
+    ),
   );
   return $form;
 }
 
-function feeds_tamper_convert_case_callback($result, $item_key, $element_key, &$field, $settings) {
+function feeds_tamper_convert_case_callback($result, $item_key, $element_key, &$field, $settings, $source) {
   $field = mb_convert_case($field, $settings['mode'], 'UTF-8');
 }
