@@ -216,6 +216,9 @@ function unimelb_preprocess_views_view_grid(&$vars) {
 function _unimelb_meta_info() {
   $variables = array();
 
+  $variables['unimelb_meta_parent_org'] = theme_get_setting("unimelb_settings_parent-org");
+  $variables['unimelb_meta_parent_org_url'] = theme_get_setting("unimelb_settings_parent-org-url"); 
+
   $variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
   $variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
   $variables['unimelb_meta_fax'] = theme_get_setting("unimelb_settings_ad-fax");

@@ -80,14 +80,20 @@
     <?php if ($brand_logo == 'logo' && !empty($logo)): ?>
       <a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
     <?php else: ?>
-      <?php if (!empty($unimelb_parent_org_short)): ?><p>
-        <?php if (!empty($unimelb_parent_org_url)): ?>
-          <a href="<?php print $unimelb_parent_org_url ?>">
-        <?php else: ?>
-          <a href="<?php print $front_page; ?>">
-        <?php endif; ?>
-        <?php print $unimelb_parent_org_short; ?></a></p>
-      <?php endif; ?>
+	
+	  <?php 
+			if(!empty($unimelb_meta_parent_org_url))
+				$home_page_url = $unimelb_meta_parent_org_url;
+			else
+				$home_page_url = $front_page;
+	  ?>
+		
+	  <?php if(!empty($unimelb_meta_parent_org)): ?>
+			<p><a href="<?php echo $home_page_url ?>"><?php echo $unimelb_meta_parent_org ?></a></p>	
+	  <?php else: ?>
+			
+	  <?php endif; ?>
+
       <h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
     <?php endif; ?>
   </div><!-- end hgroup -->
