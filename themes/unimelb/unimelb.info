@@ -26,7 +26,7 @@ regions[home_promo]		= home_promo
 
 ; Settings.
 settings[unimelb_settings_custom_logo]		= 0
-settings[unimelb_settings_parent-org]		= ""
+settings[unimelb_settings_parent-org]		= "Faculty of Arts"
 settings[unimelb_settings_parent-org-url]	= http://www.arts.unimelb.edu.au
 settings[unimelb_settings_ht-left]			= ""
 settings[unimelb_settings_ht-right]			= The Faculty of Arts is...
