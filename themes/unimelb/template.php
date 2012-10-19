@@ -217,7 +217,17 @@ function _unimelb_meta_info() {
   $variables = array();
 
   $variables['unimelb_meta_parent_org'] = theme_get_setting("unimelb_settings_parent-org");
-  $variables['unimelb_meta_parent_org_url'] = theme_get_setting("unimelb_settings_parent-org-url"); 
+  $variables['unimelb_meta_parent_org_url'] = theme_get_setting("unimelb_settings_parent-org-url");
+
+  $variables['unimelb_ht_right'] = theme_get_setting('unimelb_settings_ht-right');
+  $variables['unimelb_ht_left'] = theme_get_setting('unimelb_settings_ht-left');
+
+  $variables['unimelb_ad_line1'] = theme_get_setting('unimelb_settings_ad-line1');
+  $variables['unimelb_ad_line2'] = theme_get_setting('unimelb_settings_ad-line2');
+  $variables['unimelb_ad_sub'] = theme_get_setting('unimelb_settings_ad-sub');
+  $variables['unimelb_ad_postcode'] = theme_get_setting('unimelb_settings_ad-postcode');
+  $variables['unimelb_ad_state'] = theme_get_setting('unimelb_settings_ad-state');
+  $variables['unimelb_ad_country'] = theme_get_setting('unimelb_settings_ad-country');
 
   $variables['unimelb_meta_email'] = theme_get_setting("unimelb_settings_ad-email");
   $variables['unimelb_meta_phone'] = theme_get_setting("unimelb_settings_ad-phone");
