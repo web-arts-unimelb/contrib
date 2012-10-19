@@ -1697,6 +1697,95 @@ function feature_profile_field_default_fields() {
     ),
   );
 
+  // Exported field: 'taxonomy_term-internship-field_internship_handbook_link'.
+  $fields['taxonomy_term-internship-field_internship_handbook_link'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_internship_handbook_link',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '0',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'internship',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_internship_handbook_link',
+      'label' => 'Handbook Link',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => '',
+          'target' => 'default',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'none',
+        'title_maxlength' => '128',
+        'title_value' => '',
+        'url' => 0,
+        'user_register_form' => FALSE,
+        'validate_url' => 1,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Handbook Link',
+          ),
+          'status' => 0,
+        ),
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '2',
+      ),
+    ),
+  );
+
   // Exported field: 'taxonomy_term-internship-field_internship_image'.
   $fields['taxonomy_term-internship-field_internship_image'] = array(
     'field_config' => array(
@@ -1780,7 +1869,7 @@ function feature_profile_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -1796,6 +1885,7 @@ function feature_profile_field_default_fields() {
   t('Graduate, coursework');
   t('Graduate, research');
   t('Graduating year');
+  t('Handbook Link');
   t('Image');
   t('Internship');
   t('Job title');
