@@ -33,6 +33,8 @@ function feature_profile_field_group_info() {
       7 => 'field_profile_undergrad',
       8 => 'field_profile_alumna',
       9 => 'field_profile_major',
+      10 => 'field_profile_ambassador',
+      11 => 'field_profile_internship',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
