@@ -118,8 +118,6 @@
 
 <body class="<?php print $brand_logo; ?><?php if($is_front) { print ' home '; } else { print ' blue '; } ?> <?php print $classes; ?>" <?php if($attributes) { print ' ' . $attributes; } ?>>
 
-<div id="background-wrapper"></div>
-
 <?php print $page_top; ?>
 <?php print $page; ?>
 <?php print $page_bottom; ?>
