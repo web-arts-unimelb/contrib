@@ -8,10 +8,13 @@ engine = phptemplate
 ;regions[newsbanner]	= Newsbanner
 regions[help]			= Help
 regions[content]		= Content
+regions[feature_menu] = Feature menu
+regions[site_search]  = Site search
+regions[slider]       = Slider
 regions[navigation]		= Navigation
 regions[highlight]		= Highlight
-regions[sidebar_right]	= Sidebar Right
-regions[content_bottom]	= Content Bottom
+regions[sidebar_right]	= Sidebar right
+regions[content_bottom]	= Content bottom
 
 ; Regions only shown on the front page.
 regions[home_column_1]	= home_column_1

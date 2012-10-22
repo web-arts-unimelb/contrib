@@ -108,57 +108,84 @@
 
   </div><!-- end header -->
 
+  <?php if (!empty($messages)): ?>
+    <div class="col-8" role="complementary">
+        <?php print $messages; ?>
+    </div>
+  <?php endif; ?>
+
+  <?php if (!empty($page['feature_menu'])): ?>
+    <div class="feature col-8">
+      <div id="feature-menu" class="col-6">
+        <?php print render($page['feature_menu']); ?>
+        <?php if (function_exists('social_icons')): echo social_icons(); endif; ?>
+      </div>
+
+      <?php if(!empty($site_search_box)): ?>
+        <div id="site-search" class="col-2">
+          <a id="search-button" href="#">Search</a><input id="search-input"/>
+        </div>
+      <?php endif;?>
+    </div>
+  <?php endif; ?>
+
+  <?php if (!empty($page['slider'])): ?>
+    <div class="col-8" role="complementary" id="slider">
+      <?php print render($page['slider']); ?>
+    </div>
+  <?php endif; ?>
+
   <?php if($is_front): ?>
+
+    <!-- @todo: switch to 8-column layout via setting -->
     <div class="main col-6" role="main" id="main-content">
-      <?php print $messages; ?>
 
-      <?php if ($page["home_column_1"] || $page["home_column_2"] || $page["home_column_3"] || $page["home_column_4"] || $page["home_column_5"] || $page["home_column_6"]): ?>
-        <!-- Three by two responsive blocks front page. -->
+    <?php if (!empty($page['home_column_1']) || !empty($page['home_column_2']) || !empty($page['home_column_3']) || !empty($page['home_column_4']) || !empty($page['home_column_5']) || !empty($page['home_column_6'])): ?>
+      <!-- Three by two responsive blocks front page. -->
 
-        <div class="col-6 first">
-          <div class="col-2 first page-preview">
-            <?php if($page["home_column_1"]): ?>
-              <?php print render($page['home_column_1']); ?>
-            <?php endif; ?>
-          </div>
-
-          <div class="col-2 page-preview">
-            <?php if($page["home_column_2"]): ?>
-              <?php print render($page['home_column_2']); ?>
-            <?php endif; ?>
-          </div>
-
-          <div class="col-2 page-preview">
-            <?php if($page["home_column_3"]): ?>
-              <?php print render($page['home_column_3']); ?>
-            <?php endif; ?>
-          </div>
+      <div class="col-6 first">
+        <div class="col-2 first page-preview">
+          <?php if($page["home_column_1"]): ?>
+            <?php print render($page['home_column_1']); ?>
+          <?php endif; ?>
         </div>
 
-        <div class="col-6 first">
-          <div class="col-2 first page-preview">
-            <?php if($page["home_column_4"]): ?>
-              <?php print render($page['home_column_4']); ?>
-            <?php endif; ?>
-          </div>
-
-          <div class="col-2 page-preview">
-            <?php if($page["home_column_5"]): ?>
-              <?php print render($page['home_column_5']); ?>
-            <?php endif; ?>
-          </div>
-
-          <div class="col-2 page-preview">
-            <?php if($page["home_column_6"]): ?>
-              <?php print render($page['home_column_6']); ?>
-            <?php endif; ?>
-          </div>
+        <div class="col-2 page-preview">
+          <?php if($page["home_column_2"]): ?>
+            <?php print render($page['home_column_2']); ?>
+          <?php endif; ?>
         </div>
+
+        <div class="col-2 page-preview">
+          <?php if($page["home_column_3"]): ?>
+            <?php print render($page['home_column_3']); ?>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <div class="col-6 first">
+        <div class="col-2 first page-preview">
+          <?php if($page["home_column_4"]): ?>
+            <?php print render($page['home_column_4']); ?>
+          <?php endif; ?>
+        </div>
+
+        <div class="col-2 page-preview">
+          <?php if($page["home_column_5"]): ?>
+            <?php print render($page['home_column_5']); ?>
+          <?php endif; ?>
+        </div>
+
+        <div class="col-2 page-preview">
+          <?php if($page["home_column_6"]): ?>
+            <?php print render($page['home_column_6']); ?>
+          <?php endif; ?>
+        </div>
+      </div>
 
       <?php else: ?>
         <!-- Simple node or view front page. -->
         <div class="main col-6" role="main" id="main-content">
-        <?php print $messages; ?>
         <?php if ($tabs = render($tabs)): ?>
           <div class="tabs"><?php print $tabs; ?></div>
         <?php endif; ?>
@@ -214,7 +241,6 @@
     </div>
 
     <div class="main col-4" role="main" id="main-content">
-      <?php print $messages; ?>
       <?php if ($tabs = render($tabs)): ?>
         <div class="tabs"><?php print $tabs; ?></div>
       <?php endif; ?>
@@ -250,7 +276,6 @@
     </div>
   <?php else: ?>
     <div class="main col-6" role="main" id="main-content">
-      <?php print $messages; ?>
       <?php if ($tabs = render($tabs)): ?>
         <div class="tabs"><?php print $tabs; ?></div>
       <?php endif; ?>
