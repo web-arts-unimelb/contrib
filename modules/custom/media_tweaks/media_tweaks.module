@@ -15,4 +15,3 @@ function media_tweaks_media_browser_plugins_alter(&$plugins) {
   // Rename the `Web' tab.
   $plugins['media_internet']['#title'] = t('YouTube Embed Code');
 }
-

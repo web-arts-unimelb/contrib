@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file media_tweaks.install
+ * Install routines for the Media Tweaks module.'
+ */
+
+/**
+ * Implements hook_install().
+ */
+function mediatweaks_install() {
+  variable_set('media__field_select_media_text', st('Embed YouTube Video'));
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Override the media field select link text.
+ */
+function media_tweaks_update_7000() {
+  variable_set('media__field_select_media_text', st('Embed YouTube Video'));
+}
