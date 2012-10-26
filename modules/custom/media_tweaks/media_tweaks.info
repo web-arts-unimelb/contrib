@@ -1,0 +1,7 @@
+name = Media Tweaks
+description = Tweak the way media module displays its widgets.
+version = 7.x-1.0
+core = 7.x
+package = University of Melbourne
+
+dependencies[] = media
