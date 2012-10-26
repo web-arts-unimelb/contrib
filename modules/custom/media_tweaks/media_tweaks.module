@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file media_tweaks.module
+ * Hooks that mess with the way media module works.
+ */
+
+/**
+ * Implements hook_media_browser_plugins_alter().
+ */
+function media_tweaks_media_browser_plugins_alter(&$plugins) {
+  // Rename and reorder the `Upload' tab.
+  $plugins['upload']['#title'] = t('Upload File');
+  $plugins['upload']['#weight'] = 0;
+
+  // Rename the `Web' tab.
+  $plugins['media_internet']['#title'] = t('YouTube Embed Code');
+}
+
