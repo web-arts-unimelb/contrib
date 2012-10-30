@@ -7,4 +7,5 @@ project = wysiwyg_arts
 dependencies[] = features
 dependencies[] = wysiwyg
 features[features_api][] = api:1
+features[filter][] = full_html
 features[wysiwyg][] = full_html
