@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file content_access_admin.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function content_access_admin_menu() {
+  $items['admin/content/access'] = array(
+    'title' => t('Content Access'),
+    'decription' => t('View which users have ACL access to nodes.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('content_access_admin_page'),
+    'access arguments' => array('grant content access'),
+    'file' => 'content_access_admin.pages.inc',
+  );
+  return $items;
+}
