@@ -1,0 +1,11 @@
+name = Faculty of Arts WYSIWYG
+description = Provides a configured WYSIWYG editor for text fields.
+core = 7.x
+package = University of Melbourne
+version = 7.x-1.0
+project = wysiwyg_arts
+dependencies[] = features
+dependencies[] = unimelb_arts
+dependencies[] = wysiwyg
+features[features_api][] = api:1
+features[wysiwyg][] = full_html
