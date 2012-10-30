@@ -35,6 +35,7 @@ function feature_profile_field_group_info() {
       9 => 'field_profile_major',
       10 => 'field_profile_ambassador',
       11 => 'field_profile_internship',
+      12 => 'field_profile_partner',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

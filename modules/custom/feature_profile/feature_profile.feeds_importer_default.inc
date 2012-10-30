@@ -51,6 +51,8 @@ function feature_profile_feeds_importer_default() {
           'xpathparser:22' => 'Sticky',
           'xpathparser:23' => 'Ambassador',
           'xpathparser:24' => 'Internship',
+          'xpathparser:25' => 'Partner',
+          'xpathparser:26' => 'PartnerURL',
         ),
         'rawXML' => array(
           'xpathparser:0' => 0,
@@ -75,6 +77,8 @@ function feature_profile_feeds_importer_default() {
           'xpathparser:22' => 0,
           'xpathparser:23' => 0,
           'xpathparser:24' => 0,
+          'xpathparser:25' => 0,
+          'xpathparser:26' => 0,
         ),
         'context' => '//node',
         'exp' => array(
@@ -103,6 +107,8 @@ function feature_profile_feeds_importer_default() {
             'xpathparser:22' => 0,
             'xpathparser:23' => 0,
             'xpathparser:24' => 0,
+            'xpathparser:25' => 0,
+            'xpathparser:26' => 0,
           ),
         ),
         'allow_override' => 1,
@@ -223,6 +229,16 @@ function feature_profile_feeds_importer_default() {
           21 => array(
             'source' => 'xpathparser:24',
             'target' => 'field_profile_internship',
+            'unique' => FALSE,
+          ),
+          22 => array(
+            'source' => 'xpathparser:25',
+            'target' => 'field_profile_partner:title',
+            'unique' => FALSE,
+          ),
+          23 => array(
+            'source' => 'xpathparser:26',
+            'target' => 'field_profile_partner:url',
             'unique' => FALSE,
           ),
         ),
