@@ -1,0 +1,50 @@
+/* Use header styles in WYSIWYG Editor. */
+h1, h2, h3, h4, h5, h6 {
+  color:#003366;
+}
+
+h2 { margin-top:1em;}
+h3 { margin-top:1.2em;}
+h4,h5,h6{ margin-top:1.6em;}
+h5 { font-size:14px;}
+h6 { font-size:12px;}
+
+/* Float images. */
+img.wysiwg-right {
+  float: right;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+
+img.wysiwg-left {
+  float: left;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-right: 2em;
+}
+
+/* Notice styles. */
+p.notice,
+p.importantnotice {
+  border: 1px dotted #999999;
+  background-color: #eeeeee;
+  padding: 0.6em;
+  margin: 1em;
+}
+
+p.importantnotice {
+  color: #990000;
+  border: 1px dotted #ff9999;
+  background-color: #ffeeee;
+}
+
+/* Avoid double-theming if they end up nested. */
+.notice .notice,
+.notice .importantnotice,
+.importantnotice .notice,
+.importantnotice .importantnotice {
+  border: none;
+  padding: 0em;
+  margin: 0em;
+}
