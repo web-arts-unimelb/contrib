@@ -53,9 +53,11 @@ function wysiwyg_arts_wysiwyg_default_profiles() {
       'paste_auto_cleanup_on_paste' => 0,
       'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6,div,blockquote,address,pre,code,dt,dd,img',
       'css_setting' => 'self',
-      'css_path' => 'profiles/foa/modules/custom/tinymce_wysiwyg/css/tinymce_wysiwyg.css',
-      'css_classes' => 'Float left=wysiwyg-left
-Float right=wysiwyg-right',
+      'css_path' => 'profiles/foa/modules/custom/wysiwyg_arts/css/wysiwyg_arts.css',
+      'css_classes' => 'Image float left=wysiwyg-left
+Image float right=wysiwyg-right
+Paragraph Notice=notice
+Paragraph Important Notice=importantnotice'
     ),
     'rdf_mapping' => array(),
   );
