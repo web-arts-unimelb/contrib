@@ -93,7 +93,7 @@ function unimelb_preprocess_page(&$variables) {
   }
 
   // Body class that is used by templates to show or not show the university logo.
-  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
+  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo') ? 'logo' : 'no-logo';
 
   $variables['site_search_box'] = theme_get_setting('unimelb_settings_site_search_box');
   $variables['unimelb_ht_right'] = theme_get_setting('unimelb_settings_ht-right', '');
