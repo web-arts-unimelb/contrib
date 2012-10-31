@@ -56,8 +56,8 @@ function wysiwyg_arts_wysiwyg_default_profiles() {
       'css_path' => 'profiles/foa/modules/custom/wysiwyg_arts/css/wysiwyg_arts.css',
       'css_classes' => 'Image float left=wysiwyg-left
 Image float right=wysiwyg-right
-Paragraph Notice=notice
-Paragraph Important Notice=importantnotice'
+Notice=notice
+Important Notice=importantnotice',
     ),
     'rdf_mapping' => array(),
   );
