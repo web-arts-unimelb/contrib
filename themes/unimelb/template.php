@@ -29,11 +29,11 @@ function unimelb_preprocess_html(&$variables) {
 
   // Generate the meta tag content here, simply print the content in the tpl.php.
   if ($keywords = theme_get_setting('unimelb_settings_meta-keywords')) {
-    $keywords[] = theme_get_setting('unimelb_settings_meta-keywords');
+    $keywords = explode(',', theme_get_setting('unimelb_settings_meta-keywords'));
   }
   $keywords[] = $variables['page_title'];
   $keywords[] = $variables['site_name'];
-  $variables['unimelb_meta_keywords']  = implode(', ', $keywords);
+  $variables['unimelb_meta_keywords'] = check_plain(implode(', ', $keywords));
 
   $variables['unimelb_meta_description'] = $variables['site_name'] . ': ' . $variables['page_title'];
   if ($variables['is_front'] && $description = theme_get_setting('unimelb_settings_ht-right')) {
@@ -92,8 +92,16 @@ function unimelb_preprocess_page(&$variables) {
     }
   }
 
+  // Responsive layout using a per-layout template include.
+  // This only actually does something in templates/page-front.tpl.php
+  $variables['layout'] = 'layout/' . theme_get_setting('unimelb_settings_columns') . '.tpl.inc';
+  if (!file_exists(path_to_theme() . '/templates/' . $variables['layout'])) {
+    // If there is no defined template or if the file is missing, default to 3+1.
+    $variables['layout'] = 'layout/3-1.tpl.inc';
+  }
+
   // Body class that is used by templates to show or not show the university logo.
-  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo') ? 'logo' : 'no-logo';
+  $variables['brand_logo'] = theme_get_setting('unimelb_settings_custom_logo', '') ? 'logo' : 'no-logo';
 
   $variables['site_search_box'] = theme_get_setting('unimelb_settings_site_search_box');
   $variables['unimelb_ht_right'] = theme_get_setting('unimelb_settings_ht-right', '');

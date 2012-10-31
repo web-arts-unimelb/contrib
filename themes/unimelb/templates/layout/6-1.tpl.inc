@@ -54,6 +54,20 @@
       <?php if(!empty($page['home_column_9'])): print render($page['home_column_9']); endif; ?>
     </div>
   </div>
+
+  <div class="col-6 first">
+    <div class="col-2 first page-preview">
+      <?php if(!empty($page['home_column_10'])): print render($page['home_column_10']); endif; ?>
+    </div>
+
+    <div class="col-2 page-preview">
+      <?php if(!empty($page['home_column_11'])): print render($page['home_column_11']); endif; ?>
+    </div>
+
+    <div class="col-2 page-preview">
+      <?php if(!empty($page['home_column_12'])): print render($page['home_column_12']); endif; ?>
+    </div>
+  </div>
 </div>
 
 <div class="col-2 rightside">

@@ -1,6 +1,7 @@
 <?php
-
-// thanks to Aaron Tan and team at the Faculty of Architecture, Building and Planning, University of Melbourne, and Paul Tagell and team at Marketing and Communications, University of Melbourne - Media Insights 2011
+// thanks to Aaron Tan and team at the Faculty of Architecture, Building and
+// Planning, University of Melbourne, and Paul Tagell and team at Marketing
+// and Communications, University of Melbourne - Media Insights 2011.
 
 /**
  * @file
@@ -80,19 +81,17 @@
     <?php if ($brand_logo == 'logo' && !empty($logo)): ?>
       <a href="<?php print $front_page; ?>" title="Home" rel="home"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" /></a>
     <?php else: ?>
-	
-	  <?php 
-			if(!empty($unimelb_meta_parent_org_url))
-				$home_page_url = $unimelb_meta_parent_org_url;
-			else
-				$home_page_url = $front_page;
-	  ?>
-		
-	  <?php if(!empty($unimelb_meta_parent_org)): ?>
-			<p><a href="<?php echo $home_page_url ?>"><?php echo $unimelb_meta_parent_org ?></a></p>	
-	  <?php else: ?>
-			
-	  <?php endif; ?>
+
+    <?php
+      if(!empty($unimelb_meta_parent_org_url))
+        $home_page_url = $unimelb_meta_parent_org_url;
+      else
+        $home_page_url = $front_page;
+    ?>
+
+    <?php if(!empty($unimelb_meta_parent_org)): ?>
+      <p><a href="<?php echo $home_page_url ?>"><?php echo $unimelb_meta_parent_org ?></a></p>
+    <?php endif; ?>
 
       <h1><a href="<?php print $front_page; ?>" title="Home" rel="home"><?php print $site_name; ?></a></h1>
     <?php endif; ?>
@@ -135,88 +134,10 @@
     </div>
   <?php endif; ?>
 
-  <?php if(!empty( $page['highlight'])): ?>
-    <div class="col-2">
-      <div class="events">
-        <?php print render($page['highlight']); ?>
-      </div>
-    </div>
-
-    <div class="main col-4" role="main" id="main-content">
-      <?php if ($tabs = render($tabs)): ?>
-        <div class="tabs"><?php print $tabs; ?></div>
-      <?php endif; ?>
-      <?php print render($page['help']); ?>
-      <?php if ($action_links): ?>
-        <ul class="action-links"><?php print render($action_links); ?></ul>
-      <?php endif; ?>
-      <?php if ($title): ?>
-        <?php print render($title_prefix); ?>
-        <?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
-        <?php print render($title_suffix); ?>
-      <?php endif; ?>
-      <?php print render($page['content']); ?>
-      <?php if ($page['content_bottom']): ?>
-        <div id="main-content-bottom">
-          <?php print render($page['content_bottom']); ?>
-        </div>
-      <?php endif; ?>
-    </div>
-
-    <div class="col-2">
-      <div class="the_nav first" role="navigation">
-        <?php if($page["navigation"]): ?>
-          <?php print render($page["navigation"]); ?>
-        <?php endif; ?>
-      </div>
-
-      <?php if($page["sidebar_right"]): ?>
-        <div class="sidebar-right">
-          <?php print render($page["sidebar_right"]); ?>
-        </div>
-      <?php endif; ?>
-    </div>
-  <?php else: // No hilight. ?>
-    <div class="main col-6" role="main" id="main-content">
-      <?php if ($tabs = render($tabs)): ?>
-        <div class="tabs"><?php print $tabs; ?></div>
-      <?php endif; ?>
-      <?php print render($page['help']); ?>
-      <?php if ($action_links): ?>
-        <ul class="action-links"><?php print render($action_links); ?></ul>
-      <?php endif; ?>
-      <?php if ($title): ?>
-        <?php print render($title_prefix); ?>
-        <?php print '<h2 ' . $title_attributes . '>' . $title . '</h2>'; ?>
-        <?php print render($title_suffix); ?>
-      <?php endif; ?>
-      <?php print render($page['content']); ?>
-      <?php if ($page['content_bottom']): ?>
-        <div id="main-content-bottom">
-          <?php print render($page['content_bottom']); ?>
-        </div>
-      <?php endif; ?>
-    </div>
-
-    <div class="col-2">
-      <div class="the_nav first" role="navigation">
-        <?php if($page["navigation"]): ?>
-          <?php print render($page["navigation"]); ?>
-        <?php endif; ?>
-      </div>
-
-      <?php if($page["sidebar_right"]): ?>
-        <div class="sidebar-right">
-          <?php print render($page["sidebar_right"]); ?>
-        </div>
-      <?php endif; ?>
-    </div>
-  <?php endif; ?>
-
+  <!-- Include a layout-specific template file on the front page. -->
+  <?php include($variables['layout']); ?>
 
 </div><!-- end wrapper -->
-
-
 
 <hr /><div class="footer"><div id="local" class="wrapper">
   <p class="footertitle"><?php print _unimelb_space_tags($site_name); ?></p>

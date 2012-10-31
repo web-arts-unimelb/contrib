@@ -31,6 +31,26 @@ function unimelb_form_system_theme_settings_alter(&$form, $form_state) {
     '#default_value' => empty($version) ? '1-1-0' : $version,
   );
 
+  $columns = theme_get_setting('unimelb_settings_columns');
+  if (empty($columns)) {
+    $columns = '3-1';
+  }
+  $form['unimelb']['unimelb_settings_columns'] = array(
+    '#type' => 'select',
+    '#title' => t('Column Grid'),
+    '#description' => t('Choose the column layout for the front page.'),
+    '#options' => array(
+      '2-1' => t('2-2-2-2+1 - Two responsive in the main content, one fixed in navigation.'),
+      '3-1' => t('3-3-3-3+1 - Three responsive in the main content, one fixed in navigation.'),
+      '6-1' => t('6-3-3+1 - Six plus three responsive in the main content, one fixed in navigation.'),
+      '4-2' => t('4-2-4-2 - Four plus two responsive in the main content, no navigation.'),
+      '4-4' => t('4-4-4-4 - Four plus four responsive in the main content, no navigation.'),
+      '8-4' => t('8-4 - Eight plus four responsive in the main content, no navigation.'),
+    ),
+    '#default_value' => $columns,
+    '#required' => TRUE,
+  );
+
   $form['unimelb']['unimelb_settings_custom_logo'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use Custom Logo'),

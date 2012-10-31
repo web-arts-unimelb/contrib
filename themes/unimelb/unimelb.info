@@ -4,50 +4,57 @@ package = Core
 core = 7.x
 engine = phptemplate
 
-;regions[above]			= Above
-;regions[newsbanner]	= Newsbanner
-regions[help]			= Help
-regions[content]		= Content
-regions[feature_menu] = Feature menu
-regions[site_search]  = Site search
-regions[slider]       = Slider
-regions[navigation]		= Navigation
-regions[highlight]		= Highlight
-regions[sidebar_right]	= Sidebar right
-regions[content_bottom]	= Content bottom
+;regions[above]           = Above
+;regions[newsbanner]      = Newsbanner
+regions[help]            = Help
+regions[feature_menu]    = Feature menu
+cegions[site_search]     = Site search
+regions[slider]          = Slider
+regions[content]         = Content
+regions[navigation]      = Navigation
+regions[highlight]       = Highlight
+regions[sidebar_right]   = Sidebar Right
+regions[content_bottom]  = Content Bottom
 
-; Regions only shown on the front page.
-regions[home_column_1]	= home_column_1
-regions[home_column_2]	= home_column_2
-regions[home_column_3]	= home_column_3
-regions[home_column_4]	= home_column_4
-regions[home_column_5]	= home_column_5
-regions[home_column_6]	= home_column_6
+; Regions only shown on the front page. Not all regions
+; are visible in all layouts.
+regions[home_column_1]   = home_column_1
+regions[home_column_2]   = home_column_2
+regions[home_column_3]   = home_column_3
+regions[home_column_4]   = home_column_4
+regions[home_column_5]   = home_column_5
+regions[home_column_6]   = home_column_6
+regions[home_column_7]   = home_column_7
+regions[home_column_8]   = home_column_8
+regions[home_column_9]   = home_column_9
+regions[home_column_10]  = home_column_10
+regions[home_column_11]  = home_column_11
+regions[home_column_12]  = home_column_12
 
-regions[home_event]		= home_event
-regions[home_promo]		= home_promo
+regions[home_event]      = home_event
+regions[home_promo]      = home_promo
 
 ; Settings.
-settings[unimelb_settings_custom_logo]		= 0
-settings[unimelb_settings_parent-org]		= "Faculty of Arts"
-settings[unimelb_settings_parent-org-url]	= http://www.arts.unimelb.edu.au
-settings[unimelb_settings_ht-left]			= ""
-settings[unimelb_settings_ht-right]			= The Faculty of Arts is...
-settings[unimelb_settings_meta-keywords]	= ""
-settings[unimelb_settings_ad-line1] 		= Babel building
-settings[unimelb_settings_ad-line2] 		= University of Melbourne
-settings[unimelb_settings_ad-sub] 			= Parkville
-settings[unimelb_settings_ad-postcode] 		= 3010
-settings[unimelb_settings_ad-state] 		= VIC
-settings[unimelb_settings_ad-country] 		= Australia
-settings[unimelb_settings_ad-phone]			= <a href="tel:136352">13 MELB</a> (13 63 52)
-settings[unimelb_settings_ad-fax]			= ""
-settings[unimelb_settings_ad-email]			= ""
-settings[unimelb_settings_fb-url]			= http://www.facebook.com/melbuni
-settings[unimelb_settings_tw-url]			= http://www.twitter.com/GSHSS
-settings[unimelb_settings_auth-name]		= ""
-settings[unimelb_settings_maint-name]		= ""
-settings[unimelb_settings_date-created]		= ""
+settings[unimelb_settings_custom_logo]    = 0
+settings[unimelb_settings_parent-org]     = "Faculty of Arts"
+settings[unimelb_settings_parent-org-url] = http://www.arts.unimelb.edu.au
+settings[unimelb_settings_ht-left]        = ""
+settings[unimelb_settings_ht-right]       = The Faculty of Arts is...
+settings[unimelb_settings_meta-keywords]  = ""
+settings[unimelb_settings_ad-line1]       = Babel building
+settings[unimelb_settings_ad-line2]       = University of Melbourne
+settings[unimelb_settings_ad-sub]         = Parkville
+settings[unimelb_settings_ad-postcode]    = 3010
+settings[unimelb_settings_ad-state]       = VIC
+settings[unimelb_settings_ad-country]     = Australia
+settings[unimelb_settings_ad-phone]       = <a href="tel:136352">13 MELB</a> (13 63 52)
+settings[unimelb_settings_ad-fax]         = ""
+settings[unimelb_settings_ad-email]       = "arts-webmaster@unimelb.edu.au"
+settings[unimelb_settings_fb-url]         = http://www.facebook.com/melbuni
+settings[unimelb_settings_tw-url]         = http://www.twitter.com/GSHSS
+settings[unimelb_settings_auth-name]      = "General Manager, Faculty of Arts"
+settings[unimelb_settings_maint-name]     = "Arts Webmaster"
+settings[unimelb_settings_date-created]   = ""
 
 ; Manual stylesheets.
 stylesheets[all][] = css/unimelb_drupal_distro.css
@@ -57,6 +64,7 @@ stylesheets[all][] = css/override/misc.css
 
 ; Sassy proccessed stylesheets.
 stylesheets[all][] = scss/quicktabs.scss
+stylesheets[all][] = scss/slider.scss
 stylesheets[all][] = scss/local.scss
 
 ; Screen output-only CSS.
@@ -64,4 +72,4 @@ stylesheets[screen][] = css/responsive.css
 
 scripts[] = js/local.js
 
-version = "7.x-1.0-beta2"
+version = "7.x-2.0"
