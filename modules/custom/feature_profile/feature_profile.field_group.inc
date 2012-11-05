@@ -21,7 +21,7 @@ function feature_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Teaching or Studying',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_profile_further_studies',
       1 => 'field_profile_grad_course',

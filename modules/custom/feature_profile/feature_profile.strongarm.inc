@@ -81,7 +81,7 @@ function feature_profile_strongarm() {
           'weight' => '2',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '10',
         ),
       ),
       'display' => array(),
