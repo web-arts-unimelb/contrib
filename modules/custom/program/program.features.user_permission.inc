@@ -14,7 +14,8 @@ function program_user_default_permissions() {
   $permissions['create program content'] = array(
     'name' => 'create program content',
     'roles' => array(
-      0 => 'site administrator',
+      0 => 'admin',
+      1 => 'site admin',
     ),
     'module' => 'node',
   );
@@ -23,7 +24,8 @@ function program_user_default_permissions() {
   $permissions['delete any program content'] = array(
     'name' => 'delete any program content',
     'roles' => array(
-      0 => 'site administrator',
+      0 => 'admin',
+      1 => 'site admin',
     ),
     'module' => 'node',
   );
@@ -31,7 +33,10 @@ function program_user_default_permissions() {
   // Exported permission: delete own program content.
   $permissions['delete own program content'] = array(
     'name' => 'delete own program content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'admin',
+      1 => 'site admin',
+    ),
     'module' => 'node',
   );
 
@@ -39,7 +44,8 @@ function program_user_default_permissions() {
   $permissions['edit any program content'] = array(
     'name' => 'edit any program content',
     'roles' => array(
-      0 => 'site administrator',
+      0 => 'admin',
+      1 => 'site admin',
     ),
     'module' => 'node',
   );
@@ -47,7 +53,11 @@ function program_user_default_permissions() {
   // Exported permission: edit own program content.
   $permissions['edit own program content'] = array(
     'name' => 'edit own program content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'admin',
+      1 => 'editor',
+      2 => 'site admin',
+    ),
     'module' => 'node',
   );
 

@@ -69,7 +69,7 @@ function program_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_parent_program';
-  $strongarm->value = 'main-menu:426';
+  $strongarm->value = 'main-menu:0';
   $export['menu_parent_program'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -77,7 +77,7 @@ function program_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_program';
   $strongarm->value = array(
-    0 => 'status',
+    0 => 'revision',
   );
   $export['node_options_program'] = $strongarm;
 
