@@ -33,6 +33,8 @@ class field_validation_match_field_validator extends field_validation_validator 
       if (!empty($settings['field_name']) && !empty($settings['column'])) {
         $query->fieldCondition($settings['field_name'], $settings['column'], $this->value);
       }
+      //Always bypass all access checkings.
+      $query->addMetaData('account', user_load(1));
       $flag = (bool)$query->range(0, 1)->count()->execute();
       if (!empty($settings['reverse'])) {
         $flag = $flag ? FALSE : TRUE;
