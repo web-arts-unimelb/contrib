@@ -1,6 +1,6 @@
 name = Jquery Menu
 description = Enables expandable jquery menus.
-package = User Interface
+package = User interface
 core = 7.x
 configure = admin/config/user-interface/jquerymenu/settings
 
