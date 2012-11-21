@@ -21,15 +21,14 @@ function award_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Eligibility information',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_award_students',
-      1 => 'field_award_study_level',
-      2 => 'field_award_year_level',
-      3 => 'field_award_travel_support',
-      4 => 'field_award_citizenship',
-      5 => 'field_award_financial_need',
-      6 => 'field_award_other',
+      0 => 'field_award_citizenship',
+      1 => 'field_award_financial_need',
+      2 => 'field_award_other',
+      3 => 'field_award_students',
+      4 => 'field_award_study_level',
+      5 => 'field_award_travel_support',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -55,7 +54,7 @@ function award_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Award Tags',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_award_research_area',
     ),

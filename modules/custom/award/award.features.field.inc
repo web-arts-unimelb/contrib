@@ -41,22 +41,16 @@ function award_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'award',
-      'default_value' => array(
-        0 => array(
-          'summary' => '',
-          'value' => '',
-          'format' => 'html_editor',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -71,18 +65,22 @@ function award_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'body',
       'label' => 'Background',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'html_editor' => 'html_editor',
+            'filtered_html' => 0,
+            'full_html' => 'full_html',
             'plain_text' => 0,
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'html_editor' => array(
+              'filtered_html' => array(
+                'weight' => '0',
+              ),
+              'full_html' => array(
                 'weight' => '0',
               ),
               'plain_text' => array(
@@ -111,11 +109,11 @@ function award_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '20',
+          'rows' => '5',
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -202,8 +200,8 @@ function award_field_default_fields() {
         'active' => 1,
         'module' => 'date',
         'settings' => array(
-          'increment' => 15,
-          'input_format' => 'Y-m-d H:i:s',
+          'increment' => '15',
+          'input_format' => 'j M Y - H:i:s',
           'input_format_custom' => '',
           'label_position' => 'above',
           'text_parts' => array(),
@@ -240,15 +238,11 @@ function award_field_default_fields() {
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
-      'type' => 'text_long',
+      'type' => 'text_with_summary',
     ),
     'field_instance' => array(
       'bundle' => 'award',
-      'default_value' => array(
-        0 => array(
-          'value' => '',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -257,7 +251,7 @@ function award_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 11,
+          'weight' => 22,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -273,14 +267,18 @@ function award_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'html_editor' => 'html_editor',
+            'filtered_html' => 0,
+            'full_html' => 'full_html',
             'plain_text' => 0,
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'html_editor' => array(
+              'filtered_html' => array(
+                'weight' => '0',
+              ),
+              'full_html' => array(
                 'weight' => '0',
               ),
               'plain_text' => array(
@@ -289,6 +287,7 @@ function award_field_default_fields() {
             ),
           ),
         ),
+        'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
         'wysiwyg_fields' => array(
@@ -309,9 +308,97 @@ function award_field_default_fields() {
         'module' => 'text',
         'settings' => array(
           'rows' => '5',
+          'summary_rows' => 5,
         ),
-        'type' => 'text_textarea',
+        'type' => 'text_textarea_with_summary',
         'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-award-field_award_attachments'.
+  $fields['node-award-field_award_attachments'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_award_attachments',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 1,
+        'display_field' => 1,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'award',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 23,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_award_attachments',
+      'label' => 'Attachments',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 1,
+        'file_directory' => '',
+        'file_extensions' => 'txt pdf odt odp ods csv doc docx xls xlsx ppt pptx zip',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(
+              'file_default' => 'file_default',
+            ),
+            'icon' => '32c1419a9092fb94fcc30f95d7a66fb4',
+            'label' => 'Attachments',
+          ),
+          'status' => 1,
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '16',
       ),
     ),
   );
@@ -417,24 +504,20 @@ function award_field_default_fields() {
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
-      'type' => 'text_long',
+      'type' => 'text_with_summary',
     ),
     'field_instance' => array(
       'bundle' => 'award',
-      'default_value' => array(
-        0 => array(
-          'value' => '',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Example: Awardee must report to committee every six months.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 10,
+          'weight' => 21,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -450,14 +533,18 @@ function award_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'html_editor' => 'html_editor',
+            'filtered_html' => 0,
+            'full_html' => 'full_html',
             'plain_text' => 0,
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'html_editor' => array(
+              'filtered_html' => array(
+                'weight' => '0',
+              ),
+              'full_html' => array(
                 'weight' => '0',
               ),
               'plain_text' => array(
@@ -466,6 +553,7 @@ function award_field_default_fields() {
             ),
           ),
         ),
+        'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
         'wysiwyg_fields' => array(
@@ -485,10 +573,11 @@ function award_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '10',
+          'rows' => '5',
+          'summary_rows' => 5,
         ),
-        'type' => 'text_textarea',
-        'weight' => '4',
+        'type' => 'text_textarea_with_summary',
+        'weight' => '6',
       ),
     ),
   );
@@ -513,7 +602,7 @@ function award_field_default_fields() {
       'bundle' => 'award',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Email address of enquiry',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -555,7 +644,7 @@ function award_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '11',
+        'weight' => '12',
       ),
     ),
   );
@@ -656,6 +745,7 @@ function award_field_default_fields() {
           'biannual' => 'Biannual',
           'annual' => 'Annual',
           'biennial' => 'Biennial',
+          'see conditions' => 'See conditions',
         ),
         'allowed_values_function' => '',
       ),
@@ -812,81 +902,6 @@ function award_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-award-field_award_process'.
-  $fields['node-award-field_award_process'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_award_process',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          'merit' => 'Merit based',
-          'application' => 'Application based',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'award',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 1,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_award_process',
-      'label' => 'Process',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Process',
-          ),
-          'status' => 0,
-        ),
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '1',
-      ),
-    ),
-  );
-
   // Exported field: 'node-award-field_award_research_area'.
   $fields['node-award-field_award_research_area'] = array(
     'field_config' => array(
@@ -913,7 +928,7 @@ function award_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           0 => array(
-            'vocabulary' => 'research_area',
+            'vocabulary' => 'study_area',
             'parent' => '0',
           ),
         ),
@@ -925,7 +940,7 @@ function award_field_default_fields() {
       'bundle' => 'award',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Select all research areas to which this award can apply.',
+      'description' => 'Select all areas of study that apply to this award.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -943,8 +958,8 @@ function award_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_award_research_area',
-      'label' => 'Research area',
-      'required' => 1,
+      'label' => 'Area of study',
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
         'wysiwyg_fields' => array(
@@ -990,6 +1005,7 @@ function award_field_default_fields() {
         'allowed_values' => array(
           'commencing' => 'Commencing students',
           'current' => 'Current students',
+          'not enrolled' => 'Not enrolled',
         ),
         'allowed_values_function' => '',
       ),
@@ -1157,7 +1173,7 @@ function award_field_default_fields() {
       'bundle' => 'award',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'HTTP link to Formstack form that will generate an “Apply now” button on the front end. Application forms to be incorporated at a later stage.',
+      'description' => 'HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -1175,8 +1191,8 @@ function award_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_award_submissions',
-      'label' => 'Submissions',
-      'required' => 1,
+      'label' => 'Apply link',
+      'required' => 0,
       'settings' => array(
         'attributes' => array(
           'class' => '',
@@ -1191,7 +1207,7 @@ function award_field_default_fields() {
         'enable_tokens' => 1,
         'title' => 'value',
         'title_maxlength' => '128',
-        'title_value' => 'Apply now',
+        'title_value' => 'Apply',
         'url' => 0,
         'user_register_form' => FALSE,
         'validate_url' => 1,
@@ -1213,7 +1229,7 @@ function award_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '6',
+        'weight' => '11',
       ),
     ),
   );
@@ -1296,7 +1312,7 @@ function award_field_default_fields() {
   $fields['node-award-field_award_travel_support'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_award_travel_support',
@@ -1367,6 +1383,82 @@ function award_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-award-field_award_type'.
+  $fields['node-award-field_award_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_award_type',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'scholarship' => 'Scholarship',
+          'prize' => 'Prize',
+          'grant' => 'Grant',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'award',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 25,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_award_type',
+      'label' => 'Award type',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Award type',
+          ),
+          'status' => 0,
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'node-award-field_award_uni_trust_record'.
   $fields['node-award-field_award_uni_trust_record'] = array(
     'field_config' => array(
@@ -1433,7 +1525,7 @@ function award_field_default_fields() {
           'url_cutoff' => '80',
         ),
         'enable_tokens' => 1,
-        'title' => 'value',
+        'title' => 'optional',
         'title_maxlength' => '128',
         'title_value' => 'University trust record',
         'url' => 0,
@@ -1462,45 +1554,43 @@ function award_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-award-field_award_year_level'.
-  $fields['node-award-field_award_year_level'] = array(
+  // Exported field: 'node-award-field_award_value'.
+  $fields['node-award-field_award_value'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_award_year_level',
+      'field_name' => 'field_award_value',
       'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
+      'indexes' => array(),
       'locked' => '0',
-      'module' => 'list',
+      'module' => 'number',
       'settings' => array(
-        'allowed_values' => array(
-          'first' => 'First',
-          'second' => 'Second',
-          'third' => 'Third',
-        ),
-        'allowed_values_function' => '',
+        'decimal_separator' => '.',
+        'precision' => '10',
+        'scale' => '2',
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'number_decimal',
     ),
     'field_instance' => array(
       'bundle' => 'award',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'e.g. If 4000.42 is entered, it should output $4000.42',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 4,
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => 24,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1510,10 +1600,14 @@ function award_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_award_year_level',
-      'label' => 'Year level',
+      'field_name' => 'field_award_value',
+      'label' => 'Approximate value',
       'required' => 0,
       'settings' => array(
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
         'user_register_form' => FALSE,
         'wysiwyg_fields' => array(
           'settings' => array(
@@ -1523,17 +1617,17 @@ function award_field_default_fields() {
             ),
             'formatters' => array(),
             'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Year level',
+            'label' => 'Approximate value',
           ),
           'status' => 0,
         ),
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
+        'active' => 0,
+        'module' => 'number',
         'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '44',
+        'type' => 'number',
+        'weight' => '2',
       ),
     ),
   );
@@ -1542,26 +1636,28 @@ function award_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Application open and closing dates');
   t('Application process');
+  t('Apply link');
+  t('Approximate value');
+  t('Area of study');
+  t('Attachments');
+  t('Award type');
   t('Background');
   t('Citizenship');
   t('Conditions');
+  t('Email address of enquiry');
   t('Enquire now');
-  t('Example: Awardee must report to committee every six months.');
   t('Financial need');
   t('Frequency');
-  t('HTTP link to Formstack form that will generate an “Apply now” button on the front end. Application forms to be incorporated at a later stage.');
+  t('HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.');
   t('Number (of months) ');
   t('Other');
-  t('Process');
-  t('Research area');
-  t('Select all research areas to which this award can apply.');
+  t('Select all areas of study that apply to this award.');
   t('Students');
   t('Study level');
-  t('Submissions');
   t('Term');
   t('Travel support');
   t('University trust record');
-  t('Year level');
+  t('e.g. If 4000.42 is entered, it should output $4000.42');
 
   return $fields;
 }
