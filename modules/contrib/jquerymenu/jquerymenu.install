@@ -1,12 +1,13 @@
 <?php
 /**
  * @file
- * Install, update, and uninstall functions for the XXX module.
+ * Install file for jQueryMenu module
  */
 function jquerymenu_install() {
+ drupal_set_message(t('jQuery Menu has been installed.'));
 }
 function jquerymenu_uninstall() {
-  drupal_set_message(t('Jquery Menu has been uninstalled.'));
+  drupal_set_message(t('jQuery Menu has been uninstalled.'));  
 }
 
 function jquerymenu_schema() {
@@ -24,24 +25,22 @@ function jquerymenu_schema() {
           'not null' => TRUE,
         ),
       ),
-      'primary key' => array('mid'),
+      'primary key' => array('mid'),  
   );
   return $schema;
 }
-function jquerymenu_update_7001() {
-/**
- * This is a one time cleanup to remove blocks and menus that have gotten out of sync.
- * This update will reset blocks that were created directly by jquery menu
- * you will need to visit the blocks page after running this to re-enable those blocks.
- */
+function jquerymenu_update_1() {
+  // This is a one time cleanup to remove blocks and menus that have gotten out of sync.
+  // This update will reset blocks that were created directly by jquery menu
+  // you will need to visit the blocks page after running this to re-enable those blocks.
   $result = db_query("SELECT mid, menu_name FROM {jquerymenus}");
   $enabledmenus = array();
-  while ($enabled = $result->fetchAssoc()) {
+  while ($enabled = db_fetch_object($result)) {
     $title ='';
-    $title = db_query("SELECT title FROM {menu_custom} WHERE menu_name = ':menu_name'", array(":menu_name" => $enabled['menu_name']))->fetchField();
+    $title = db_result(db_query("SELECT title FROM {menu_custom} WHERE menu_name = '%s'", $enabled->menu_name));
     if (empty($title)) {
-      db_query("DELETE FROM {jquerymenus} WHERE menu_name = ':menu_name'", array(":menu_name" => $enabled['menu_name']));
-      db_query("DELETE FROM {block} WHERE module = 'jquerymenu'");
+      db_query("DELETE FROM {jquerymenus} WHERE menu_name = '%s'", $enabled->menu_name);
+      db_query("DELETE FROM {blocks} WHERE module = 'jquerymenu'");
     }
   }
 }

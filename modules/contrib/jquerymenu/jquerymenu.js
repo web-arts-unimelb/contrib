@@ -3,7 +3,14 @@
 Drupal.behaviors.jquerymenu = { 
     attach:function(context) {    
     
+
+  $('ul.jquerymenu .open').parents('li').removeClass('closed').addClass('open');
+  $('ul.jquerymenu .open').parents('li').children('span.parent').removeClass('closed').addClass('open').slideDown('700');
+  $('ul.jquerymenu .active').parents('li').removeClass('closed').addClass('open');
+  $('ul.jquerymenu .active').parents('li').children('span.parent').removeClass('closed').addClass('open');  
+
     
+  // create functions for hover effects  
   jqm_showit = function() {
     $(this).children('.jqm_link_edit').fadeIn();
   }
@@ -21,7 +28,7 @@ Drupal.behaviors.jquerymenu = {
       }
       $(momma).removeClass('closed').addClass('open');
       $(this).removeClass('closed').addClass('open');
-    }    
+    } 
   }
   
   jqm_mouseleave = function(){
@@ -33,22 +40,29 @@ Drupal.behaviors.jquerymenu = {
       }
       $(momma).removeClass('open').addClass('closed');
       $(this).removeClass('open').addClass('closed');
-    }
+    }   
   }
+  
+  // set selector variable
+  var selector = "li.parent span.parent";
+  if (Drupal.settings.jquerymenu.click_to_expand) {
+    selector = selector + ', li.parent > a';
+  }  
 
-$('ul.jquerymenu .active').parents('li').removeClass('closed').addClass('open');
-$('ul.jquerymenu .active').parents('li').children('span.parent').removeClass('closed').addClass('open');
-
+  // if hover, change menu state
   if (Drupal.settings.jquerymenu.hover === 1) {
     $('ul.jquerymenu:not(.jquerymenu-processed)', context).addClass('jquerymenu-processed').each(function(){
-      $(this).find('li.parent').hover(jqm_mouseenter, jqm_mouseleave);
+      $(this).find(selector).hover(jqm_mouseenter, jqm_mouseleave);
     });
+    // remove the + and - boxes
     $('ul.jquerymenu-processed span.parent').remove();
+    return false;
   }
 
+  // if not hover, change menu state on click 
   else if (Drupal.settings.jquerymenu.hover === 0) {
     $('ul.jquerymenu:not(.jquerymenu-processed)', context).addClass('jquerymenu-processed').each(function(){
-      $(this).find("li.parent span.parent").click(function(){
+      $(this).find(selector).click(function(){
         momma = $(this).parent();
         if ($(momma).hasClass('closed')){
           if (Drupal.settings.jquerymenu.animate === 1) {
@@ -57,6 +71,7 @@ $('ul.jquerymenu .active').parents('li').children('span.parent').removeClass('cl
           }
           $(momma).removeClass('closed').addClass('open');
           $(this).removeClass('closed').addClass('open');
+          return false;
         }
         else{
           if (Drupal.settings.jquerymenu.animate === 1) {          
@@ -65,9 +80,11 @@ $('ul.jquerymenu .active').parents('li').children('span.parent').removeClass('cl
           }
           $(momma).removeClass('open').addClass('closed');
           $(this).removeClass('open').addClass('closed');
+          return false;
         }
       });
     });
   }
 }
-}})(jQuery);
+}
+})(jQuery);

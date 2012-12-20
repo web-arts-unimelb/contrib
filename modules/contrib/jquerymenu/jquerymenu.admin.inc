@@ -73,13 +73,21 @@ function jquerymenu_admin_settings() {
     '#default_value' => variable_get('jquerymenu_parentlink', 0),
   );
   
+  // create a checkbox to display children when a link is clicked, rather than to follow the link
+  $form['jq_clicktoexpand'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Click to expand'),
+    '#description' => t('If checked, a parent menu item will expand/collapse its children instead of following the link.'),
+    '#default_value' => variable_get('jq_click_to_expand', 0),
+  );   
+  
   // create a checkbox to enable hover
   $form['jquerymenu_hover'] = array(
     '#type' => 'checkbox',
     '#title' => t('Expand children on hover.'),
     '#description' => t('If checked the child menu items will be displayed when hovering over the parent menu item.'),
     '#default_value' => variable_get('jquerymenu_hover', 0),
-  );  
+  );
 
   // Create a submit button.
   $form['jquerymenu_admin_settings_submit'] = array(
@@ -89,6 +97,7 @@ function jquerymenu_admin_settings() {
 
   return $form;
 }
+
 
 /**
  * Handle submission of jquerymenu_admin_settings_form, save to module variables and table..
@@ -100,6 +109,7 @@ function jquerymenu_admin_settings_submit($form, &$form_state) {
   variable_set('jquerymenu_edit_link', $form_state['values']['jquerymenu_edit_link']);
   variable_set('jquerymenu_parentlink', $form_state['values']['jquerymenu_parentlink']);
   variable_set('jquerymenu_hover', $form_state['values']['jquerymenu_hover']);  
+  variable_set('jq_click_to_expand', $form_state['values']['jq_clicktoexpand']);
   
   // Save selected menus.
   $choices = $form_state['values']['jquerymenu_activate'];

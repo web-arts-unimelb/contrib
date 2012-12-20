@@ -18,14 +18,23 @@ ul.jquerymenu li span.parent {
   margin-top: 4px;
 }
 ul.jquerymenu li.parent span.closed {
-  background-image: url(images/plus.png);
+  background-image: url(images/controls.png);
   background-repeat: no-repeat;
-  background-position: left top;
+  background-position: 0px 0px;
+  background-color: red;
 }
 ul.jquerymenu li.parent span.open {
-  background-image: url(images/minus.png);
+  background-image: url(images/controls.png);
   background-repeat: no-repeat;
-  background-position: left top;
+  background-position: 0px -9px;
+}
+ul.jquerymenu li.parent span.closed:after {
+  content: "Expandible menu item";
+  visibility: hidden;
+}
+ul.jquerymenu li.parent span.open:after {
+  content: "Collapsible menu item";
+  visibility: hidden;
 }
 ul.jquerymenu li.parent span.parent {
   cursor: pointer;

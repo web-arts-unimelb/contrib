@@ -1,39 +1,32 @@
-ul.jquerymenu li.parent {
-  list-style:none;
-  list-style-image:none;
-  background-image:none;
+// $Id: jquerymenu_no_animation.js,v 1.4 2010/05/05 07:50:55 aaronhawkins Exp $
+
+(function ($) {
+    
+Drupal.behaviors.jquerymenu = { 
+    attach:function(context) {
+
+$('ul.jquerymenu .active').parents('li').removeClass('closed').addClass('open');
+$('ul.jquerymenu .active').parents('li').children('span.parent').removeClass('closed').addClass('open');
+
+  $('ul.jquerymenu:not(.jquerymenu-processed)', context).addClass('jquerymenu-processed').each(function(){
+    $(this).find("li.parent span.parent").click(function(){
+      momma = $(this).parent();
+      if ($(momma).hasClass('closed')){
+        $(momma).removeClass('closed').addClass('open');
+        $(this).removeClass('closed').addClass('open');
+      }
+      else{
+        $(momma).removeClass('open').addClass('closed');
+        $(this).removeClass('open').addClass('closed');
+      }
+    });
+    showit = function() {
+      $(this).children().show();
+    }
+    hideit = function() {
+      $(this).children().hide();
+    }
+    $(this).find(".editbox").hover(showit, hideit);
+  });
 }
-  ul.jquerymenu li.closed ul{
-  display:none;
-  }
-ul.jquerymenu li span.parent {
-  position: absolute;
-  margin-left: -15px;
-  margin-top: 6px;
-  width:9px;
-  height:9px;
-  /*display:block;*/
-}
-.ie ul.jquerymenu li span.parent{
-  margin-top: 4px;
-}
-ul.jquerymenu li.parent span.closed {
-  background-image: url(images/plus.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-}
-ul.jquerymenu li.parent span.open {
-  background-image: url(images/minus.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-}
-ul.jquerymenu li.parent span.parent {
-  cursor:pointer;
-}
-ul.jquerymenu li .jqm_link_edit {
-  display:none;
-	position:absolute;
-	width:45px;
-	margin-left:-40px;
-  margin-top:2px;
-}
+}})(jQuery);
