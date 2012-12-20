@@ -4,9 +4,9 @@ core = 7.x
 
 files[] = DiffEngine.php
 
-; Information added by drupal.org packaging script on 2012-11-11
-version = "7.x-3.1"
+; Information added by drupal.org packaging script on 2012-11-13
+version = "7.x-3.2"
 core = "7.x"
 project = "diff"
-datestamp = "1352609757"
+datestamp = "1352784357"
 
