@@ -1,0 +1,6 @@
+name = Study plan form
+description = Study plan form
+core = 7.x
+
+dependencies[] = webform
+

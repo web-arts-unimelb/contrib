@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * This module handles study plan form
+ *
+ */
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function study_plan_form_form_alter(&$form, &$form_state, $form_id) 
+{
+	$study_plan_form_id = "webform_client_form_506";
+
+  switch($form_id) 
+  {
+		case "$study_plan_form_id":
+			$form['calculate_button'] = array(
+  			'#type' => 'submit',
+  			'#value' => t('Calculate'),
+			);
+			$form['#validate'][] = '_study_plan_form_validate';
+			
+		  break;
+  }
+}
+
+
+/**
+ * Additional validation handler for the Get Started form.
+ */
+function _study_plan_form_validate($form, &$form_state) 
+{
+  if($form_state['clicked_button']['#value'] == 'Calculate') 
+  {
+    $submitted_array = $form_state['values']['submitted'];
+    
+    if(count($submitted_array) > 0)
+    {
+    	
+    	$total_points = 0;
+    	foreach($submitted_array as $item)
+    	{
+    		//
+    		$array = explode("--", $item);
+    		$point = (float)$array[2];
+    		$total_points = $total_points + $point;
+    	}
+    	
+    }
+    
+  	$message = "total: $total_points";
+    drupal_set_message($message);
+  }
+}
