@@ -72,7 +72,37 @@ function _menu_import_lookup_path($path, $title, array $options) {
 }
 
 /**
+ * Parse indentation and title information from a menu item definition line.
+ *
+ * @param string $line the menu item line.
+ * @return array of two items: 0 => level, 1 => title.
+ */
+function _menu_import_parse_level_title($line) {
+  $matches = array();
+  if (preg_match('/^([\-]+|[\*]+)?(\s+)?(.*)$/', $line, $matches)) {
+    $level = strlen($matches[1]); // No sense to use drupal_strlen on indentation.
+    $title = check_plain(trim($matches[3]));
+
+    return array($level, $title);
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Marks menu item as erroneous and returns it.
+ */
+function _menu_import_mark_error_item($item, $error, $original) {
+  $item['error'] = $error;
+  $item['link_title'] = '<span class="error">' . check_plain($original) . '</span>';
+  return $item;
+}
+
+/**
  * Parse a line of text containing the menu structure.
+ * Only * and - are allowed as indentation characters.
+ * Menu item definition may or may not contain details in JSON format.
  *
  * @param $line
  *   One line from input file.
@@ -93,7 +123,7 @@ function menu_import_parse_line($line, $prev_level, array $weights, array $paren
     'error' => FALSE,
     'link_title' => NULL,
     'children' => array(),
-    'parent' => NULL,
+    'parent' => 0,
     'nid' => FALSE,
     'path' => FALSE,
     'weight' => 0,
@@ -101,29 +131,57 @@ function menu_import_parse_line($line, $prev_level, array $weights, array $paren
     'level' => 0,
   );
 
-  // Only * and - are allowed as indentation characters.
-  // URL aliases are separated from title by vertical bar (|) or semi-colon (;).
-  $opt_re = '([\|;]{1}[^\|;]*)?';
-  $matches = array();
-  preg_match('/^([\-]+|[\*]+)?(\s+)?([^\|;]*)' . str_repeat($opt_re, 3) . '/', $line, $matches);
+  // Set default language
+  if (module_exists('i18n_menu')) {
+    $menuitem['language'] = $options['language'];
+  }
+  $langs = array_keys(language_list());
 
-  $level = strlen($matches[1]); // No sense to use drupal_strlen on indentation.
-  $title = trim(strip_tags($matches[3]));
-  $path  = isset($matches[4]) ? trim(str_replace(array('|', ';'), '', $matches[4])) : '';
-  $description = isset($matches[5]) ? trim(str_replace(array('|', ';'), '', $matches[5])) : '';
-  $expanded = !empty($matches[6]) && stripos($matches[6], 'expanded') !== FALSE;
-  $disabled = !empty($matches[6]) && stripos($matches[6], 'disabled') !== FALSE;
+  $path = $description = $expanded = $hidden = $language = '';
+
+  // JSON is used.
+  // @todo: make the input JSON not so strict.
+  if (($json_start = strpos($line, '{"')) != 0) {
+    $json = substr($line, $json_start);
+    $details = json_decode($json);
+
+    // Parse structure and title.
+    $base_info = substr($line, 0, $json_start);
+    $level_title = _menu_import_parse_level_title($base_info);
+
+    // Extract details.
+    if (!is_null($details)) {
+      $path = !empty($details->url) ? trim($details->url) : '';
+      $description = !empty($details->description) ? trim($details->description) : '';
+      $expanded = !empty($details->expanded);
+      $hidden = !empty($details->hidden);
+      $language = !empty($details->lang) && in_array($details->lang, $langs)
+                    ? $details->lang : NULL;
+    }
+    else {
+      return _menu_import_mark_error_item($menuitem, t('malformed item details'), $line);
+    }
+  }
+  // No JSON is provided, only level and title are specified.
+  else {
+    $level_title = _menu_import_parse_level_title($line);
+  }
+
+  if (!$level_title) {
+    return _menu_import_mark_error_item($menuitem, t('missing title or wrong indentation'), $line);
+  }
+  else {
+    list($level, $title) = $level_title;
+  }
 
   // Skip empty items
   if (!strlen($title)) {
-    $menuitem['error'] = t('missing menu title');
-    return $menuitem;
+    return _menu_import_mark_error_item($menuitem, t('missing item title'), $line);
   }
 
   // Make sure this item is only 1 level below the last item.
   if ($level > $prev_level + 1) {
-    $menuitem['error'] = t('wrong indentation');
-    return $menuitem;
+    return _menu_import_mark_error_item($menuitem, t('wrong indentation'), $line);
   }
 
   if (isset($weights[$level])) {
@@ -156,13 +214,16 @@ function menu_import_parse_line($line, $prev_level, array $weights, array $paren
   if ($description) {
     $menuitem['description'] = $description;
   }
-
-  if ($disabled) {
+  if ($hidden) {
     $menuitem['hidden'] = 1;
   }
-
   if ($expanded) {
     $menuitem['expanded'] = 1;
+  }
+  if ($language) {
+    $menuitem['language'] = $language;
+    // Important when setting the language, otherwise it'll be ignored.
+    $menuitem['customized'] = 1;
   }
 
   return $menuitem;
@@ -435,7 +496,7 @@ function menu_import_create_node($options) {
   $node = new stdClass();
 
   $node->type     = $options['node_type'];
-  $node->language = LANGUAGE_NONE;
+  $node->language = $options['language'];
   $node->title    = $options['node_title'];
 
   $node->body[$node->language][0]['value']   = $options['node_body'];

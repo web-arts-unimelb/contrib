@@ -66,6 +66,15 @@ function _pathologic_settings($form, &$form_state, $filter, $format, $defaults, 
 /**
  * Pathologic filter callback.
  *
+ * Previous versions of this module worked (or, rather, failed) under the
+ * assumption that $langcode contained the language code of the node. Sadly,
+ * this isn't the case.
+ * @see http://drupal.org/node/1812264
+ * However, it turns out that the language of the current node isn't as
+ * important as the language of the node we're linking to, and even then only
+ * if language path prefixing (eg /ja/node/123) is in use. REMEMBER THIS IN THE
+ * FUTURE, ALBRIGHT.
+ *
  * @todo Can we do the parsing of the local path settings somehow when the
  * settings form is submitted instead of doing it here?
  */
@@ -141,14 +150,6 @@ function _pathologic_filter($text, $filter, $format, $langcode, $cache, $cache_i
   // And also take note of which settings in the settings array should apply.
   $settings['current_settings'] = &$settings[$filter->format];
 
-  // Prepare language objects to pass to url().
-  if (!isset($settings['language_list'])) {
-    $settings['language_list'] = language_list();
-    // Add a fake "none" language for when we don't actually want to do
-    // language-based path tweaking
-    $settings['language_list'][LANGUAGE_NONE] = (object) array('language' => LANGUAGE_NONE, 'prefix' => '');
-  }
-
   // Now that we have all of our settings prepared, attempt to process all
   // paths in href, src, action or longdesc HTML attributes. The pattern below
   // is not perfect, but the callback will do more checking to make sure the
@@ -218,7 +219,6 @@ function _pathologic_replace($matches) {
     }
     else {
       // Linking to a file inside the Drupal root. Okay.
-      $settings['langcode'] = LANGUAGE_NONE;
       $settings['is_file'] = TRUE;
     }
   }
@@ -233,7 +233,6 @@ function _pathologic_replace($matches) {
     $new_parts['path'] = rawurldecode($new_parts['path']);
     $parts = $new_parts;
     // Don't do language handling for file paths.
-    $settings['langcode'] = LANGUAGE_NONE;
     $settings['is_file'] = TRUE;
   }
   else {
@@ -312,6 +311,26 @@ function _pathologic_replace($matches) {
     return $matches[0];
   }
 
+  // Let's see if we can split off a language prefix from the path.
+  if (!$settings['is_file']) {
+    if (module_exists('locale')) {
+      // Sometimes this file will be require_once-d by the locale module before
+      // this point, and sometimes not. We require_once it ourselves to be sure.
+      require_once DRUPAL_ROOT . '/includes/language.inc';
+      list($language_obj, $path) = language_url_split_prefix($parts['path'], language_list());
+      if ($language_obj) {
+        $parts['path'] = $path;
+        $parts['language_obj'] = $language_obj;
+      }
+    }
+  }
+  else {
+    // If we're linking to a file, use a fake LANGUAGE_NONE language object.
+    // Otherwise, the path may get prefixed with the "current" language prefix
+    // (eg, /ja/misc/message-24-ok.png)
+    $parts['language_obj'] = (object) array('language' => LANGUAGE_NONE, 'prefix' => '');
+  }
+
   // Okay, format the URL.
   // If there's still a slash lingering at the start of the path, chop it off.
   // We do strpos() here instead of $str{0} because the latter will fail on
@@ -335,16 +354,9 @@ function _pathologic_replace($matches) {
       // Create an absolute URL if protocol_style is 'full' or 'proto-rel', but
       // not if it's 'path'.
       'absolute' => $settings['current_settings']['protocol_style'] !== 'path',
-      // Note: There appears to be a bug in core which will cause the following
-      // to result in worse-than-failure behavior if it's uncommented and runs
-      // as is.
-      // @see http://drupal.org/node/1812264
-      // @see http://drupal.org/node/1806678
-/*       'language' => isset($settings['language_list'][$settings['langcode']]) ? $settings['language_list'][$settings['langcode']] : $settings['language_list'][LANGUAGE_NONE], */
-      // However, we still don't want paths to files to have language codes
-      // added. So, this ugliness.
-      // @todo Fix when core is fixed.
-      'language' => $settings['is_file'] ? $settings['language_list'][LANGUAGE_NONE] : NULL,
+      // If we seem to have found a language for the path, pass it along to
+      // url(). Otherwise, ignore the 'language' parameter.
+      'language' => isset($parts['language_obj']) ? $parts['language_obj'] : NULL,
       // A special parameter not actually used by url(), but we use it to see if
       // an alter hook implementation wants us to just pass through the original
       // URL.

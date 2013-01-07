@@ -28,6 +28,15 @@ function menu_import_export_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  if (module_exists('i18n_menu')) {
+    $form['export_language'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Export language'),
+      '#description' => t('Language setting provided by i18n_menu module will be exported.'),
+      '#default_value' => !empty($form_state['values']['export_language']) ? $form_state['export_language'] : 1,
+    );
+  }
+
   $form['sumbit'] = array(
     '#type' => 'submit',
     '#value' => t('Export'),
@@ -41,7 +50,9 @@ function menu_import_export_form($form, &$form_state) {
  */
 function menu_import_export_form_submit($form, &$form_state) {
   $menu_name = $form_state['values']['menu_name'];
-  $options = array();
+  $options = array(
+    'export_language' => $form_state['values']['export_language']
+  );
 
   switch ($form_state['values']['line_ending']) {
     case 'unix':
@@ -102,26 +113,32 @@ function menu_import_export_menu($menu_name, $options) {
 function _menu_import_export_recurse($tree, $level, &$output) {
   global $me_options;
 
-  foreach ($tree as $index => $data) {
+  foreach ($tree as $data) {
     $link = $data['link'];
-
     $indentation = str_repeat('-', $level);
+    $details = array();
 
-    $options = array();
+    // Use alias if exists.
+    $alias = drupal_lookup_path('alias', $link['link_path']);
+    $details['url'] = $alias ? $alias : $link['link_path'];
+
+    if (!empty($link['description'])) {
+      $details['description'] = $link['description'];
+    }
     if ($link['hidden']) {
-      $options[] = 'disabled';
+      $details['hidden'] = TRUE;
     }
     if ($link['expanded']) {
-      $options[] = 'expanded';
+      $details['expanded'] = TRUE;
     }
-    $options = count($options) ? '|' . join(',', $options) : '';
+    if ($me_options['export_language']) {
+      $details['lang'] = $link['language'];
+    }
 
     $output .=
       $indentation
       . $link['link_title']
-      . '|' . $link['link_path']
-      . '|' . (!empty($link['description']) ? $link['description'] : '')
-      . $options
+      . ' ' . json_encode($details)
       . $me_options['line_ending'];
 
     if ($data['below']) {

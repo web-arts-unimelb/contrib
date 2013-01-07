@@ -52,21 +52,21 @@ IMPORT
   *** Page7
 
   You may optionally specify path alias (alternative path)
-  or external URL. Writing it after node's title, separating by semicolon or vertical bar:
+  or external URL. You need to put it after node's title using JSON format:
   External URLs should ALWAYS start with "http://". Also, you can provide
-  a description for menu item(s), by putting it in the third "column".
+  a description for menu item(s), language code ("en","it","fr" etc.), hidden/expanded attributes.
+  Use examples from "tests" directory for better understanding of the syntax.
 
-    Page1|node/1|This is an optional description
-    - Page2
-    - Page3||The line above and this one will point to <front>
-    Page4;http://domain.com/;Visit domain.com!
-    - Page5;http://mail.com/index.php
-    -- Page6 ; non/existent/path ; will be replaced with <front>
+  Here is a quick sample:
+    Page1 {"url": "node/1", "description": "This is an optional description"}
+    - Page2 {"hidden":true}
+    - Page3 {"description": "The line above and this one will point to <front>"}
+    Page4 {"url": "http://domain.com/", "description": "Visit domain.com!", "expanded":true}
+    - Page5 {"url": "http://mail.com/index.php"}
+    -- Page6 {"url": "non/existent/path", "description": "will be replaced with <front>"}
 
   Space(s) between indentation symbol "*" or "-" and menu/node title are optional,
   however you cannot put spaces between indentation symbols like "* * *" or "-- - -".
-
-  Use examples from "tests" directory for better understanding of the syntax.
 
 3. Go to "Structure" -> "Menus"
 
@@ -80,8 +80,6 @@ IMPORT
 
 6. Submit and see the new menu structure with stub content created automatically.
 
-7. Enjoy your saved time ;)
-
 EXPORT
 
 1. Go to "Structure" -> "Menus"
@@ -90,4 +88,4 @@ EXPORT
 
 3. Select the menu and your options.
 
-4. Save the file to some place (and probably use it later for import)
+4. Save the file (and probably use it later for import)
