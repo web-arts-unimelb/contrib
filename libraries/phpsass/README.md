@@ -1,3 +1,7 @@
+#IMPORTANT NOTICE
+We are evaluating wether to switch to using namespaces for better PSR compliance. To help with this, can you tweet or email me (richthegeek@gmail.com) with which version of PHP you are using.
+
+
 #PHPSass [![build status](https://secure.travis-ci.org/richthegeek/phpsass.png)](https://secure.travis-ci.org/#!/richthegeek/phpsass)
 
 ## Try online

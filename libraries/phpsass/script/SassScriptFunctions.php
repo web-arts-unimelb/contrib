@@ -654,11 +654,11 @@ class SassScriptFunctions {
    * returns an IE hex string for a color with an alpha channel
    * suitable for passing to IE filters.
    */
-  function ie_hex_str($color) {
+  public static function ie_hex_str($color) {
     if (!($color instanceof SassColour)) {
       $color = new SassColour($color);
     }
-    $alpha = round($color->alpha * 255);
+    $alpha = str_replace(',','.',round($color->alpha * 255));
     $alpha_str = str_pad(dechex($alpha), 2, '0', STR_PAD_LEFT);
     $col = $color->asHex(FALSE);
     return new SassString(strtoupper('#' . $alpha_str . $col));
@@ -726,7 +726,7 @@ class SassScriptFunctions {
    */
   public static function round($number) {
     SassLiteral::assertType($number, 'SassNumber');
-    return new SassNumber(round($number->value).$number->units);
+    return new SassNumber(str_replace(',','.',round($number->value)).$number->units);
   }
 
   /**

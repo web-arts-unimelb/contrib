@@ -18,7 +18,7 @@
 class SassImportNode extends SassNode {
   const IDENTIFIER = '@';
   const MATCH = '/^@import\s+(.+)/i';
-  const MATCH_CSS = '/^((url)\((.+)\)|.+" \w+|http|.+\.css)/im';
+  const MATCH_CSS = '/^((url)\((.+)\)|.+" \w+|http|.+\.css$)/im';
   const FILES = 1;
 
   /**

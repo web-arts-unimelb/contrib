@@ -108,3 +108,137 @@ function webform_conditional_update_6001() {
   // See http://drupal.org/node/224333#update_sql.
   return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
 }
+/**
+ * Convert per-component conditionals to new more flexible conditional system used in Webform 4.x.
+ *
+ * This upgrade makes this module no longer neccesary.
+ */
+function webform_conditional_update_7201(&$sandbox) {
+  // Set up the initial batch process.
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['last_nid_processed'] = -1;
+    $sandbox['converted_count'] = 0;
+    $sandbox['max'] = db_select('webform')
+    ->countQuery()
+    ->execute()
+    ->fetchField();
+  }
+
+  $limit = variable_get('webform_update_batch_size', 100);
+  $webforms = db_select('webform', 'w')
+  ->fields('w')
+  ->condition('nid', $sandbox['last_nid_processed'], '>')
+  ->orderBy('nid', 'ASC')
+  ->range(0, $limit)
+  ->execute()
+  ->fetchAllAssoc('nid', PDO::FETCH_ASSOC);
+
+  foreach ($webforms as $nid => $webform) {
+    // Update tokens in component configurations.
+    $result = db_select('webform_component', 'wc', array('fetch' => PDO::FETCH_ASSOC))
+    ->fields('wc')
+    ->condition('wc.nid', $nid)
+    ->execute();
+    $rgid = NULL;
+    foreach ($result as $component) {
+      // For each component, check if it has conditional properties that need
+      // to be removed and/or migrated. Because these properties may be in any
+      // order, copy the original extra array for comparison.
+      $component['extra'] = unserialize($component['extra']);
+      $original_extra = $component['extra'];
+
+      // Remove conditional properties if present.
+      if (isset($component['extra']['webform_conditional_cid'])) {
+        unset($component['extra']['webform_conditional_cid']);
+      }
+      if (isset($component['extra']['webform_conditional_operator'])) {
+        unset($component['extra']['webform_conditional_operator']);
+      }
+      if (isset($component['extra']['webform_conditional_field_value'])) {
+        unset($component['extra']['webform_conditional_field_value']);
+
+        // If the component has conditional values specified, that indicates
+        // that this component was conditionally shown. Convert it to a new
+        // conditional with multiple rules if needed.
+        if (strlen(trim($original_extra['webform_conditional_field_value'])) && !empty($original_extra['webform_conditional_operator']) && !empty($original_extra['webform_conditional_cid'])) {
+          $conditional_values = explode("\n", $original_extra['webform_conditional_field_value']);
+          if ($rgid === NULL) {
+            // Webform update function webform_update_7403 may have already added records to for this nid
+            $existing_query = db_select('webform_conditional', 'wc');
+            $existing_query->addField('wc', 'rgid');
+            $existing_query->condition('nid', $nid);
+            $existing_query->orderBy('rgid', 'DESC');
+            $existing_query->range(0,1);
+            $rgid = $existing_query->execute()->fetchField();
+            if (empty($rgid)) {
+              $rgid = 0;
+            }
+            else {
+              $rgid++;
+            }
+
+
+
+          }
+          $rules = array();
+          $rule = array(
+              'nid' => $nid,
+              'rgid' => $rgid,
+              'rid' => NULL,
+              'source_type' => 'component',
+              'source' => $original_extra['webform_conditional_cid'],
+              'operator' => 'equal',
+              'value' => NULL,
+          );
+          foreach ($conditional_values as $value) {
+            $value = trim($value);
+            if ($value) {
+              $new_rule = $rule;
+              $new_rule['rid'] = count($rules);
+              $new_rule['value'] = $value;
+              $rules[] = $new_rule;
+            }
+          }
+          if (count($rules)) {
+            $conditional = array(
+                'nid' => $nid,
+                'rgid' => $rgid,
+                'andor' => 'or',
+                'action' => ($original_extra['webform_conditional_operator'] === '=') ? 'show' : 'hide',
+                'target_type' => 'component',
+                'target' => $component['cid'],
+                'weight' => 0,
+            );
+            drupal_write_record('webform_conditional', $conditional);
+            foreach ($rules as $rule) {
+              drupal_write_record('webform_conditional_rules', $rule);
+            }
+            $sandbox['converted_count']++;
+            $rgid++;
+          }
+        }
+      }
+
+      // Update the component with the conditional properties removed.
+      if ($component['extra'] != $original_extra) {
+        $component['extra'] = serialize($component['extra']);
+        drupal_write_record('webform_component', $component, array('nid', 'cid'));
+      }
+    }
+  }
+
+  // If less than limit was processed, the update process is finished.
+  if (count($webforms) < $limit || $sandbox['progress'] == $sandbox['max']) {
+    $finished = TRUE;
+  }
+
+  // If there's no max value then there's nothing to update and we're finished.
+  if (empty($sandbox['max']) || isset($finished)) {
+    return t('@count webforms using same page conditionals updated to the new conditional system. You may now uninstall the Webform Conditional Module.', array('@count' => $sandbox['converted_count']));
+  }
+  else {
+    // Indicate our current progress to the batch update system.
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}

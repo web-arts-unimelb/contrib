@@ -35,7 +35,7 @@ function menu_import_menu() {
     'page arguments' => array('menu_import_form'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
-    'access arguments' => array('import menu from file'),
+    'access arguments' => array('import or export menu'),
     'file' => 'includes/admin.inc',
   );
 
@@ -45,7 +45,7 @@ function menu_import_menu() {
     'page arguments' => array('menu_import_export_form'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 11,
-    'access arguments' => array('import menu from file'),
+    'access arguments' => array('import or export menu'),
     'file' => 'includes/export.inc',
   );
 
@@ -56,7 +56,7 @@ function menu_import_menu() {
  * Implementation of hook_permission().
  */
 function menu_import_permission() {
-  $perms['import menu from file'] = array(
+  $perms['import or export menu'] = array(
     'title' => t('Import menu from file'),
   );
   return $perms;
