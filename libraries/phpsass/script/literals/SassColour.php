@@ -675,7 +675,7 @@ class SassColour extends SassLiteral {
     if ($value && isset($this->blue->value)) {
       return $this->blue->value;
     }
-    return max(0, min(255, round($this->blue)));
+    return max(0, min(255, str_replace(',','.',round($this->blue))));
   }
 
   /**
@@ -689,7 +689,7 @@ class SassColour extends SassLiteral {
     if ($value && isset($this->green->value)) {
       return $this->green->value;
     }
-    return max(0, min(255, round($this->green)));
+    return max(0, min(255, str_replace(',','.',round($this->green))));
   }
 
   /**
@@ -703,7 +703,7 @@ class SassColour extends SassLiteral {
     if ($value && isset($this->red->value)) {
       return $this->red->value;
     }
-    return max(0, min(255, round($this->red)));
+    return max(0, min(255, str_replace(',','.',round($this->red))));
   }
 
   /**
@@ -773,11 +773,11 @@ class SassColour extends SassLiteral {
       return 'transparent';
     }
     elseif ($rgba[3] < 1) {
-      $rgba[3] = round($rgba[3], 2);
+      $rgba[3] = str_replace(',','.',round($rgba[3], 2));
       return sprintf('rgba(%d, %d, %d, %s)', $rgba[0], $rgba[1], $rgba[2], $rgba[3]);
     }
     else {
-      $colour = sprintf('#%02x%02x%02x', round($rgba[0]), round($rgba[1]), round($rgba[2]));
+      $colour = sprintf('#%02x%02x%02x', str_replace(',','.',round($rgba[0])), str_replace(',','.',round($rgba[1])), str_replace(',','.',round($rgba[2])));
     }
 
     if ($css3) {
@@ -793,7 +793,7 @@ class SassColour extends SassLiteral {
 
 
   public function asHex($inc_hash = TRUE) {
-    return sprintf(($inc_hash ? '#' : '') . '%02x%02x%02x', round($this->red), round($this->green), round($this->blue));
+    return sprintf(($inc_hash ? '#' : '') . '%02x%02x%02x', str_replace(',','.',round($this->red)), str_replace(',','.',round($this->green)), str_replace(',','.',round($this->blue)));
   }
 
   /**
@@ -831,7 +831,7 @@ class SassColour extends SassLiteral {
     else if ($t < 2/3)
       $p = $p + ($q - $p) * (2/3 - $t) * 6;
 
-    return round($p * 255);
+    return str_replace(',','.',round($p * 255));
   }
 
   /**

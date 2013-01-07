@@ -24,7 +24,7 @@ class SassNumber extends SassLiteral {
    * Regx for matching and extracting numbers
    */
   const MATCH = '/^((?:-)?(?:\d*\.)?\d+)(([a-z%]+)(\s*[\*\/]\s*[a-z%]+)*)?/i';
-  // const MATCH = '/^(?!\d+px\/)((?:-)?(?:\d.)?\d+)(([a-z%]+)(\s[*\/]\s[a-z%]+))?/i';  
+  // const MATCH = '/^(?!\d+px\/)((?:-)?(?:\d.)?\d+)(([a-z%]+)(\s[*\/]\s[a-z%]+))?/i';
   const VALUE = 1;
   const UNITS = 2;
   /**
@@ -523,7 +523,7 @@ class SassNumber extends SassLiteral {
     if (!isset($this->units)) {
       $this->units = $this->getUnits();
     }
-    return ($this->units == 'px' ? floor($this->value) : round($this->value, self::PRECISION)) . $this->units;
+    return ($this->units == 'px' ? floor($this->value) : str_replace(',','.',round($this->value, self::PRECISION))) . $this->units;
   }
 
   /**
