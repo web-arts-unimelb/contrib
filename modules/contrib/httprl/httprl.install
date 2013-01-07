@@ -169,7 +169,7 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
   $options = array(
     'headers' => $headers,
     'blocking' => $blocking,
-    'timeout' => 6.0,
+    'timeout' => 7.0,
   );
 
   // Start the timer & get a lock.
@@ -203,7 +203,7 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
   $_httprl['install']['debug'][] = $time;
 
   // See if the request came back in under 5 seconds, or if it timed out.
-  if (($time['time'] / 1000) > 5) {
+  if (($time['time'] / 1000) > 7) {
     $ip = variable_get('httprl_server_addr', FALSE);
     if (empty($ip)) {
       $conf['httprl_server_addr'] = -1;
