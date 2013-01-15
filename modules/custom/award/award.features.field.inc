@@ -156,7 +156,7 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'date',
           'settings' => array(
             'format_type' => 'long',
@@ -166,7 +166,7 @@ function award_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => 13,
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -253,7 +253,7 @@ function award_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 22,
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -356,10 +356,9 @@ function award_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'file',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 23,
+          'weight' => '18',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -463,11 +462,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 7,
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -543,7 +542,7 @@ function award_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 21,
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -635,7 +634,7 @@ function award_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => 17,
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -708,11 +707,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 8,
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -785,11 +784,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 15,
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -865,11 +864,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 9,
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -962,11 +961,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 2,
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1045,11 +1044,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 26,
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1123,11 +1122,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 3,
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1206,7 +1205,7 @@ function award_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => 12,
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1283,7 +1282,7 @@ function award_field_default_fields() {
       'description' => 'Number (of months) ',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
@@ -1292,7 +1291,7 @@ function award_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => 14,
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1367,11 +1366,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 6,
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1443,11 +1442,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 25,
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1522,11 +1521,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => 16,
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1607,7 +1606,7 @@ function award_field_default_fields() {
       'description' => 'e.g. If 4000.42 is entered, it should output $4000.42',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
@@ -1616,7 +1615,7 @@ function award_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => 24,
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
