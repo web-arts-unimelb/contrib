@@ -60,26 +60,11 @@ function award_default_page_manager_handlers() {
     $pane = new stdClass();
     $pane->pid = 'new-1';
     $pane->panel = 'center';
-    $pane->type = 'views';
-    $pane->subtype = 'awards';
+    $pane->type = 'block';
+    $pane->subtype = 'views-awards-block_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_pager_settings' => 0,
-      'use_pager' => 0,
-      'nodes_per_page' => '0',
-      'pager_id' => '0',
-      'offset' => '0',
-      'more_link' => 0,
-      'feed_icons' => 0,
-      'panel_args' => 0,
-      'link_to_view' => 0,
-      'args' => '',
-      'url' => '',
-      'display' => 'block_1',
-      'context' => array(
-        0 => 'argument_entity_id:node_1.nid',
-      ),
       'override_title' => 1,
       'override_title_text' => '',
     );
@@ -262,7 +247,7 @@ function award_default_page_manager_handlers() {
     $display->content['new-7'] = $pane;
     $display->panels['center'][6] = 'new-7';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-1';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view_panel_context'] = $handler;
 

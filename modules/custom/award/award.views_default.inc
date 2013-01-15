@@ -1186,14 +1186,6 @@ function award_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Other */
-  $handler->display->display_options['fields']['field_award_other']['id'] = 'field_award_other';
-  $handler->display->display_options['fields']['field_award_other']['table'] = 'field_data_field_award_other';
-  $handler->display->display_options['fields']['field_award_other']['field'] = 'field_award_other';
-  $handler->display->display_options['fields']['field_award_other']['label'] = '';
-  $handler->display->display_options['fields']['field_award_other']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_award_other']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_award_other']['hide_empty'] = TRUE;
   /* Field: Content: Approximate value */
   $handler->display->display_options['fields']['field_award_value']['id'] = 'field_award_value';
   $handler->display->display_options['fields']['field_award_value']['table'] = 'field_data_field_award_value';
@@ -1243,12 +1235,23 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_students']['field'] = 'field_award_students';
   $handler->display->display_options['fields']['field_award_students']['label'] = 'Available to';
   $handler->display->display_options['fields']['field_award_students']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_students']['alter']['text'] = '[field_award_students] [field_award_other]<br />';
+  $handler->display->display_options['fields']['field_award_students']['alter']['text'] = '[field_award_students]';
   $handler->display->display_options['fields']['field_award_students']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_students']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_students']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_award_students']['empty'] = 'All students<br />';
   $handler->display->display_options['fields']['field_award_students']['delta_offset'] = '0';
+  /* Field: Content: Other */
+  $handler->display->display_options['fields']['field_award_other']['id'] = 'field_award_other';
+  $handler->display->display_options['fields']['field_award_other']['table'] = 'field_data_field_award_other';
+  $handler->display->display_options['fields']['field_award_other']['field'] = 'field_award_other';
+  $handler->display->display_options['fields']['field_award_other']['label'] = '';
+  $handler->display->display_options['fields']['field_award_other']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_other']['alter']['text'] = '[field_award_other]';
+  $handler->display->display_options['fields']['field_award_other']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_award_other']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_other']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_other']['hide_empty'] = TRUE;
   /* Field: Content: Study level */
   $handler->display->display_options['fields']['field_award_study_level']['id'] = 'field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['table'] = 'field_data_field_award_study_level';
@@ -1274,10 +1277,10 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_citizenship']['table'] = 'field_data_field_award_citizenship';
   $handler->display->display_options['fields']['field_award_citizenship']['field'] = 'field_award_citizenship';
   $handler->display->display_options['fields']['field_award_citizenship']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_citizenship']['alter']['text'] = '[field_award_citizenship]<br />';
+  $handler->display->display_options['fields']['field_award_citizenship']['alter']['text'] = '[field_award_citizenship]';
   $handler->display->display_options['fields']['field_award_citizenship']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_citizenship']['element_label_type'] = 'strong';
-  $handler->display->display_options['fields']['field_award_citizenship']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_citizenship']['element_wrapper_type'] = 'div';
   $handler->display->display_options['fields']['field_award_citizenship']['empty'] = 'Any<br />';
   $handler->display->display_options['fields']['field_award_citizenship']['delta_offset'] = '0';
   /* Field: Content: Financial need */
