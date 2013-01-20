@@ -29,7 +29,7 @@ function jquerymenu_schema() {
   );
   return $schema;
 }
-function jquerymenu_update_1() {
+function jquerymenu_update_7001() {
   // This is a one time cleanup to remove blocks and menus that have gotten out of sync.
   // This update will reset blocks that were created directly by jquery menu
   // you will need to visit the blocks page after running this to re-enable those blocks.
