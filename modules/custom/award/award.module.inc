@@ -23,19 +23,18 @@ function award_views_pre_render(&$view) {
   $select_all_display = t('Any');
 
   if($view->name == "awards") {
-      $results = &$view->result;
+    $results = &$view->result;
 
-      foreach($results as $key => $result) {
-        foreach($results[$key]->field_field_award_study_area as $item) {
-          if( strtolower($item['rendered']['#markup']) == $select_all ) {
-            $results[$key]->field_field_award_study_area = array(
-              0 => array(
-                'rendered' => array(
-                  '#markup' => $select_all_display
-                ),
+    foreach($results as $key => $result) {
+      foreach($results[$key]->field_field_award_study_area as $item) {
+        if( strtolower($item['rendered']['#markup']) == $select_all ) {
+          $results[$key]->field_field_award_study_area = array(
+            0 => array(
+              'rendered' => array(
+                '#markup' => $select_all_display
               ),
-            );
-          }
+            ),
+          );
         }
       }
     }
