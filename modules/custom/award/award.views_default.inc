@@ -1246,6 +1246,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_value']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -1260,6 +1261,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_application_date']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_application_date']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_application_date']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_application_date']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
@@ -1275,7 +1278,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_area']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_study_area']['element_wrapper_type'] = 'div';
   $handler->display->display_options['fields']['field_award_study_area']['element_wrapper_class'] = 'inline-list';
-  $handler->display->display_options['fields']['field_award_study_area']['empty'] = '<ul><li class="first last">All</li></ul>';
+  $handler->display->display_options['fields']['field_award_study_area']['empty'] = '<ul><li class="first last">Any</li></ul>';
   $handler->display->display_options['fields']['field_award_study_area']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_award_study_area']['delta_offset'] = '0';
   /* Field: Content: Students */
@@ -1288,7 +1291,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_students']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_students']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_students']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_award_students']['empty'] = 'All students<br />';
+  $handler->display->display_options['fields']['field_award_students']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_students']['delta_offset'] = '0';
   /* Field: Content: Other */
   $handler->display->display_options['fields']['field_award_other']['id'] = 'field_award_other';
@@ -1310,7 +1313,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_level']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_study_level']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_study_level']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_award_study_level']['empty'] = 'All<br />';
+  $handler->display->display_options['fields']['field_award_study_level']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_study_level']['delta_offset'] = '0';
   /* Field: Content: Travel support */
   $handler->display->display_options['fields']['field_award_travel_support']['id'] = 'field_award_travel_support';
@@ -1321,6 +1324,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_travel_support']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_travel_support']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_travel_support']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_travel_support']['hide_empty'] = TRUE;
   /* Field: Content: Citizenship */
   $handler->display->display_options['fields']['field_award_citizenship']['id'] = 'field_award_citizenship';
   $handler->display->display_options['fields']['field_award_citizenship']['table'] = 'field_data_field_award_citizenship';
@@ -1330,7 +1334,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_citizenship']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_citizenship']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_citizenship']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['field_award_citizenship']['empty'] = 'Any<br />';
+  $handler->display->display_options['fields']['field_award_citizenship']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_citizenship']['delta_offset'] = '0';
   /* Field: Content: Financial need */
   $handler->display->display_options['fields']['field_award_financial_need']['id'] = 'field_award_financial_need';
@@ -1341,6 +1345,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_financial_need']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_financial_need']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_financial_need']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_financial_need']['hide_empty'] = TRUE;
   /* Field: Content: University trust record */
   $handler->display->display_options['fields']['field_award_uni_trust_record']['id'] = 'field_award_uni_trust_record';
   $handler->display->display_options['fields']['field_award_uni_trust_record']['table'] = 'field_data_field_award_uni_trust_record';
@@ -1350,6 +1355,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_uni_trust_record']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_uni_trust_record']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_uni_trust_record']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_award_uni_trust_record']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_uni_trust_record']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_uni_trust_record']['click_sort_column'] = 'url';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
