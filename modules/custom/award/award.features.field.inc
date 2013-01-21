@@ -1220,7 +1220,7 @@ function award_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'attributes' => array(
-          'class' => '',
+          'class' => 'button',
           'configurable_title' => 0,
           'rel' => '',
           'target' => 'default',
@@ -1236,18 +1236,6 @@ function award_field_default_fields() {
         'url' => 0,
         'user_register_form' => FALSE,
         'validate_url' => 1,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Submissions',
-          ),
-          'status' => 0,
-        ),
       ),
       'widget' => array(
         'active' => 0,
@@ -1306,22 +1294,10 @@ function award_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'max' => '',
-        'min' => '1',
+        'min' => '0',
         'prefix' => '',
         'suffix' => '',
         'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Term',
-          ),
-          'status' => 0,
-        ),
       ),
       'widget' => array(
         'active' => 0,
