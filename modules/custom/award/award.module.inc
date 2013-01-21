@@ -1,4 +1,19 @@
 <?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_form_alter()
+ */
+function award_form_alter(&$form, $form_state, $form_id) {
+  // The views blocks whose exposed forms need modification.
+  $views = array('views-exposed-form-awards-block-2', 'views-exposed-form-awards-block-3', 'views-exposed-form-awards-block-5');
+  if ($form_id == 'views_exposed_form' && !empty($form['#id']) && in_array($form['#id'], $views)) {
+    // Make the select list of study areas a bit smaller.
+    $form['field_award_study_area_tid']['#size'] = 4;
+  }
+}
 
 /**
  * Implements hook_views_pre_render().

@@ -447,7 +447,7 @@ function award_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           'au' => 'Australian',
-          'nz' => 'New Zealand',
+          'nz' => 'NZ',
           'int' => 'International',
         ),
         'allowed_values_function' => '',
