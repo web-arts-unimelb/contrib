@@ -1343,7 +1343,6 @@ function award_views_default_views() {
   /* Display: Block: Grants */
   $handler = $view->new_display('block', 'Block: Grants', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Find Grants';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
@@ -1583,7 +1582,6 @@ function award_views_default_views() {
   /* Display: Block: Scholarships */
   $handler = $view->new_display('block', 'Block: Scholarships', 'block_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Find Scholarships';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
@@ -1823,7 +1821,6 @@ function award_views_default_views() {
   /* Display: Block: Prizes */
   $handler = $view->new_display('block', 'Block: Prizes', 'block_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Find Prizes';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
