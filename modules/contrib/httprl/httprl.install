@@ -75,8 +75,18 @@ function httprl_requirements($phase) {
       return $requirements;
     }
 
-    global $_httprl;
+    if ((defined('VERSION') && substr(VERSION, 0, 1) >= 7 && variable_get('maintenance_mode', 0)) || variable_get('site_offline', 0)) {
+      if (empty($requirements)) {
+        $requirements['httprl'] = array(
+          'title'     => $t('HTTPRL'),
+          'severity'  => REQUIREMENT_INFO,
+          'value'     => $phase == 'install' ? TRUE : $t('All the required functions are enabled, but non blocking requests can not be tested while the site is in maintenance mode.'),
+        );
+      }
+      return $requirements;
+    }
 
+    global $_httprl;
     // Test the non-blocking url.
     if (!httprl_install_http_test(2, FALSE)) {
       // Test the blocking url.
@@ -169,7 +179,7 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
   $options = array(
     'headers' => $headers,
     'blocking' => $blocking,
-    'timeout' => 7.0,
+    'timeout' => 6.0,
   );
 
   // Start the timer & get a lock.
@@ -203,7 +213,7 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
   $_httprl['install']['debug'][] = $time;
 
   // See if the request came back in under 5 seconds, or if it timed out.
-  if (($time['time'] / 1000) > 7) {
+  if (($time['time'] / 1000) > 5) {
     $ip = variable_get('httprl_server_addr', FALSE);
     if (empty($ip)) {
       $conf['httprl_server_addr'] = -1;

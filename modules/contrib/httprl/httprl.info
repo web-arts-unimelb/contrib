@@ -4,9 +4,9 @@ description = Send http requests out in parallel in a blocking or non-blocking m
 package = Performance and scalability
 core = 7.x
 
-; Information added by drupal.org packaging script on 2012-12-24
-version = "7.x-1.8"
+; Information added by drupal.org packaging script on 2013-01-18
+version = "7.x-1.9"
 core = "7.x"
 project = "httprl"
-datestamp = "1356317558"
+datestamp = "1358544103"
 
