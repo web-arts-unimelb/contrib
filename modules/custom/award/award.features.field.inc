@@ -180,8 +180,8 @@ function award_field_default_fields() {
       'label' => 'Application open and closing dates',
       'required' => 0,
       'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
+        'default_value' => 'blank',
+        'default_value2' => 'blank',
         'default_value_code' => '',
         'default_value_code2' => '',
         'user_register_form' => FALSE,
@@ -432,7 +432,7 @@ function award_field_default_fields() {
   $fields['node-award-field_award_citizenship'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_award_citizenship',
@@ -446,9 +446,8 @@ function award_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'au' => 'Australian',
-          'nz' => 'NZ',
-          'int' => 'International',
+          'domestic' => 'Domestic (Aust & NZ)',
+          'international' => 'International',
         ),
         'allowed_values_function' => '',
       ),
@@ -462,11 +461,11 @@ function award_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '6',
+          'weight' => 19,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -489,7 +488,7 @@ function award_field_default_fields() {
             ),
             'formatters' => array(),
             'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Citizenship',
+            'label' => 'award_citizenship',
           ),
           'status' => 0,
         ),
@@ -499,7 +498,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '46',
+        'weight' => '45',
       ),
     ),
   );
@@ -744,7 +743,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '47',
+        'weight' => '46',
       ),
     ),
   );
@@ -922,7 +921,7 @@ function award_field_default_fields() {
           'rows' => '3',
         ),
         'type' => 'text_textarea',
-        'weight' => '48',
+        'weight' => '47',
       ),
     ),
   );
@@ -1379,7 +1378,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '45',
+        'weight' => '44',
       ),
     ),
   );

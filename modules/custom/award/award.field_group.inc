@@ -23,12 +23,12 @@ function award_field_group_info() {
     'label' => 'Eligibility information',
     'weight' => '4',
     'children' => array(
-      0 => 'field_award_citizenship',
-      1 => 'field_award_financial_need',
-      2 => 'field_award_other',
-      3 => 'field_award_students',
-      4 => 'field_award_study_level',
-      5 => 'field_award_travel_support',
+      0 => 'field_award_financial_need',
+      1 => 'field_award_other',
+      2 => 'field_award_students',
+      3 => 'field_award_study_level',
+      4 => 'field_award_travel_support',
+      5 => 'field_award_citizenship',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
