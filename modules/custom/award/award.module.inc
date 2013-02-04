@@ -45,7 +45,11 @@ function award_views_pre_render(&$view) {
 
 function unimelb_preprocess_views_exposed_form(&$vars, $hook) 
 {
-	if($vars['form']['#id'] == 'views-exposed-form-awards-page-5') 
+	if(
+		$vars['form']['#id'] == 'views-exposed-form-awards-page-5' or
+		$vars['form']['#id'] == 'views-exposed-form-awards-block-5' or
+		$vars['form']['#id'] == 'views-exposed-form-awards-block-2'
+	) 
 	{
 		foreach($vars['widgets'] as $id => &$widget) 
 		{
