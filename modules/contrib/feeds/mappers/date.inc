@@ -52,15 +52,7 @@ function date_feeds_set_target($source, $entity, $target, $feed_element) {
       $feed_element = $feed_element[0];
     }
     
-    // Gary
-    // See: http://drupal.org/node/857216
-    // See: http://drupal.org/files/issues/feed_empty_date_27.patch
-    
-    // Empty string means no time - so clear the date field!
-		if (!is_numeric($feed_element) && !strtotime($feed_element)) {
-			$feed_element = new FeedsDateTimeElement(NULL, NULL);
-		}
-    else if ($sub_field == 'end') {
+    if ($sub_field == 'end') {
       $feed_element = new FeedsDateTimeElement(NULL, $feed_element);
     }
     else {
