@@ -83,9 +83,7 @@ function award_field_group_info() {
   $field_group->data = array(
     'label' => 'Award Tags',
     'weight' => '14',
-    'children' => array(
-      0 => 'field_award_research_area',
-    ),
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'Award Tags',
