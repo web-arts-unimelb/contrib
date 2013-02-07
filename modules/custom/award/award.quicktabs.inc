@@ -36,15 +36,9 @@ function award_quicktabs_default_quicktabs() {
       'type' => 'view',
     ),
   );
-  $quicktabs->renderer = 'accordion';
+  $quicktabs->renderer = 'quicktabs';
   $quicktabs->style = 'nostyle';
-  $quicktabs->options = array(
-    'history' => 1,
-    'jquery_ui' => array(
-      'autoHeight' => 0,
-      'collapsible' => 1,
-    ),
-  );
+  $quicktabs->options = array();
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -80,15 +74,9 @@ function award_quicktabs_default_quicktabs() {
       'type' => 'view',
     ),
   );
-  $quicktabs->renderer = 'accordion';
+  $quicktabs->renderer = 'quicktabs';
   $quicktabs->style = 'nostyle';
-  $quicktabs->options = array(
-    'history' => 1,
-    'jquery_ui' => array(
-      'autoHeight' => 0,
-      'collapsible' => 1,
-    ),
-  );
+  $quicktabs->options = array();
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -124,15 +112,9 @@ function award_quicktabs_default_quicktabs() {
       'type' => 'view',
     ),
   );
-  $quicktabs->renderer = 'accordion';
+  $quicktabs->renderer = 'quicktabs';
   $quicktabs->style = 'nostyle';
-  $quicktabs->options = array(
-    'history' => 1,
-    'jquery_ui' => array(
-      'autoHeight' => 0,
-      'collapsible' => 1,
-    ),
-  );
+  $quicktabs->options = array();
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -168,15 +150,9 @@ function award_quicktabs_default_quicktabs() {
       'type' => 'view',
     ),
   );
-  $quicktabs->renderer = 'accordion';
+  $quicktabs->renderer = 'quicktabs';
   $quicktabs->style = 'nostyle';
-  $quicktabs->options = array(
-    'history' => 1,
-    'jquery_ui' => array(
-      'autoHeight' => 0,
-      'collapsible' => 1,
-    ),
-  );
+  $quicktabs->options = array();
 
   // Translatables
   // Included for use with string extractors like potx.
