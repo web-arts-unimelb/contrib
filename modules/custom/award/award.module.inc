@@ -6,7 +6,7 @@
 /**
  * Implements hook_form_alter()
  */
-function award_form_alter(&$form, $form_state, $form_id) {
+function award_form_alter(&$form, &$form_state, $form_id) {
   // The views blocks whose exposed forms need modification.
   $views = array('views-exposed-form-awards-block-2', 'views-exposed-form-awards-block-3', 'views-exposed-form-awards-block-5');
   
@@ -15,6 +15,35 @@ function award_form_alter(&$form, $form_state, $form_id) {
     $form['field_award_study_area_tid']['#size'] = 4;
   }
   
+  // Set default search term in award type filter
+  if(isset($form['#id']))
+  {
+  	if($form['#id'] == 'views-exposed-form-awards-page-5') 
+		{
+			// Set default award type search to scholarship
+	 		if(empty($_GET['field_award_type_value_1']))
+	 		{
+				$form_state['input']['field_award_type_value_1'] = 'scholarship';
+			}
+	 	}
+	 	else if($form['#id'] == 'views-exposed-form-awards-block-5') 
+		{
+			// Set default award type search to prize
+	 		if(empty($_GET['field_award_type_value_1']))
+	 		{
+				$form_state['input']['field_award_type_value_1'] = 'prize';
+			}
+	 	}
+		else if($form['#id'] == 'views-exposed-form-awards-block-2') 
+		{
+			// Set default award type search to grant
+	 		if(empty($_GET['field_award_type_value_1']))
+	 		{
+				$form_state['input']['field_award_type_value_1'] = 'grant';
+			}
+	 	}
+ 	}
+ 	
 }
 
 /**
