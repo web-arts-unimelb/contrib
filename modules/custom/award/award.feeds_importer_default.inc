@@ -47,6 +47,7 @@ function award_feeds_importer_default() {
           'xpathparser:15' => 'Term',
           'xpathparser:16' => 'Frequency',
           'xpathparser:17' => 'UniversityTrustRecord',
+          'xpathparser:24' => 'UniversityTrustRecordTitle',
           'xpathparser:18' => 'ApplyLink',
           'xpathparser:19' => 'EnquireNow',
           'xpathparser:20' => 'AreaOfStudy',
@@ -55,11 +56,11 @@ function award_feeds_importer_default() {
           'xpathparser:23' => 'Sticky',
         ),
         'rawXML' => array(
-          'xpathparser:4' => 'xpathparser:4',
           'xpathparser:0' => 0,
           'xpathparser:1' => 0,
           'xpathparser:2' => 0,
           'xpathparser:3' => 0,
+          'xpathparser:4' => 0,
           'xpathparser:5' => 0,
           'xpathparser:6' => 0,
           'xpathparser:7' => 0,
@@ -73,6 +74,7 @@ function award_feeds_importer_default() {
           'xpathparser:15' => 0,
           'xpathparser:16' => 0,
           'xpathparser:17' => 0,
+          'xpathparser:24' => 0,
           'xpathparser:18' => 0,
           'xpathparser:19' => 0,
           'xpathparser:20' => 0,
@@ -103,6 +105,7 @@ function award_feeds_importer_default() {
             'xpathparser:15' => 0,
             'xpathparser:16' => 0,
             'xpathparser:17' => 0,
+            'xpathparser:24' => 0,
             'xpathparser:18' => 0,
             'xpathparser:19' => 0,
             'xpathparser:20' => 0,
@@ -119,7 +122,7 @@ function award_feeds_importer_default() {
       'config' => array(
         'content_type' => 'award',
         'expire' => '-1',
-        'author' => '2',
+        'author' => '1',
         'mappings' => array(
           0 => array(
             'source' => 'xpathparser:0',
@@ -212,31 +215,36 @@ function award_feeds_importer_default() {
             'unique' => FALSE,
           ),
           18 => array(
+            'source' => 'xpathparser:24',
+            'target' => 'field_award_uni_trust_record:title',
+            'unique' => FALSE,
+          ),
+          19 => array(
             'source' => 'xpathparser:18',
             'target' => 'field_award_submissions:url',
             'unique' => FALSE,
           ),
-          19 => array(
+          20 => array(
             'source' => 'xpathparser:19',
             'target' => 'field_award_enquire_now',
             'unique' => FALSE,
           ),
-          20 => array(
+          21 => array(
             'source' => 'xpathparser:20',
             'target' => 'field_award_study_area',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => 'xpathparser:21',
             'target' => 'field_award_attachments',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
             'source' => 'xpathparser:22',
             'target' => 'promote',
             'unique' => FALSE,
           ),
-          23 => array(
+          24 => array(
             'source' => 'xpathparser:23',
             'target' => 'sticky',
             'unique' => FALSE,
