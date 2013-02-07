@@ -185,6 +185,18 @@ function award_field_default_fields() {
         'default_value_code' => '',
         'default_value_code2' => '',
         'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Application open date',
+          ),
+          'status' => 0,
+        ),
       ),
       'widget' => array(
         'active' => 1,
@@ -468,6 +480,18 @@ function award_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'award_citizenship',
+          ),
+          'status' => 0,
+        ),
       ),
       'widget' => array(
         'active' => 1,
@@ -620,7 +644,7 @@ function award_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_award_enquire_now',
-      'label' => 'Enquiries',
+      'label' => 'Enquire now',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -830,7 +854,11 @@ function award_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'award',
-      'default_value' => NULL,
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -855,22 +883,14 @@ function award_field_default_fields() {
       'settings' => array(
         'better_formats' => array(
           'allowed_formats' => array(
-            'complete_full_html' => 0,
-            'filtered_html' => 0,
-            'full_html' => 'full_html',
-            'plain_text' => 0,
+            'html_editor' => 0,
+            'plain_text' => 'plain_text',
           ),
           'allowed_formats_toggle' => 1,
           'default_order_toggle' => 0,
           'default_order_wrapper' => array(
             'formats' => array(
-              'complete_full_html' => array(
-                'weight' => '0',
-              ),
-              'filtered_html' => array(
-                'weight' => '0',
-              ),
-              'full_html' => array(
+              'html_editor' => array(
                 'weight' => '0',
               ),
               'plain_text' => array(
@@ -881,6 +901,18 @@ function award_field_default_fields() {
         ),
         'text_processing' => '1',
         'user_register_form' => FALSE,
+        'wysiwyg_fields' => array(
+          'settings' => array(
+            'advanced' => array(
+              'delete' => 1,
+              'hide' => 1,
+            ),
+            'formatters' => array(),
+            'icon' => '6f7621a02161e347e66d99d8ace540a3',
+            'label' => 'Other',
+          ),
+          'status' => 0,
+        ),
       ),
       'widget' => array(
         'active' => 1,
@@ -1187,7 +1219,7 @@ function award_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'attributes' => array(
-          'class' => 'button complement_button',
+          'class' => 'button',
           'configurable_title' => 0,
           'rel' => '',
           'target' => 'default',
@@ -1613,7 +1645,7 @@ function award_field_default_fields() {
   t('Citizenship');
   t('Conditions');
   t('Email address of enquiry');
-  t('Enquiries');
+  t('Enquire now');
   t('Financial need');
   t('Frequency');
   t('HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.');

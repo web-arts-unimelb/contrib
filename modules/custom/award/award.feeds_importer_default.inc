@@ -119,7 +119,7 @@ function award_feeds_importer_default() {
       'config' => array(
         'content_type' => 'award',
         'expire' => '-1',
-        'author' => '1',
+        'author' => '2',
         'mappings' => array(
           0 => array(
             'source' => 'xpathparser:0',
