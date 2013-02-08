@@ -28,7 +28,6 @@ function award_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Search';
-  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -877,10 +876,7 @@ function award_views_default_views() {
   $handler->display->display_options['filters']['field_award_type_value']['table'] = 'field_data_field_award_type';
   $handler->display->display_options['filters']['field_award_type_value']['field'] = 'field_award_type_value';
   $handler->display->display_options['filters']['field_award_type_value']['value'] = array(
-    'all' => 'all',
     'scholarship' => 'scholarship',
-    'prize' => 'prize',
-    'grant' => 'grant',
   );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
