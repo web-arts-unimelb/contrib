@@ -246,6 +246,30 @@ function award_default_page_manager_handlers() {
     $pane->locks = array();
     $display->content['new-7'] = $pane;
     $display->panels['center'][6] = 'new-7';
+    $pane = new stdClass();
+    $pane->pid = 'new-8';
+    $pane->panel = 'center';
+    $pane->type = 'custom';
+    $pane->subtype = 'custom';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'admin_title' => 'The judges\' decision',
+      'title' => '',
+      'body' => '<p style="font-size:smaller;">The judges\' decision will be final and the University reserves the right not to award the prize in the event it is considered that no work of sufficient merit has been submitted. Winning applicants please note the University of Melbourne reserves the right to publish the name of the winning applicant on its websites and other University of Melbourne publications.</p>',
+      'format' => 'complete_full_html',
+      'substitute' => 1,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 7;
+    $pane->locks = array();
+    $display->content['new-8'] = $pane;
+    $display->panels['center'][7] = 'new-8';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
