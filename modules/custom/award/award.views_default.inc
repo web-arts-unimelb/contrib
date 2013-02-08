@@ -862,6 +862,7 @@ function award_views_default_views() {
   $handler->display->display_options['filters']['keys']['expose']['label'] = 'Keywords';
   $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
   $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
+  $handler->display->display_options['filters']['keys']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['keys']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,

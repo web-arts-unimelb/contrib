@@ -644,7 +644,7 @@ function award_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_award_enquire_now',
-      'label' => 'Enquire now',
+      'label' => 'Enquiries',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1219,7 +1219,7 @@ function award_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'attributes' => array(
-          'class' => 'button',
+          'class' => 'button complement_button',
           'configurable_title' => 0,
           'rel' => '',
           'target' => 'default',
@@ -1645,7 +1645,7 @@ function award_field_default_fields() {
   t('Citizenship');
   t('Conditions');
   t('Email address of enquiry');
-  t('Enquire now');
+  t('Enquiries');
   t('Financial need');
   t('Frequency');
   t('HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.');
