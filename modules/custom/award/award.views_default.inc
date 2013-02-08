@@ -1485,7 +1485,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_other']['label'] = '';
   $handler->display->display_options['fields']['field_award_other']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_other']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_other']['alter']['text'] = '[field_award_other]<br/>';
+  $handler->display->display_options['fields']['field_award_other']['alter']['text'] = '<br/>[field_award_other]';
   $handler->display->display_options['fields']['field_award_other']['element_type'] = '0';
   $handler->display->display_options['fields']['field_award_other']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_award_other']['element_wrapper_type'] = '0';
