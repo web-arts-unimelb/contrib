@@ -325,10 +325,6 @@ class views_plugin_exposed_form extends views_plugin {
     }
 
     $form_state['redirect'] = current_path();
-    //$form_state['redirect'] = _get_current_url_in_address_bar();
-    
-    dsm(_get_current_url_in_address_bar());
-      
     $form_state['values'] = array();
   }
 }
@@ -336,35 +332,3 @@ class views_plugin_exposed_form extends views_plugin {
 /**
  * @}
  */
- 
-// Gary
-/*
-function _get_current_url_in_address_bar()
-{
-	$url = "";
-	
-	$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
-	$host = $_SERVER['HTTP_HOST'];
-	$request_uri = $_SERVER['REQUEST_URI'];
-	$uri = "";
-	
-	// Ignore the part after ?
-	$array = explode("?", $request_uri);
-	if(count($array) == 2)
-	{
-		$uri = $array[0];
-	}
-	else
-	{
-		$uri = "";	
-	}
-	
-	$url = $protocol. '://'. $host. $uri;
-	
-	//test
-	print $url;
-	die;
-	
-	return $url;
-}
-*/
