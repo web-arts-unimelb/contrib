@@ -141,8 +141,12 @@ function _build_dropdown_option($input)
   
   	if( $is_select_all_condi && _is_select_all($option_content) )
   	{
-  		$is_select_all_condi = false;
   		// Skip to generate the option tag
+  		$is_select_all_condi = false;
+  	}
+  	elseif(empty($option_content))
+  	{
+  		// Skip if node value is empty
   	}
 		elseif( _is_child($option_content) )
 		{
