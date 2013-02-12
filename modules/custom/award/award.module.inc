@@ -20,6 +20,9 @@ function award_form_alter(&$form, &$form_state, $form_id) {
   {
   	if($form['#id'] == 'views-exposed-form-awards-page-5') 
 		{
+			// Reset if select Any in study area filter
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to scholarship
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
@@ -28,6 +31,8 @@ function award_form_alter(&$form, &$form_state, $form_id) {
 	 	}
 	 	else if($form['#id'] == 'views-exposed-form-awards-block-5') 
 		{
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to prize
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
@@ -36,6 +41,8 @@ function award_form_alter(&$form, &$form_state, $form_id) {
 	 	}
 		else if($form['#id'] == 'views-exposed-form-awards-block-2') 
 		{
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to grant
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
@@ -91,7 +98,6 @@ function unimelb_preprocess_views_exposed_form(&$vars, $hook)
       }
   	}
 	}
-
 }
 
 function _build_taxonomy_dropdown($input)
@@ -117,7 +123,8 @@ function _build_taxonomy_dropdown($input)
 
 function _build_dropdown_option($input)
 {
-	$option_html = "";
+	$option_html = "<option value='All'>- Any -</option>";
+	//$option_html = "";
 	
 	$is_select_all_condi = true;
 	
@@ -146,7 +153,7 @@ function _build_dropdown_option($input)
 			$option_html .= "<option style=\"font-weight: bold\" value=\"$option_value\">$option_content</option>";	
 		}
 	}
-
+	
 	return $option_html;
 }
 
@@ -171,5 +178,16 @@ function _is_child($value = "")
 	else
 	{
 		return false;
+	}
+}
+
+function _reset_study_area_filter(&$form_state)
+{
+	if(isset($form_state['input']['field_award_study_area_tid'][0]))
+	{
+		if($form_state['input']['field_award_study_area_tid'][0] == 'All')
+		{
+			$form_state['input']['field_award_study_area_tid'] = array();
+		}
 	}
 }
