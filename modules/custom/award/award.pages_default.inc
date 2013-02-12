@@ -166,34 +166,6 @@ function award_default_page_manager_handlers() {
     $pane->pid = 'new-5';
     $pane->panel = 'center';
     $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_award_attachments';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'label' => 'hidden',
-      'formatter' => 'custom_formatters_unimel_download_large',
-      'delta_limit' => '0',
-      'delta_offset' => '0',
-      'delta_reversed' => 0,
-      'formatter_settings' => array(),
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 4;
-    $pane->locks = array();
-    $display->content['new-5'] = $pane;
-    $display->panels['center'][4] = 'new-5';
-    $pane = new stdClass();
-    $pane->pid = 'new-6';
-    $pane->panel = 'center';
-    $pane->type = 'entity_field';
     $pane->subtype = 'node:field_award_enquire_now';
     $pane->shown = TRUE;
     $pane->access = array();
@@ -214,12 +186,12 @@ function award_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 5;
+    $pane->position = 4;
     $pane->locks = array();
-    $display->content['new-6'] = $pane;
-    $display->panels['center'][5] = 'new-6';
+    $display->content['new-5'] = $pane;
+    $display->panels['center'][4] = 'new-5';
     $pane = new stdClass();
-    $pane->pid = 'new-7';
+    $pane->pid = 'new-6';
     $pane->panel = 'center';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_award_submissions';
@@ -242,12 +214,12 @@ function award_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 6;
+    $pane->position = 5;
     $pane->locks = array();
-    $display->content['new-7'] = $pane;
-    $display->panels['center'][6] = 'new-7';
+    $display->content['new-6'] = $pane;
+    $display->panels['center'][5] = 'new-6';
     $pane = new stdClass();
-    $pane->pid = 'new-8';
+    $pane->pid = 'new-7';
     $pane->panel = 'center';
     $pane->type = 'custom';
     $pane->subtype = 'custom';
@@ -266,10 +238,10 @@ function award_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 7;
+    $pane->position = 6;
     $pane->locks = array();
-    $display->content['new-8'] = $pane;
-    $display->panels['center'][7] = 'new-8';
+    $display->content['new-7'] = $pane;
+    $display->panels['center'][6] = 'new-7';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
