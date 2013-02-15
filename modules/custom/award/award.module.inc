@@ -20,6 +20,8 @@ function award_form_alter(&$form, &$form_state, $form_id) {
   {
   	if($form['#id'] == 'views-exposed-form-awards-page-5') 
 		{
+			// Advance search scholarship
+		
 			// Reset if select Any in study area filter
 			_reset_study_area_filter($form_state);
 		
@@ -29,8 +31,14 @@ function award_form_alter(&$form, &$form_state, $form_id) {
 				$form_state['input']['field_award_type_value_1'] = 'scholarship';
 			}
 	 	}
+	 	else if($form['#id'] == 'views-exposed-form-awards-block-7')
+	 	{
+	 		// Normal prize search
+	 		_correct_form_action_url($form);
+		}
 	 	else if($form['#id'] == 'views-exposed-form-awards-block-5') 
 		{
+			// Advance prize search
 			_reset_study_area_filter($form_state);
 		
 			// Set default award type search to prize
@@ -38,9 +46,13 @@ function award_form_alter(&$form, &$form_state, $form_id) {
 	 		{
 				$form_state['input']['field_award_type_value_1'] = 'prize';
 			}
+			
+			_correct_form_action_url($form);
 	 	}
 		else if($form['#id'] == 'views-exposed-form-awards-block-2') 
 		{
+			// Advance grant search
+		
 			_reset_study_area_filter($form_state);
 		
 			// Set default award type search to grant
@@ -193,5 +205,15 @@ function _reset_study_area_filter(&$form_state)
 		{
 			$form_state['input']['field_award_study_area_tid'] = array();
 		}
+	}
+}
+
+// Not the exact issue, but with the idea
+// http://drupal.org/node/1783968
+function _correct_form_action_url(&$form)
+{
+	if($form['#action'] == "/scholarships/grants-list")
+	{
+		$form['#action'] = "/scholarships/prize-list";	
 	}
 }
