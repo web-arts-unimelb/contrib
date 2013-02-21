@@ -65,7 +65,8 @@ API OVERVIEW
 
 Issue HTTP Requests:
 httprl_build_url_self()
- - Helper function to build an URL for asynchronous requests to self.
+ - Helper function to build an URL for asynchronous requests to self. Note that
+   you should set the Host name in the headers when using this.
 httprl_request()
  - Queue up a HTTP request in httprl_send_request().
 httprl_send_request()
@@ -141,13 +142,19 @@ Request http://drupal.org/robots.txt and save it to tmp folder.
 Request this servers own front page & the node page.
 
     <?php
+    $options = array(
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
+    );
     // Build URL to point to front page of this server.
     $url_front = httprl_build_url_self();
     // Build URL to point to /node on this server.
     $url_node = httprl_build_url_self('node');
     // Queue up the requests.
-    httprl_request($url_front);
-    httprl_request($url_node);
+    httprl_request($url_front, $options);
+    httprl_request($url_node, $options);
     // Execute requests.
     $request = httprl_send_request();
 
@@ -165,6 +172,10 @@ this should generate 10 404s and the $request object won't contain much info.
     // Set the blocking mode.
     $options = array(
       'blocking' => FALSE,
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Queue up the requests.
     $max = 10;
@@ -189,6 +200,10 @@ URLs will all have the same options.
     $options = array(
       'method' => 'HEAD',
       'blocking' => FALSE,
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Queue up the requests.
     $max = 10;
@@ -218,6 +233,10 @@ connections that couldn't be made will be dropped.
       'blocking' => FALSE,
       'domain_connections' => 1000,
       'global_connections' => 1000,
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Queue up the requests.
     $max = 1000;
@@ -251,6 +270,10 @@ connection to be established; `async_connect` is FALSE.
       // clients.
       'domain_connections' => 32,
       'global_connections' => 1000,
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Queue up the requests.
     $max = 1000;
@@ -286,6 +309,10 @@ we are going to use httprl_pr() as the callback function.
           'return' => &$x,
         ),
       ),
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Build URL to point to front page of this server.
     $url_front = httprl_build_url_self();
@@ -314,6 +341,10 @@ background callback creates a new thread to run this function in.
           'function' => 'httprl_pr',
           'return' => &$x,
         ),
+      ),
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
       ),
     );
     // Build URL to point to front page of this server.
@@ -349,6 +380,10 @@ instead of returning a value.
         ),
         FALSE,
       ),
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
     // Build URL to point to front page of this server.
     $url_front = httprl_build_url_self();
@@ -365,7 +400,7 @@ instead of returning a value.
 
 **More Advanced HTTP Operations**
 
-Hit 4 different URLs, Using at least 2 that has a status code of 200 and
+Hit 5 different URLs, Using at least 2 that has a status code of 200 and
 erroring out the others that didn't return fast. Using the Range header so only
 the first and last 128 bytes are returned.
 
@@ -396,8 +431,8 @@ the first and last 128 bytes are returned.
     function need_two_good_results($id, &$responses) {
       static $counter = 0;
       foreach ($responses as $id => &$result) {
-        // Skip if we got a 200.
-        if ($result->code == 200) {
+        // Skip if we got a 200 or 206.
+        if ($result->code == 200 || $result->code == 206) {
           $counter += 1;
           continue;
         }
@@ -425,8 +460,6 @@ the first and last 128 bytes are returned.
 Send 2 files in one field via a POST request.
 
     <?php
-    // Send request to front page.
-    $url_front = httprl_build_url_self();
     // Set options.
     $options = array(
       'method' => 'POST',
@@ -441,12 +474,72 @@ Send 2 files in one field via a POST request.
           ),
         ),
       ),
+      'headers' => array(
+        // Set the Host header to self.
+        'Host' => $_SERVER['HTTP_HOST'],
+      ),
     );
+    // Send request to front page.
+    $url_front = httprl_build_url_self();
+
     // Queue up the request.
     httprl_request($url_front, $options);
     // Execute request.
     $request = httprl_send_request();
     // Echo what was returned.
+    echo httprl_pr($request);
+    ?>
+
+
+Send out 8 requests. In this example we are going to stall the call to fread()
+`'stall_fread' => TRUE,`. By doing this we can issue a bunch of requests, do
+some other stuff and then get the results later on in the PHP process. A useful
+example would be for ESI emulation. Issue a bunch of requests at the start of
+the request, generate the main content and then add in the ESI-ed components at
+the end of the request.
+
+    <?php
+    // Queue up the request.
+    $urls = array(
+      'http://www.google.com/',
+      'http://www.bing.com/',
+      'http://www.yahoo.com/',
+      'http://duckduckgo.com/',
+      'http://drupal.org/',
+      'http://drupal.org/robots.txt',
+      'http://drupal.org/CHANGELOG.txt',
+      'http://drupal.org/MAINTAINERS.txt',
+    );
+    $options = array(
+      // Do fread in a second request.
+      'stall_fread' => TRUE,
+      'headers' => array(
+        // Only grab the last 128 bytes of the request.
+        'Range' => 'bytes=-128',
+        // Accept Compression.
+        'Accept-Encoding' => 'gzip, deflate',
+      ),
+      // Increase the read chunk size to 512KB.
+      'chunk_size_read' => 524288,
+      // Increase domain_connections to 4 (drupal.org).
+      'domain_connections' => 4,
+      // If we can't connect quick (0.5 seconds), bail out.
+      'connect_timeout' => 0.5,
+      'dns_timeout' => 0.5,
+    );
+    httprl_request($urls, $options);
+    // Execute request.
+    echo round(timer_read('page')/1000, 3) . " - Time taken to get requests ready.<br> \n";
+    $request = httprl_send_request();
+    echo strtoupper(var_export($request, TRUE)) . " - Output from first httprl_send_request() call<br> \n";
+
+    echo round(timer_read('page')/1000, 3) . " - Time taken to send out all fwrites().<br> \n";
+    sleep(2);
+    echo round(timer_read('page')/1000, 3) . " - Time taken for sleep(2).<br> \n";
+
+    $request = httprl_send_request();
+    echo round(timer_read('page')/1000, 3) . " - Time taken for all freads().<br> \n";
+    echo "Output from second httprl_send_request() below:<br> \n<br> \n";
     echo httprl_pr($request);
     ?>
 

@@ -174,8 +174,8 @@ function httprl_menu() {
  * This hook should be ran about once a day to once an hour.
  */
 function httprl_cron() {
-  // Let expiration times vary by 30 seconds or so.
-  $fuzz_factor = 30;
+  // Let expiration times vary by 1 hour.
+  $fuzz_factor = 3600;
 
   // Remove expired locks from the semaphore database table.
   if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
@@ -336,6 +336,7 @@ function httprl_set_default_options(&$options) {
     'chunk_size_read' => 32768,
     'chunk_size_write' => 1024,
     'async_connect' => TRUE,
+    'ping_db' => 20,
   );
 
   // Adjust Time To First Byte Timeout if timeout is large and ttfb is default.
@@ -898,6 +899,12 @@ function httprl_establish_stream_connection(&$result) {
  *     $output variables inside of httprl_send_request. Defined function
  *     should have the following parameters:
  *       ($id, &$responses).
+ *   - stall_fread: TRUE or FALSE. If true once all fwrites have been done
+ *     httprl_send_request() will return. You will need to call
+ *     httprl_send_request() a second time to read the responses back.
+ *   - ping_db: After X amount of time, ping the DB with a simple query in order
+ *     to keep the connection alive. Default is every 20 seconds. Set to 0 to
+ *     disable.
  *
  * @return array
  *   Array where key is the URL and the value is the return value from
@@ -1012,6 +1019,8 @@ function httprl_request($urls, $options = array()) {
 function httprl_send_request($results = NULL) {
   static $responses = array();
   static $counter = 0;
+  static $output = array();
+  static $static_stall_freads = FALSE;
 
   if (!is_null($results)) {
     // Put the connection information into the responses array.
@@ -1035,11 +1044,10 @@ function httprl_send_request($results = NULL) {
     $t = 'httprl_pr';
   }
 
-  // Create output array.
-  $output = array();
   // Remove errors from responses array and set the global timeout.
   $global_timeout = 1;
   $global_connection_limit = 1;
+  $stall_freads = FALSE;
   foreach ($responses as $id => &$result) {
     if (!empty($result->error)) {
       $result->status = 'Connection not made.';
@@ -1057,11 +1065,21 @@ function httprl_send_request($results = NULL) {
       $domain_connection_limit[$result->options['headers']['Host']] = max($domain_connection_limit[$result->options['headers']['Host']], $result->options['domain_connections']);
     }
 
+    // Set global timeout.
     $global_timeout = max($global_timeout, $result->options['global_timeout']);
+
+    // Issue fwrite, return. Run fread later on in the script.
+    if (!empty($result->options['stall_fread']) && !$static_stall_freads) {
+      $static_stall_freads = TRUE;
+      $stall_freads = TRUE;
+    }
   }
 
   // Record start time.
   $start_time_this_run = $start_time_global = microtime(TRUE);
+  // Record the number of db pings done.
+  $ping_db_counts = array();
+  $full_bootstrap = httprl_drupal_full_bootstrap();
 
   // Run the loop as long as we have a stream to read/write to.
   $stream_select_timeout = 1;
@@ -1082,6 +1100,19 @@ function httprl_send_request($results = NULL) {
     $elapsed_time = $now - $start_time_this_run;
     $start_time_this_run = $now;
     $global_time = $global_timeout - ($start_time_this_run - $start_time_global);
+
+    // See if the DB needs to be pinged.
+    $rounded_time = floor($elapsed_time);
+    if (   $full_bootstrap
+        && !empty($result->options['ping_db'])
+        && $rounded_time >= $result->options['ping_db']
+        && $rounded_time % $result->options['ping_db'] == 0
+        && empty($ping_db_counts[$rounded_time])
+          ) {
+      $empty_array = array();
+      system_get_files_database($empty_array, 'ping_db');
+      $ping_db_counts[$rounded_time] = 1;
+    }
 
     // Inspect each stream, checking for timeouts and connection limits.
     foreach ($responses as $id => &$result) {
@@ -1201,6 +1232,11 @@ function httprl_send_request($results = NULL) {
 
           // Reset timer.
           $restart_timers = TRUE;
+
+          // Get lock if needed.
+          if (!empty($result->options['lock_name'])) {
+            httprl_acquire_lock($result);
+          }
 
           // If connection can not be established bail out here.
           if (!$result->fp) {
@@ -1428,6 +1464,9 @@ function httprl_send_request($results = NULL) {
           }
         }
       }
+      elseif ($stall_freads) {
+        return;
+      }
     }
     if (!$rw_done) {
       // Wait 5ms for data buffers.
@@ -1435,11 +1474,16 @@ function httprl_send_request($results = NULL) {
     }
   }
 
+  // Copy output.
+  $return = $output;
+
   // Free memory/reset static variables.
   $responses = array();
   $counter = 0;
+  $output = array();
+  $static_stall_freads = FALSE;
 
-  return $output;
+  return $return;
 }
 
 /**
@@ -1928,7 +1972,7 @@ function httprl_queue_background_callback(&$args, &$result = NULL) {
   }
 
   // Get the maximum amount of time this could take.
-  $times = array(HTTPRL_TIMEOUT, HTTPRL_GLOBAL_TIMEOUT);
+  $times = array(httprl_variable_get('httprl_timeout', HTTPRL_TIMEOUT), httprl_variable_get('httprl_global_timeout', HTTPRL_GLOBAL_TIMEOUT));
   if (isset($callback_options['options']['timeout'])) {
     $times[] = $callback_options['options']['timeout'];
   }
@@ -1936,42 +1980,21 @@ function httprl_queue_background_callback(&$args, &$result = NULL) {
     $times[] = $callback_options['options']['global_timeout'];
   }
 
-  // Acquire lock for this run.
-  $locked = FALSE;
+  // Create lock name for this run.
+  $available = FALSE;
   $lock_counter = 0;
-  while (!$locked && $lock_counter < 20) {
-    $id = 'httprl_' . hash('sha512', mt_rand() . time());
-    // Set lock to maximum amount of time.
-    $locked = lock_acquire($id, max($times));
+  while (!$available && $lock_counter < 20) {
+    $name = 'httprl_' . hash('sha512', mt_rand() . microtime(TRUE));
+    $available = lock_may_be_available($name);
     $lock_counter++;
   }
-
-  // Make sure lock exists after this process is dead.
-  if (empty($mode)) {
-    // Remove from the global locks variable.
-    global $locks;
-    unset($locks[$id]);
-
-    // Remove the lock_id reference in the database.
-    if (httprl_variable_get('lock_inc', './includes/lock.inc') === './includes/lock.inc') {
-      if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
-        db_update('semaphore')
-          ->fields(array('value' => 'httprl'))
-          ->condition('name', $id)
-          ->condition('value', _lock_id())
-          ->execute();
-      }
-      else {
-        db_query("UPDATE {semaphore} SET value = '%s' WHERE name = '%s' AND value = '%s'", 'httprl', $id, _lock_id());
-      }
-    }
-  }
+  $callback_options['options']['lock_name'] = $name;
 
   // Create data array and options for request.
   $options = array(
     'data' => array(
       'master_key' => hash('sha512', httprl_drupal_get_private_key()),
-      'temp_key' => $id,
+      'temp_key' => $name,
       'mode' => $mode,
       'php_timeout' => max($times),
       'function' => $callback_options['function'],
@@ -1992,6 +2015,63 @@ function httprl_queue_background_callback(&$args, &$result = NULL) {
   }
   // Send Request.
   return httprl_request($url, $options);
+}
+
+
+/**
+ * Get a lock so background calls work.
+ *
+ * @param $result
+ *   An object from httprl_send_request.
+ */
+function httprl_acquire_lock(&$result) {
+  if (empty($result->options['lock_name'])) {
+    return FALSE;
+  }
+
+  // Get the maximum amount of time this could take.
+  $times = array(httprl_variable_get('httprl_timeout', HTTPRL_TIMEOUT), httprl_variable_get('httprl_global_timeout', HTTPRL_GLOBAL_TIMEOUT));
+  if (isset($result->options['timeout'])) {
+    $times[] = $result->options['timeout'];
+  }
+  if (isset($result->options['global_timeout'])) {
+    $times[] = $result->options['global_timeout'];
+  }
+
+  // Acquire lock for this run.
+  $locked = FALSE;
+  $lock_counter = 0;
+  $name = $result->options['lock_name'];
+  while (!$locked && $lock_counter < 3) {
+    // Set lock to maximum amount of time.
+    $locked = lock_acquire($name, max($times));
+    $lock_counter++;
+  }
+  if (!$locked) {
+    return FALSE;
+  }
+
+  // Make sure lock exists after this process is dead.
+  if (!empty($result->options['blocking'])) {
+    // Remove from the global locks variable.
+    global $locks;
+    unset($locks[$name]);
+
+    // Remove the lock_id reference in the database.
+    if (httprl_variable_get('lock_inc', './includes/lock.inc') === './includes/lock.inc') {
+      if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
+        db_update('semaphore')
+          ->fields(array('value' => 'httprl'))
+          ->condition('name', $name)
+          ->condition('value', _lock_id())
+          ->execute();
+      }
+      else {
+        db_query("UPDATE {semaphore} SET value = '%s' WHERE name = '%s' AND value = '%s'", 'httprl', $name, _lock_id());
+      }
+    }
+  }
+  return TRUE;
 }
 
 /**
@@ -2307,6 +2387,38 @@ function httprl_lock_release($name) {
   }
 }
 
+
+/**
+ * If $data is bool or strlen = 0 use var_export. Recursively go deeper.
+ *
+ * @param $data
+ *   Data In.
+ * @param $level (optional)
+ *   At what level of the array/object are we at.
+ *
+ * @return
+ *   $data
+ */
+function httprl_print_empty(&$data, $level = 0) {
+  $level++;
+  if ($level < 10 ) {
+    if (is_object($data)) {
+      foreach ($data as $key => $values) {
+        $data->{$key} = httprl_print_empty($values, $level);
+      }
+    }
+    elseif (is_array($data)) {
+      foreach ($data as &$values) {
+        $values = httprl_print_empty($values, $level);
+      }
+    }
+    elseif (is_bool($data) || strlen($data) == 0) {
+      $data = strtoupper(var_export($data, TRUE));
+    }
+  }
+  return $data;
+}
+
 /**
  * Pretty print data.
  *
@@ -2319,12 +2431,8 @@ function httprl_pr($data) {
   // Get extra arguments passed in.
   $data = func_get_args();
 
-  // If empty print out the dump of that variable.
-  foreach ($data as $key => &$value) {
-    if (strlen(print_r($value, TRUE)) == 0) {
-      $value = strtoupper(var_export($value, TRUE));
-    }
-  }
+  // If bool or strlen = 0 use var_export on that variable.
+  $data = httprl_print_empty($data);
 
   // Merge into base array if only one argument passed in.
   if (count($data) == 1) {
@@ -2332,7 +2440,7 @@ function httprl_pr($data) {
   }
 
   // Remove non UTF-8 Characters, escape HTML markup, remove extra new lines.
-  $output = array_filter(explode("\n", htmlentities(iconv('utf-8', 'utf-8//IGNORE', print_r($data, TRUE)), ENT_QUOTES, 'UTF-8')));
+  $output = array_filter(explode("\n", htmlentities(iconv('utf-8', 'utf-8//IGNORE', print_r($data, TRUE)), ENT_QUOTES, 'UTF-8')), 'strlen');
 
   // Whitespace compression.
   foreach ($output as $key => $value) {
