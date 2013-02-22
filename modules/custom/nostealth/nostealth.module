@@ -18,14 +18,14 @@ function nostealth_filter_info() {
 }
 
 /**
- * Filter callback for uom_custom_nostealth.
+ * Filter callback for nostealth.
  */
 function _nostealth_process($text, $filter) {
-  return preg_replace('/<p[^>]+>(&nbsp;|[\s]|)?<\/p>/i', '', $text);
+  return preg_replace('/<p[^>]*>(&nbsp;|[\s])*<\/p>/i', '', $text);
 }
 
 /**
- * Filter tips callback for uom_custom_nostealth.
+ * Filter tips callback for nostealth.
  */
 function _nostealth_tips($filter, $format, $long = FALSE) {
   return t('Remove empty paragraph tags that have been added to provide extra line spacing.');
