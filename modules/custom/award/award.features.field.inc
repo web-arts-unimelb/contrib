@@ -465,7 +465,7 @@ function award_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 19,
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1569,7 +1569,7 @@ function award_field_default_fields() {
       'settings' => array(
         'decimal_separator' => '.',
         'precision' => '10',
-        'scale' => '2',
+        'scale' => '0',
       ),
       'translatable' => '0',
       'type' => 'number_decimal',
@@ -1578,15 +1578,15 @@ function award_field_default_fields() {
       'bundle' => 'award',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'e.g. If 4000.42 is entered, it should output $4000.42',
+      'description' => 'Enter the approximate value of the award, rounded in whole dollars.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
-            'prefix_suffix' => TRUE,
-            'scale' => 2,
+            'prefix_suffix' => 1,
+            'scale' => '0',
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
@@ -1606,21 +1606,9 @@ function award_field_default_fields() {
       'settings' => array(
         'max' => '',
         'min' => '',
-        'prefix' => '',
+        'prefix' => '$',
         'suffix' => '',
         'user_register_form' => FALSE,
-        'wysiwyg_fields' => array(
-          'settings' => array(
-            'advanced' => array(
-              'delete' => 1,
-              'hide' => 1,
-            ),
-            'formatters' => array(),
-            'icon' => '6f7621a02161e347e66d99d8ace540a3',
-            'label' => 'Approximate value',
-          ),
-          'status' => 0,
-        ),
       ),
       'widget' => array(
         'active' => 0,
@@ -1646,6 +1634,7 @@ function award_field_default_fields() {
   t('Conditions');
   t('Email address of enquiry');
   t('Enquiries');
+  t('Enter the approximate value of the award, rounded in whole dollars.');
   t('Financial need');
   t('Frequency');
   t('HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.');
@@ -1656,7 +1645,6 @@ function award_field_default_fields() {
   t('Term');
   t('Travel support');
   t('University trust record');
-  t('e.g. If 4000.42 is entered, it should output $4000.42');
 
   return $fields;
 }

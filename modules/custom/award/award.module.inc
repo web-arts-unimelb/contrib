@@ -20,22 +20,41 @@ function award_form_alter(&$form, &$form_state, $form_id) {
   {
   	if($form['#id'] == 'views-exposed-form-awards-page-5') 
 		{
+			// Advance search scholarship
+		
+			// Reset if select Any in study area filter
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to scholarship
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
 				$form_state['input']['field_award_type_value_1'] = 'scholarship';
 			}
 	 	}
+	 	else if($form['#id'] == 'views-exposed-form-awards-block-7')
+	 	{
+	 		// Normal prize search
+	 		_correct_form_action_url($form);
+		}
 	 	else if($form['#id'] == 'views-exposed-form-awards-block-5') 
 		{
+			// Advance prize search
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to prize
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
 				$form_state['input']['field_award_type_value_1'] = 'prize';
 			}
+			
+			_correct_form_action_url($form);
 	 	}
 		else if($form['#id'] == 'views-exposed-form-awards-block-2') 
 		{
+			// Advance grant search
+		
+			_reset_study_area_filter($form_state);
+		
 			// Set default award type search to grant
 	 		if(empty($_GET['field_award_type_value_1']))
 	 		{
@@ -91,7 +110,6 @@ function unimelb_preprocess_views_exposed_form(&$vars, $hook)
       }
   	}
 	}
-
 }
 
 function _build_taxonomy_dropdown($input)
@@ -117,7 +135,8 @@ function _build_taxonomy_dropdown($input)
 
 function _build_dropdown_option($input)
 {
-	$option_html = "";
+	$option_html = "<option value='All'>- Any -</option>";
+	//$option_html = "";
 	
 	$is_select_all_condi = true;
 	
@@ -134,8 +153,12 @@ function _build_dropdown_option($input)
   
   	if( $is_select_all_condi && _is_select_all($option_content) )
   	{
-  		$is_select_all_condi = false;
   		// Skip to generate the option tag
+  		$is_select_all_condi = false;
+  	}
+  	elseif(empty($option_content))
+  	{
+  		// Skip if node value is empty
   	}
 		elseif( _is_child($option_content) )
 		{
@@ -146,7 +169,7 @@ function _build_dropdown_option($input)
 			$option_html .= "<option style=\"font-weight: bold\" value=\"$option_value\">$option_content</option>";	
 		}
 	}
-
+	
 	return $option_html;
 }
 
@@ -171,5 +194,26 @@ function _is_child($value = "")
 	else
 	{
 		return false;
+	}
+}
+
+function _reset_study_area_filter(&$form_state)
+{
+	if(isset($form_state['input']['field_award_study_area_tid'][0]))
+	{
+		if($form_state['input']['field_award_study_area_tid'][0] == 'All')
+		{
+			$form_state['input']['field_award_study_area_tid'] = array();
+		}
+	}
+}
+
+// Not the exact issue, but with the idea
+// http://drupal.org/node/1783968
+function _correct_form_action_url(&$form)
+{
+	if($form['#action'] == "/scholarships/grants-list")
+	{
+		$form['#action'] = "/scholarships/prize-list";	
 	}
 }

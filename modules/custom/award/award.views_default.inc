@@ -770,6 +770,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_travel_support']['table'] = 'field_data_field_award_travel_support';
   $handler->display->display_options['fields']['field_award_travel_support']['field'] = 'field_award_travel_support';
   $handler->display->display_options['fields']['field_award_travel_support']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_travel_support']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_award_travel_support']['alter']['text'] = '<strong>Travel support:</strong> [field_award_travel_support]<br/>';
   $handler->display->display_options['fields']['field_award_travel_support']['empty'] = 'N/A';
   $handler->display->display_options['fields']['field_award_travel_support']['hide_empty'] = TRUE;
@@ -801,7 +802,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -817,7 +818,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Study level';
   $handler->display->display_options['fields']['views_multiple_field']['exclude'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]';
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]<br/>';
   $handler->display->display_options['fields']['views_multiple_field']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_study_level';
@@ -828,7 +829,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field_1']['label'] = 'Student type';
   $handler->display->display_options['fields']['views_multiple_field_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['views_multiple_field_1']['alter']['text'] = '<strong>Student type:</strong> [views_multiple_field_1]';
+  $handler->display->display_options['fields']['views_multiple_field_1']['alter']['text'] = '<strong>Student type:</strong> [views_multiple_field_1]<br/>';
   $handler->display->display_options['fields']['views_multiple_field_1']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['views_multiple_field_field'] = 'field_field_award_students';
@@ -837,9 +838,9 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field_1]<br/>
-[views_multiple_field]<br/>
-<strong>Travel support:</strong> [field_award_travel_support]<br/>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field_1]
+[views_multiple_field]
+[field_award_travel_support]
 [field_award_value]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -1026,6 +1027,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_travel_support']['table'] = 'field_data_field_award_travel_support';
   $handler->display->display_options['fields']['field_award_travel_support']['field'] = 'field_award_travel_support';
   $handler->display->display_options['fields']['field_award_travel_support']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_travel_support']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_travel_support']['alter']['text'] = '<strong>Travel support:</strong> [field_award_travel_support]<br/>';
   /* Field: Content: Area of study */
   $handler->display->display_options['fields']['field_award_study_area']['id'] = 'field_award_study_area';
   $handler->display->display_options['fields']['field_award_study_area']['table'] = 'field_data_field_award_study_area';
@@ -1043,7 +1046,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -1057,7 +1060,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Student type';
   $handler->display->display_options['fields']['views_multiple_field']['exclude'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Student type:</strong> [views_multiple_field]';
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Student type:</strong> [views_multiple_field]<br/>';
   $handler->display->display_options['fields']['views_multiple_field']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_students';
@@ -1068,7 +1071,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field_1']['label'] = 'Study level';
   $handler->display->display_options['fields']['views_multiple_field_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['views_multiple_field_1']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field_1]';
+  $handler->display->display_options['fields']['views_multiple_field_1']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field_1]<br/>';
   $handler->display->display_options['fields']['views_multiple_field_1']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['views_multiple_field_field'] = 'field_field_award_study_level';
@@ -1077,9 +1080,9 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]<br/>
-[views_multiple_field_1]<br/>
-<strong>Travel support:</strong> [field_award_travel_support]<br/>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
+[views_multiple_field_1]
+[field_award_travel_support]
 [field_award_value]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -1304,7 +1307,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['field'] = 'field_award_value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approximate value: $[field_award_value]</strong><br />
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approximate value: [field_award_value]</strong><br />
 <div class="award-value-caveat">The amount available for this award is approximate. It will be confirmed at the time of awarding and determined by the committee according to the terms of the award.</div>';
   $handler->display->display_options['fields']['field_award_value']['element_type'] = 'strong';
   $handler->display->display_options['fields']['field_award_value']['element_label_type'] = 'strong';
@@ -1312,7 +1315,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
-    'thousand_separator' => ' ',
+    'thousand_separator' => ',',
     'decimal_separator' => '.',
     'scale' => '0',
     'prefix_suffix' => 1,
@@ -1574,6 +1577,14 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_area']['empty'] = '<ul><li class="first last">Any</li></ul>';
   $handler->display->display_options['fields']['field_award_study_area']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_award_study_area']['delta_offset'] = '0';
+  /* Field: Faculty of Arts: Multiple Fields */
+  $handler->display->display_options['fields']['views_multiple_field']['id'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['table'] = 'views';
+  $handler->display->display_options['fields']['views_multiple_field']['field'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Study level';
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]<br/>';
+  $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_study_level';
   /* Field: Content: Study level */
   $handler->display->display_options['fields']['field_award_study_level']['id'] = 'field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['table'] = 'field_data_field_award_study_level';
@@ -1592,7 +1603,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -1604,7 +1615,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<strong>Study level:</strong> [field_award_study_level]<br/>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
 [field_award_value]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -1983,6 +1994,14 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_area']['empty'] = '<ul><li class="first last">Any</li></ul>';
   $handler->display->display_options['fields']['field_award_study_area']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_award_study_area']['delta_offset'] = '0';
+  /* Field: Faculty of Arts: Multiple Fields */
+  $handler->display->display_options['fields']['views_multiple_field']['id'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['table'] = 'views';
+  $handler->display->display_options['fields']['views_multiple_field']['field'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Study level';
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]<br/>';
+  $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_study_area';
   /* Field: Content: Study level */
   $handler->display->display_options['fields']['field_award_study_level']['id'] = 'field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['table'] = 'field_data_field_award_study_level';
@@ -2000,7 +2019,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -2169,6 +2188,14 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_area']['empty'] = '<ul><li class="first last">Any</li></ul>';
   $handler->display->display_options['fields']['field_award_study_area']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_award_study_area']['delta_offset'] = '0';
+  /* Field: Faculty of Arts: Multiple Fields */
+  $handler->display->display_options['fields']['views_multiple_field']['id'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['table'] = 'views';
+  $handler->display->display_options['fields']['views_multiple_field']['field'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Study level';
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]<br/>';
+  $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_study_level';
   /* Field: Content: Study level */
   $handler->display->display_options['fields']['field_award_study_level']['id'] = 'field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['table'] = 'field_data_field_award_study_level';
@@ -2187,7 +2214,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -2199,7 +2226,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<strong>Study level:</strong> [field_award_study_level]<br/>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
 [field_award_value]
 ';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
@@ -2447,11 +2474,23 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_study_level']['table'] = 'field_data_field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['field'] = 'field_award_study_level';
   $handler->display->display_options['fields']['field_award_study_level']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_study_level']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_study_level']['alter']['text'] = '<strong>Study level:</strong> [field_award_study_level]<br/>';
   $handler->display->display_options['fields']['field_award_study_level']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_award_study_level']['element_wrapper_class'] = 'inline-list';
   $handler->display->display_options['fields']['field_award_study_level']['empty'] = 'Any';
   $handler->display->display_options['fields']['field_award_study_level']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_study_level']['delta_offset'] = '0';
+  /* Field: Faculty of Arts: Multiple Fields */
+  $handler->display->display_options['fields']['views_multiple_field']['id'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['table'] = 'views';
+  $handler->display->display_options['fields']['views_multiple_field']['field'] = 'views_multiple_field';
+  $handler->display->display_options['fields']['views_multiple_field']['label'] = 'Study level';
+  $handler->display->display_options['fields']['views_multiple_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['alter']['text'] = '<strong>Study level:</strong> [views_multiple_field]<br/>';
+  $handler->display->display_options['fields']['views_multiple_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['views_multiple_field']['views_multiple_field_field'] = 'field_field_award_study_level';
   /* Field: Content: Approximate value */
   $handler->display->display_options['fields']['field_award_value']['id'] = 'field_award_value';
   $handler->display->display_options['fields']['field_award_value']['table'] = 'field_data_field_award_value';
@@ -2459,7 +2498,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx value:</strong> [field_award_value]';
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -2471,7 +2510,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<strong>Study level:</strong> [field_award_study_level]<br/>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
 [field_award_value]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
