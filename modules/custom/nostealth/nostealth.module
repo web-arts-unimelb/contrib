@@ -9,10 +9,11 @@
 function nostealth_filter_info() {
   return array(
     'nostealth' => array(
-    'title' => t('Remove Stealth Spacing'),
-    'description' => t('Remove lines that contain only space in a paragraph tag.'),
-    'process callback' => '_nostealth_process',
-    'tips callback' => '_nostealth_tips',
+      'title' => t('Remove Stealth Spacing'),
+      'description' => t('Remove lines that contain only space in a paragraph tag.'),
+      'process callback' => '_nostealth_process',
+      'tips callback' => '_nostealth_tips',
+    ),
   );
 }
 
