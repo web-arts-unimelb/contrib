@@ -1,0 +1,3 @@
+name = Nostealth
+description = Filter out empty &lt;p&gt; tags so they cannot be used to space content.
+core = 7.x

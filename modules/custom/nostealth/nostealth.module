@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_filter_info()
+ */
+function nostealth_filter_info() {
+  return array(
+    'nostealth' => array(
+    'title' => t('Remove Stealth Spacing'),
+    'description' => t('Remove lines that contain only space in a paragraph tag.'),
+    'process callback' => '_nostealth_process',
+    'tips callback' => '_nostealth_tips',
+  );
+}
+
+/**
+ * Filter callback for uom_custom_nostealth.
+ */
+function _nostealth_process($text, $filter) {
+  return preg_replace('/<p[^>]+>(&nbsp;|[\s]|)?<\/p>/i', '', $text);
+}
+
+/**
+ * Filter tips callback for uom_custom_nostealth.
+ */
+function _nostealth_tips($filter, $format, $long = FALSE) {
+  return t('Remove empty paragraph tags that have been added to provide extra line spacing.');
+}
