@@ -58,6 +58,7 @@ features[field][] = node-award-field_award_enquire_now
 features[field][] = node-award-field_award_financial_need
 features[field][] = node-award-field_award_frequency
 features[field][] = node-award-field_award_other
+features[field][] = node-award-field_award_status
 features[field][] = node-award-field_award_students
 features[field][] = node-award-field_award_study_area
 features[field][] = node-award-field_award_study_level

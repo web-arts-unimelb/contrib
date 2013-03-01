@@ -54,6 +54,7 @@ function award_feeds_importer_default() {
           'xpathparser:21' => 'Attachments',
           'xpathparser:22' => 'Promoted',
           'xpathparser:23' => 'Sticky',
+          'xpathparser:24' => 'Status',
         ),
         'rawXML' => array(
           'xpathparser:0' => 0,
@@ -81,6 +82,7 @@ function award_feeds_importer_default() {
           'xpathparser:21' => 0,
           'xpathparser:22' => 0,
           'xpathparser:23' => 0,
+          'xpathparser:24' => 0,
         ),
         'context' => '//node',
         'exp' => array(
@@ -112,6 +114,7 @@ function award_feeds_importer_default() {
             'xpathparser:21' => 0,
             'xpathparser:22' => 0,
             'xpathparser:23' => 0,
+            'xpathparser:24' => 0,
           ),
         ),
         'allow_override' => 1,
@@ -247,6 +250,11 @@ function award_feeds_importer_default() {
           24 => array(
             'source' => 'xpathparser:23',
             'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          25 => array(
+            'source' => 'xpathparser:24',
+            'target' => 'field_award_status',
             'unique' => FALSE,
           ),
         ),

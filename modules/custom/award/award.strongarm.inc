@@ -93,10 +93,10 @@ function award_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '13',
+          'weight' => '15',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '18',
         ),
       ),
       'display' => array(),

@@ -54,7 +54,7 @@ function award_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Area of study',
-    'weight' => '14',
+    'weight' => '17',
     'children' => array(
       0 => 'field_award_study_area',
     ),
@@ -82,7 +82,7 @@ function award_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Award Tags',
-    'weight' => '14',
+    'weight' => '16',
     'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
