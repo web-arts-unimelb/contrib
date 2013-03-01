@@ -54,7 +54,7 @@ function award_feeds_importer_default() {
           'xpathparser:21' => 'Attachments',
           'xpathparser:22' => 'Promoted',
           'xpathparser:23' => 'Sticky',
-          'xpathparser:24' => 'Status',
+          'xpathparser:25' => 'Status',
         ),
         'rawXML' => array(
           'xpathparser:0' => 0,
@@ -82,7 +82,7 @@ function award_feeds_importer_default() {
           'xpathparser:21' => 0,
           'xpathparser:22' => 0,
           'xpathparser:23' => 0,
-          'xpathparser:24' => 0,
+          'xpathparser:25' => 0,
         ),
         'context' => '//node',
         'exp' => array(
@@ -107,7 +107,6 @@ function award_feeds_importer_default() {
             'xpathparser:15' => 0,
             'xpathparser:16' => 0,
             'xpathparser:17' => 0,
-            'xpathparser:24' => 0,
             'xpathparser:18' => 0,
             'xpathparser:19' => 0,
             'xpathparser:20' => 0,
@@ -115,6 +114,7 @@ function award_feeds_importer_default() {
             'xpathparser:22' => 0,
             'xpathparser:23' => 0,
             'xpathparser:24' => 0,
+            'xpathparser:25' => 0,
           ),
         ),
         'allow_override' => 1,
@@ -218,42 +218,42 @@ function award_feeds_importer_default() {
             'unique' => FALSE,
           ),
           18 => array(
-            'source' => 'xpathparser:24',
-            'target' => 'field_award_uni_trust_record:title',
-            'unique' => FALSE,
-          ),
-          19 => array(
             'source' => 'xpathparser:18',
             'target' => 'field_award_submissions:url',
             'unique' => FALSE,
           ),
-          20 => array(
+          19 => array(
             'source' => 'xpathparser:19',
             'target' => 'field_award_enquire_now',
             'unique' => FALSE,
           ),
-          21 => array(
+          20 => array(
             'source' => 'xpathparser:20',
             'target' => 'field_award_study_area',
             'unique' => FALSE,
           ),
-          22 => array(
+          21 => array(
             'source' => 'xpathparser:21',
             'target' => 'field_award_attachments',
             'unique' => FALSE,
           ),
-          23 => array(
+          22 => array(
             'source' => 'xpathparser:22',
             'target' => 'promote',
             'unique' => FALSE,
           ),
-          24 => array(
+          23 => array(
             'source' => 'xpathparser:23',
             'target' => 'sticky',
             'unique' => FALSE,
           ),
-          25 => array(
+          24 => array(
             'source' => 'xpathparser:24',
+            'target' => 'field_award_uni_trust_record:title',
+            'unique' => FALSE,
+          ),
+          25 => array(
+            'source' => 'xpathparser:25',
             'target' => 'field_award_status',
             'unique' => FALSE,
           ),
