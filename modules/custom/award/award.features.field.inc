@@ -210,7 +210,7 @@ function award_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -423,7 +423,7 @@ function award_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '16',
+        'weight' => '7',
       ),
     ),
   );
@@ -668,7 +668,7 @@ function award_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '12',
+        'weight' => '14',
       ),
     ),
   );
@@ -820,7 +820,7 @@ function award_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '9',
+        'weight' => '11',
       ),
     ),
   );
@@ -922,6 +922,74 @@ function award_field_default_fields() {
         ),
         'type' => 'text_textarea',
         'weight' => '47',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-award-field_award_status'.
+  $fields['node-award-field_award_status'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_award_status',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'new' => 'New',
+          'extended' => 'Extended',
+          'closing' => 'Closing soon',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'award',
+      'default_value' => array(
+        0 => array(
+          'value' => 'new',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 20,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_award_status',
+      'label' => 'Status',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '8',
       ),
     ),
   );
@@ -1241,7 +1309,7 @@ function award_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '11',
+        'weight' => '13',
       ),
     ),
   );
@@ -1303,7 +1371,7 @@ function award_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '8',
+        'weight' => '10',
       ),
     ),
   );
@@ -1549,7 +1617,7 @@ function award_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '10',
+        'weight' => '12',
       ),
     ),
   );
@@ -1606,7 +1674,7 @@ function award_field_default_fields() {
       'settings' => array(
         'max' => '',
         'min' => '',
-        'prefix' => '$',
+        'prefix' => '',
         'suffix' => '',
         'user_register_form' => FALSE,
       ),
@@ -1640,6 +1708,7 @@ function award_field_default_fields() {
   t('HTTP link to Formstack form that will generate an “Apply” button on the front end. Application forms to be incorporated at a later stage.');
   t('Number (of months) ');
   t('Other');
+  t('Status');
   t('Students');
   t('Study level');
   t('Term');
