@@ -930,7 +930,7 @@ function award_field_default_fields() {
   $fields['node-award-field_award_status'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_award_status',
@@ -980,7 +980,7 @@ function award_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_award_status',
       'label' => 'Status',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),

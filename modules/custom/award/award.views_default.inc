@@ -811,7 +811,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -842,6 +842,45 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field_1']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['views_multiple_field_field'] = 'field_field_award_students';
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = '<span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_class'] = '[field_award_status-value]';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['label'] = '';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -850,7 +889,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field_1]
 [views_multiple_field]
 [field_award_travel_support]
-[field_award_value]';
+[field_award_value]
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1055,7 +1095,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -1086,6 +1126,45 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['views_multiple_field_1']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['views_multiple_field_1']['views_multiple_field_field'] = 'field_field_award_study_level';
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = ' <span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_class'] = '[field_award_status-value]';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['label'] = '';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -1094,7 +1173,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
 [views_multiple_field_1]
 [field_award_travel_support]
-[field_award_value]';
+[field_award_value]
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1312,6 +1392,30 @@ function award_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = '<span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Content: Approximate value */
   $handler->display->display_options['fields']['field_award_value']['id'] = 'field_award_value';
   $handler->display->display_options['fields']['field_award_value']['table'] = 'field_data_field_award_value';
@@ -1505,7 +1609,8 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_award_value]
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<!-- status -->[arts_views_extras_date_status_field]
+[field_award_value]
 <!--open-->[field_award_application_date]
 <!--close-->[field_award_application_date_1]
 <!--study area-->[views_multiple_field]
@@ -1615,7 +1720,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -1624,13 +1729,50 @@ function award_views_default_views() {
     'scale' => '0',
     'prefix_suffix' => 1,
   );
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = ' <span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
-[field_award_value]';
+[field_award_value]
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -2034,7 +2176,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -2043,6 +2185,42 @@ function award_views_default_views() {
     'scale' => '0',
     'prefix_suffix' => 1,
   );
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = ' <span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -2050,7 +2228,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<strong>Study level:</strong> [field_award_study_level]<br/>
 [field_award_value]
-';
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -2230,7 +2408,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['settings'] = array(
@@ -2239,6 +2417,44 @@ function award_views_default_views() {
     'scale' => '0',
     'prefix_suffix' => 1,
   );
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = ' <span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['label'] = '';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['label'] = '';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -2246,7 +2462,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
 [field_award_value]
-';
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -2516,7 +2732,7 @@ function award_views_default_views() {
   $handler->display->display_options['fields']['field_award_value']['label'] = 'Approx value';
   $handler->display->display_options['fields']['field_award_value']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]';
+  $handler->display->display_options['fields']['field_award_value']['alter']['text'] = '<strong>Approx:</strong> $[field_award_value]<br />';
   $handler->display->display_options['fields']['field_award_value']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_award_value']['hide_alter_empty'] = FALSE;
@@ -2526,13 +2742,48 @@ function award_views_default_views() {
     'scale' => '0',
     'prefix_suffix' => 1,
   );
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_award_status']['id'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['table'] = 'field_data_field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['field'] = 'field_award_status';
+  $handler->display->display_options['fields']['field_award_status']['label'] = '';
+  $handler->display->display_options['fields']['field_award_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['alter']['text'] = ' <span class="award-status award-status-[field_award_status-value]">[field_award_status]</span>';
+  $handler->display->display_options['fields']['field_award_status']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_award_status']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_award_status']['delta_offset'] = '0';
+  /* Field: Content: Application open and closing dates */
+  $handler->display->display_options['fields']['field_award_application_date']['id'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['table'] = 'field_data_field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['field'] = 'field_award_application_date';
+  $handler->display->display_options['fields']['field_award_application_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_award_application_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Faculty of Arts: Status by Date */
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['id'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['table'] = 'views';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['field'] = 'arts_views_extras_date_status_field';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['alter']['text'] = '<strong>Status</strong>: <span class="award-status award-status-[arts_views_extras_date_status_field]">[arts_views_extras_date_status_field]</span> [field_award_status]<br />';
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['arts_views_extras_date_status_field']['status_date_field'] = 'field_field_award_application_date';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Information';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[views_multiple_field]
-[field_award_value]';
+[field_award_value]
+[arts_views_extras_date_status_field]';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'the_column_3';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
