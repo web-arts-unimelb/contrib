@@ -49,7 +49,7 @@ function award_feeds_importer_default() {
           'xpathparser:17' => 'UniversityTrustRecord',
           'xpathparser:24' => 'UniversityTrustRecordTitle',
           'xpathparser:18' => 'ApplyLink',
-          'xpathparser:19' => 'EnquireNow',
+          'xpathparser:19' => 'Enquiries',
           'xpathparser:20' => 'AreaOfStudy',
           'xpathparser:21' => 'Attachments',
           'xpathparser:22' => 'Promoted',
