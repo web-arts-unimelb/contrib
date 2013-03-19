@@ -185,7 +185,13 @@ function _webform_table_node($component, $value) {
   $node = node_load($component['extra']['nid']);
   $content = node_view($node, $component['extra']['view_mode']);
 
-  return render($content);
+	$rendered_content = render($content);
+	if(strlen($rendered_content) > 100)
+	{
+		$rendered_content = "....";
+	}
+	
+  return $rendered_content;
 }
 
 /**
