@@ -490,6 +490,17 @@ function _ldap_authentication_user_login_authenticate_validate(&$form_state) {
           drupal_set_message(t('Your e-mail has been updated to match your LDAP account (@mail).', $watchdog_tokens), 'status');
       }
     }
+    // If this is previous Drupal account being authenticated on LDAP for the first time
+    // we need to set the authentication init data
+    if (empty($account->data['ldap_authentication']['init']['sid'])) {
+      // save 'init' data to know the origin of the ldap authentication provisioned account
+      $edit['data']['ldap_authentication']['init'] = array(
+        'sid'  => $sid,
+        'dn'   => $ldap_user['dn'],
+        'mail' => $ldap_user['mail'],
+      );
+      user_save($account, $edit);
+    }
   }
 
   /**
