@@ -1,0 +1,34 @@
+diff --git a/js/qt_accordion.js b/js/qt_accordion.js
+index 83a94a9..b06242d 100644
+--- a/js/qt_accordion.js
++++ b/js/qt_accordion.js
+@@ -7,7 +7,12 @@ Drupal.behaviors.qt_accordion = {
+       var qtKey = 'qt_' + this.id.substring(this.id.indexOf('-') +1);
+       var options = settings.quicktabs[qtKey].options;
+ 
+-      options.active = parseInt(settings.quicktabs[qtKey].active_tab);
++      if (settings.quicktabs[qtKey].options.collapsed) {
++        options.active = false;
++      } else {
++        options.active = parseInt(settings.quicktabs[qtKey].active_tab);
++      }
++
+       if (settings.quicktabs[qtKey].history) {
+         options.event = 'change';
+         $(this).accordion(options);
+diff --git a/plugins/QuickAccordion.inc b/plugins/QuickAccordion.inc
+index b07833b..6c39dff 100644
+--- a/plugins/QuickAccordion.inc
++++ b/plugins/QuickAccordion.inc
+@@ -27,6 +27,11 @@ class QuickAccordion extends QuickRenderer {
+       '#title' => t('Collapsible'),
+       '#default_value' => (isset($qt->renderer) && $qt->renderer == 'accordion' && isset($qt->options['jquery_ui']['collapsible']) && $qt->options['jquery_ui']['collapsible']),
+     );
++    $form['jquery_ui']['collapsed'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Collapse on load'),
++      '#default_value' => (isset($qt->renderer) && $qt->renderer == 'accordion' && isset($qt->options['jquery_ui']['collapsed']) && $qt->options['jquery_ui']['collapsed']),
++    );
+     return $form;
+   }
+   

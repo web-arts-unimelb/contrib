@@ -27,6 +27,11 @@ class QuickAccordion extends QuickRenderer {
       '#title' => t('Collapsible'),
       '#default_value' => (isset($qt->renderer) && $qt->renderer == 'accordion' && isset($qt->options['jquery_ui']['collapsible']) && $qt->options['jquery_ui']['collapsible']),
     );
+    $form['jquery_ui']['collapsed'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Collapse on load'),
+      '#default_value' => (isset($qt->renderer) && $qt->renderer == 'accordion' && isset($qt->options['jquery_ui']['collapsed']) && $qt->options['jquery_ui']['collapsed']),
+    );
     return $form;
   }
   

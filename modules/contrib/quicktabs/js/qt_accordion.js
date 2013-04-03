@@ -7,7 +7,12 @@ Drupal.behaviors.qt_accordion = {
       var qtKey = 'qt_' + this.id.substring(this.id.indexOf('-') +1);
       var options = settings.quicktabs[qtKey].options;
 
-      options.active = parseInt(settings.quicktabs[qtKey].active_tab);
+      if (settings.quicktabs[qtKey].options.collapsed) {
+        options.active = false;
+      } else {
+        options.active = parseInt(settings.quicktabs[qtKey].active_tab);
+      }
+
       if (settings.quicktabs[qtKey].history) {
         options.event = 'change';
         $(this).accordion(options);
