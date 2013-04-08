@@ -47,6 +47,7 @@ jQuery(document).ready(function() {
 		alert('Survey cookie cleared. Hit Refresh to see the survey again.');
 	});
 
+	//
 	jQuery("input[name='visitor_type']").click(function() {
 		if( jQuery('input:radio[name=visitor_type]:checked').val() === 'Other' )
 		{
@@ -57,6 +58,13 @@ jQuery(document).ready(function() {
 			 jQuery("input[name='other_visitor_type']").attr("value", "");
 		}
 	});
+
+	//
+	jQuery("input[name='other_visitor_type']").click(function() {
+		jQuery("input[name='visitor_type']").removeAttr("checked");
+		jQuery("input[value='Other']").attr("checked", true);
+	});
+
 
 	checkCookie('site_survey_cookie');
 	assign_visitor_ip();	
