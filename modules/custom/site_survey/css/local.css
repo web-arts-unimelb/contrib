@@ -40,3 +40,13 @@ form.popup_site_survey input[type="radio"]
 	background-color: #000000;
 	background-image: none; 
 }
+
+div.ui-corner-all
+{
+	border-radius: 4px 4px 4px 4px;
+}
+
+button.ui-corner-all span.ui-button-text
+{
+	border-radius: 4px 4px 4px 4px;
+}
