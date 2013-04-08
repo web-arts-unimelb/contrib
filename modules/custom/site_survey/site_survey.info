@@ -1,0 +1,3 @@
+name = Simple site survey
+description = Add a simple site survey to drupal
+core = 7.x

@@ -1,0 +1,12 @@
+<?php
+
+function site_survey_init()
+{
+	if(drupal_is_front_page()) 
+	{
+  	drupal_add_library('system', 'ui.dialog');
+  	drupal_add_js(drupal_get_path('module', 'site_survey') . '/js/local.js');
+		drupal_add_css(drupal_get_path('module', 'site_survey') . '/css/local.css');
+ }
+  
+}

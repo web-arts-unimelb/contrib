@@ -1,0 +1,42 @@
+div.ui-dialog {
+	background: #ffffff;
+}
+
+div.ui-dialog-titlebar {
+	background: #ccc;
+}
+
+p.site_survey_denied
+{
+	text-align:right;
+	color: #cc0202;
+	margin: 0;
+	padding:0;
+}
+
+p.site_survey_denied a
+{
+	color:#cc0202;
+}
+
+div.site_survey_error_message
+{
+	font-weight:bold;
+	color: #FF0000
+}
+
+span.ui-button-text
+{
+	background: #ccc;
+}
+
+form.popup_site_survey input[type="radio"]
+{
+	vertical-align: -2px;
+}
+
+.ui-widget-overlay
+{
+	background-color: #000000;
+	background-image: none; 
+}
