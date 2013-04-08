@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 		autoOpen: true,
 		buttons: {
 			Submit: function(){
-				var post_url = "http://localhost/test/testme/site_survey/shared/process_site_survey.php";
+				var post_url = "https://security.arts.unimelb.edu.au/faculty/site_survey/shared/process_site_survey.php";
 			
 				if(
 					jQuery("input[name='visitor_type']:checked").val() === undefined &&
