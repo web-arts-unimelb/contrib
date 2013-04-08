@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 					jQuery("input[name='other_visitor_type']").val() === ''
 				)
 				{
-					jQuery(".site_survey_error_message").html("<p>Please select an option</p>");		
+					$("div.site_survey_error_message").html("<p>Please select an option</p>");		
 				}
 				else
 				{
@@ -28,10 +28,10 @@ jQuery(document).ready(function() {
 					function(data){
 						// Somehow the data is not able to return here
 					}, "json");
-				}
 				
-				// Force to close
-				jQuery('.site_survey').dialog('close');
+					// Force to close
+					jQuery('.site_survey').dialog('close');
+				}
 			}
 		}
   });
