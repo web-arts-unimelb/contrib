@@ -1,7 +1,9 @@
 jQuery(document).ready(function() {
+	// Ajax cross domain requests will work
+	jQuery.support.cors = true;
+
 	// Insert html
 	jQuery(output_survey()).insertAfter("div#content-wrapper");
-
 
 	// Call dialog
   jQuery(".site_survey").dialog({
@@ -12,7 +14,7 @@ jQuery(document).ready(function() {
 		autoOpen: true,
 		buttons: {
 			Submit: function(){
-				var post_url = "https://security.arts.unimelb.edu.au/faculty/site_survey/shared/process_site_survey.php";
+				var post_url = "http://arts.unimelb.edu.au/sites/arts.unimelb.edu.au/forms/site_survey/process_site_survey.php";
 			
 				if(
 					jQuery("input[name='visitor_type']:checked").val() === undefined &&
@@ -24,11 +26,25 @@ jQuery(document).ready(function() {
 				else
 				{
 					setCookie('site_survey_cookie', 'site_survey_cookie', 30);
-					$.post(post_url, jQuery(".popup_site_survey").serialize(),
-					function(data){
-						// Somehow the data is not able to return here
-					}, "json");
-				
+					
+					jQuery.ajax({
+						crossDomain: true,
+						cache: false,
+						url: post_url,
+						data: $(".popup_site_survey").serialize(),
+						dataType: 'jsonp',
+						type: "POST",
+						success:function(data){
+							//alert("Good");
+							if (window.console) {
+								console.log(data);
+							}	
+						},
+						error: function(jqXHR, textStatus, ex) {
+        			alert("Test: " + textStatus + "," + ex + "," + jqXHR.responseText);
+    				}
+					});
+					
 					// Force to close
 					jQuery('.site_survey').dialog('close');
 				}
@@ -123,8 +139,10 @@ function output_survey()
 				<p>We want to build a better website and learn more about you. Are you a:</p>\
 				<input type="radio" name="visitor_type" value="Current undergraduate student" />Current undergraduate student<br />\
 				<input type="radio" name="visitor_type" value="Current graduate student" />Current graduate student<br />\
+				<input type="radio" name="visitor_type" value="Current research student" />Current research student<br />\
 				<input type="radio" name="visitor_type" value="Prospective undergraduate student" />Prospective undergraduate student<br />\
 				<input type="radio" name="visitor_type" value="Prospective graduate student" />Prospective graduate student<br />\
+				<input type="radio" name="visitor_type" value="Prospective research student" />Prospective research student<br />\
 				<input type="radio" name="visitor_type" value="Academic/researcher (University of Melbourne)" />Academic/researcher (University of Melbourne)<br />\
 				<input type="radio" name="visitor_type" value="Academic/researcher (NON - University of Melbourne)" />Academic/researcher (NON - University of Melbourne)<br />\
 				<input type="radio" name="visitor_type" value="Professional staff (University of Melbourne)" />Professional staff (University of Melbourne)<br /><br/>\
