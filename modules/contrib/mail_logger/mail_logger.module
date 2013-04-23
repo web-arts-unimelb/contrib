@@ -1,0 +1,358 @@
+<?php
+
+/**
+ * Implements hook_perm().
+ */
+function mail_logger_permission() {
+  $perms = array(
+    'access mail logger' => array(
+      'title' => t('Access Mail Logger'),
+      'description' => t('View Mail Logger Information')
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mail_logger_menu() {
+  $items = array();
+  $items['admin/reports/mail-logger'] = array(
+    'title'             => 'Outgoing Mail log entries',
+    'description'       => 'View Mails that have been sent from this site.',
+    'page callback'     => 'mail_logger_overview',
+    'access arguments'  => array('access mail logger'),
+    'type'              => MENU_NORMAL_ITEM,
+  );
+  $items['admin/reports/mail-logger/mail/%'] = array(
+    'title'             => 'Outgoing Mail log entries',
+    'description'       => 'View information about a single logged mail entry',
+    'page callback'     => 'mail_logger_read_mail',
+    'page arguments'    => array(4),
+    'access arguments'  => array('access mail logger'),
+    'type'              => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mail_logger_theme() {
+  return array(
+    'mail_logger_read_mail' => array(
+      'variables'    => array('mail' => NULL),
+    ),
+  );
+}
+
+function mail_logger_load($id) {
+  $mail = db_select('mail_logger', 'ml')
+    ->range(0,1)
+    ->fields('ml')
+    ->condition('mlid', $id)
+    ->execute()
+    ->fetchObject();
+  if ($mail) {
+    $mail->headers = unserialize($mail->headers);
+    return $mail;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+function mail_logger_read_mail($id) {
+  if (!isset($id) || !is_numeric($id)) {
+    return 'Invalid Mail Logger ID parameter';
+  }
+  elseif ($mail = mail_logger_load($id)) {
+    drupal_add_css(drupal_get_path('module', 'mail_logger') . '/mail_logger.css');
+    return theme('mail_logger_read_mail', array('mail' => $mail));
+  }
+  else {
+    return t('No Mail Logger record found with id: %id', array('%id' => $id));
+  }
+}
+
+function theme_mail_logger_read_mail($mail) {
+  $mail = $mail['mail'];
+  $output = '';
+  $output .= '<div class="mail_logger_wrapper">';
+  $output .= '<div class="mail_type_label">Mail Type: </div><div class="mail_type_data">' . $mail->mailkey . '</div>';
+  $output .= '<div class="date_sent_label">Date Sent: </div><div class="date_sent_data">' . format_date($mail->date_sent, 'small') . '</div>';
+  $output .= '<div class="mail_from_label">From: </div><div class="mail_from_data">' . check_plain($mail->mailfrom) . '</div>';
+  $output .= '<div class="mail_to_label">To: </div><div class="mail_to_data">' . check_plain($mail->mailto) . '</div>';
+  $output .= '<div class="mail_subject_label">Subject: </div><div class="mail_subject_data">' . check_plain($mail->subject) . '</div>';
+  $output .= '<div class="mail_body_label">Body: </div><div class="mail_body_data">' . nl2br(check_plain($mail->body)) . '</div>';
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Implements hook_mail_alter().
+ *
+ * Purpose of this function is to log all outgoing mail
+ */
+function mail_logger_mail_alter(&$message) {
+  if (!empty($message['send'])) {
+    $system = drupal_mail_system($message['module'], $message['key']);
+    $logger = $system->format($message);
+    $logger['date_sent'] = REQUEST_TIME;
+    db_insert('mail_logger', array())
+      ->fields(array(
+        'mailkey'   => $logger['id'],
+        'mailto'    => $logger['to'],
+        'subject'   => $logger['subject'],
+        'body'      => $logger['body'],
+        'mailfrom'  => $logger['from'],
+        'headers'   => serialize($logger['headers']),
+        'date_sent' => $logger['date_sent'],
+        'language'  => $logger['language']->language,
+      ))
+      ->execute();
+    // Fire 'mail_logger' 'mail_sent' action.
+    module_invoke_all('mail_logger', 'mail_sent', $message, user_load_by_mail($message['from']), user_load_by_mail($message['to']));
+  }
+}
+
+/**
+ * Returns types of mailkeys in mail_logger table
+ *
+ */
+function _mail_logger_get_mailkey_types() {
+  $types = array();
+  $result = db_query('SELECT DISTINCT(mailkey) FROM {mail_logger} ORDER BY mailkey');
+  foreach ($result as $object) {
+    $types[] = $object->mailkey;
+  }
+  return $types;
+}
+
+function mail_logger_form_overview() {
+  $names['all'] = t('all mail types');
+  foreach (_mail_logger_get_mailkey_types() as $type) {
+    $names[$type] = t('!type', array('!type' => t($type)));
+  }
+
+  if (empty($_SESSION['mail_logger_overview_filter'])) {
+    $_SESSION['mail_logger_overview_filter'] = 'all';
+  }
+
+  $form['filter'] = array(
+    '#type' => 'select',
+    '#title' => t('Filter by Mailkey'),
+    '#options' => $names,
+    '#default_value' => $_SESSION['mail_logger_overview_filter']
+  );
+  $form['submit'] = array('#type' => 'submit', '#value' => t('Filter'));
+  $form['#redirect'] = FALSE;
+
+  return $form;
+}
+
+/**
+ * hook_submit for mail_logger_form_overview
+ */
+function mail_logger_form_overview_submit($form, &$form_state) {
+  $_SESSION['mail_logger_overview_filter'] = $form_state['values']['filter'];
+}
+
+/**
+ * theme function for mail_logger_form_overview
+ */
+function theme_mail_logger_form_overview($form) {
+  return '<div class="container-inline">' . drupal_render($form) . '</div>';
+}
+
+
+
+/**
+ * Menu callback; displays a listing of log mails.
+ */
+function mail_logger_overview() {
+  $form = drupal_get_form('mail_logger_form_overview');
+  $output = drupal_render($form);
+
+  $header = array(
+    array('data' => t('Date Sent'), 'field' => 'date_sent', 'sort' => 'desc'),
+    array('data' => t('Mailkey'), 'field' => 'mailkey'),
+    array('data' => t('Language'), 'field' => 'language'),
+    array('data' => t('To'), 'field' => 'mailto'),
+    array('data' => t('From'), 'field' => 'mailfrom'),
+    array('data' => t('Subject'), 'field' => 'subject'),
+  );
+
+  $query = db_select('mail_logger', 'ml')
+    ->extend('PagerDefault')->limit(50)
+    ->extend('TableSort')->orderByHeader($header)
+    ->fields('ml', array(
+      'mlid',
+      'mailkey',
+      'language',
+      'mailto',
+      'mailfrom',
+      'subject',
+      'date_sent'
+    ));
+
+  $type = $_SESSION['mail_logger_overview_filter'];
+
+  if ($type != 'all') {
+    $query->where('mailkey', $type);
+  }
+  $result = $query->execute();
+
+  $rows = array();
+  foreach ($result as $mail_logger) {
+    $rows[] = array('data' =>
+      array(
+        // Cells
+        format_date($mail_logger->date_sent, 'small'),
+        $mail_logger->mailkey,
+        $mail_logger->language,
+        $mail_logger->mailto,
+        $mail_logger->mailfrom,
+        l(truncate_utf8($mail_logger->subject, 56, TRUE, TRUE), 'admin/reports/mail-logger/mail/' . $mail_logger->mlid),
+      ),
+    );
+  }
+
+  if (!$rows) {
+    $rows[] = array(array('data' => t('No log messages available.'), 'colspan' => 6));
+  }
+
+  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= theme('pager', array());
+
+  return $output;
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function mail_logger_hook_info() {
+  // This exposes the new 'mail_logger' trigger.
+  // @see http://drupal.org/node/375833.
+  return array(
+    'mail_logger' => array(
+      'mail_logger' => array(
+        'mail_sent' => array(
+          'runs when' => t('An e-mail has been sent and logged.'),
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_mail_logger().
+ */
+function mail_logger_mail_logger($op, $message, $sender = NULL, $recipient = NULL) {
+  // We only act on the 'mail_sent' action/rule.
+  if (!in_array($op, array('mail_sent'))) {
+    return;
+  }
+
+  // First we trigger the action.
+  $aids = trigger_get_assigned_actions('mail_logger');
+  $context = array(
+    'hook' => 'mail_logger',
+    'op' => $op,
+    'message' => $message,
+    'sender' => $sender,
+    'recipient' => $recipient,
+  );
+  actions_do(array_keys($aids), $message, $context);
+
+  // If the Rules module has been installed, then also trigger the defined rule.
+  if (module_exists('rules')) {
+    global $user;
+    rules_invoke_event('mail_logger_mail_sent', $message, $sender, $recipient, $user);
+  }
+}
+
+/**
+ * Implements hook_action_info_alter().
+ */
+function mail_logger_action_info_alter(&$info) {
+  foreach ($info as $type => $data) {
+    // Allow user & system actions, but don't want an infinite loop with
+    // system sent emails.
+    if ((stripos($type, "user_") === 0 || strpos($type, "system_") === 0) && ($type != 'system_send_email_action')) {
+      if (isset($info[$type]['hooks']['mail_logger'])) {
+        array_merge($info[$type]['hooks']['mail_logger'], array('mail_sent'));
+      }
+      else {
+        $info[$type]['hooks']['mail_logger'] = array('mail_sent');
+      }
+    }
+  }
+}
+
+/**
+ * Load a user associated with a specific e-mail.
+ */
+/*
+function mail_logger_email_user($email) {
+  if ($email = mail_logger_parse_email($email)) {
+    return user_load(array('mail' => $email));
+  }
+}
+*/
+
+/**
+ * Return just the e-mail part of an address, which might be something like
+ *   "John Doe <john.doe@example.com>".
+ */
+function mail_logger_parse_email($email) {
+  return preg_match('/^(?:.*?<)?(.*?)(?:>|$)/', $email, $matches) ? $matches[1] : '';
+}
+
+/**
+ * Implements hook_token_list().
+ */
+function mail_logger_token_list($type = 'mail') {
+  if ($type == 'mail') {
+    $tokens['mail']['mlid'] = t('The unique mail ID.');
+    $tokens['mail']['mailkey'] = t('The mail key.');
+    $tokens['mail']['to'] = t("The mail recipient's e-mail address(es) as entered in the mail.");
+    $tokens['mail']['to-raw'] = t("The unfiltered mail recipient's e-mail address(es) as entered in the mail. WARNING - raw user input.");
+    $tokens['mail']['subject'] = t("The mail subject.");
+    $tokens['mail']['subject-raw'] = t("The unfiltered mail subject. WARNING - raw user input.");
+    $tokens['mail']['body'] = t("The mail message body.");
+    $tokens['mail']['body-raw'] = t("The unfiltered mail message body. WARNING - raw user input.");
+    $tokens['mail']['from'] = t("The mail sender's e-mail address as entered in the mail.");
+    $tokens['mail']['from-raw'] = t("The unfiltered mail sender's e-mail address as entered in the mail. WARNING - raw user input.");
+    $tokens['mail']['date'] = t("The date the mail was sent.");
+    $tokens['mail']['language'] = t("The language of the mail.");
+    return $tokens;
+  }
+}
+
+/**
+ * Implements hook_token_values().
+ */
+function mail_logger_token_values($type, $object = NULL) {
+  $values = array();
+  switch ($type) {
+    case 'mail':
+      $object = (array) $object;
+      $values['mlid'] = $object['id'];
+      $values['mailkey'] = check_plain($object['mailkey']);
+      $values['to'] = check_plain($object['to']);
+      $values['to-raw'] = $object['to'];
+      $values['subject'] = check_plain($object['subject']);
+      $values['subject-raw'] = $object['subject'];
+      $values['body'] = check_markup($object['body']);
+      $values['body-raw'] = $object['body'];
+      $values['from'] = check_plain($object['from']);
+      $values['from-raw'] = $object['from'];
+      $values['date'] = format_date($object['date_sent']);
+      $values['language'] = is_object($object['language']) ? $object['language']->language : $object['language'];
+      break;
+  }
+  return $values;
+}
