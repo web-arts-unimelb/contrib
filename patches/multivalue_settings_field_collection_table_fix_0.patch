@@ -1,0 +1,137 @@
+diff --git a/multivalue_settings.module b/multivalue_settings.module
+index f56c99c..6de6d4d 100644
+--- a/multivalue_settings.module
++++ b/multivalue_settings.module
+@@ -40,6 +40,9 @@ function multivalue_settings_field_attach_form($entity_type, $entity, &$form, &$
+     // add a validation function to this element
+     $form[$field_name][$langcode]['#element_validate'][] = 'multivalue_settings_validate_element';
+ 
++    if (!isset($element['#max_delta'])) {
++      $element['#max_delta'] = 0;
++    }
+     $element_num = $element['#max_delta'] + 1;
+ 
+     if (!$ajax) {
+@@ -47,8 +50,13 @@ function multivalue_settings_field_attach_form($entity_type, $entity, &$form, &$
+       $value_num = $form_state['field'][$field_name][$langcode]['items_count'];
+       // get the actual values
+       if ($value_num > 0) {
+-        $values = $entity->$field_name;
+-        $values = $values[$langcode];
++        if (isset($entity->$field_name)) {
++          $values = $entity->$field_name;
++          $values = $values[$langcode];
++        }
++        else {
++          $values = array();
++        }
+       }
+       // find the number of extra empty fields we have
+       $extra_num = $element_num - $value_num;
+@@ -61,7 +69,7 @@ function multivalue_settings_field_attach_form($entity_type, $entity, &$form, &$
+         // really $element_num in this case will always be 1
+         if ($element_num < $initial) {
+           $add = $initial - $element_num;
+-          multivalue_settings_add_items($element, $add, $field_name, $langcode, $form_state);
++          multivalue_settings_add_items($element, $add, $field_name, $langcode, $form_state, $field);
+         }
+       }
+       elseif ($allowed != -1 && $element_num > $allowed) {
+@@ -78,7 +86,7 @@ function multivalue_settings_field_attach_form($entity_type, $entity, &$form, &$
+         if ($extra > $extra_num) {
+           // we have to add extra fields
+           $add = $extra - $extra_num;
+-          multivalue_settings_add_items($element, $add, $field_name, $langcode, $form_state);
++          multivalue_settings_add_items($element, $add, $field_name, $langcode, $form_state, $field);
+         }
+       }
+       if ($required > 0) {
+@@ -105,25 +113,28 @@ function multivalue_settings_mark_required($element) {
+  * Validate handler to handle 'required' settings
+  */
+ function multivalue_settings_validate_element($element, &$form_state, $form) {
+-  // get language and field name
+-  $langcode = $form_state['values']['language'];
+-  $field_name = $element['#field_name'];
+-  // get this field's info
+-  $field = field_info_field($field_name);
+-  // filter out empty field items
+-  $values = $form_state['values'][$field_name]['und'];
+-  if (isset($values['add_more'])) unset($values['add_more']);
+-  $filtered = _field_filter_items($field, $values);
+-  // get multivalue_settings settings
+-  $settings = $form_state['field'][$field_name][$langcode]['field']['settings']['multivalue_settings'];
+-  $required = $settings['required'];
+-  // trigger validation error if there are not enough values
+-  if (count($filtered) < $required) {
+-    if (isset($element['#title'])) $title = $element['#title'];
+-    else $title = $element['#field_name'];
+-    $args = array('%field' => $title);
+-    $message = format_plural($required, '%field: 1 value is required', '%field: @count values are required', $args);
+-    form_error($element, $message);
++  // chceck if we are in an ajax callback
++  if (!isset($form_state['triggering_element'])) {
++    // get language and field name
++    $langcode = $form_state['values']['language'];
++    $field_name = $element['#field_name'];
++    // get this field's info
++    $field = field_info_field($field_name);
++    // filter out empty field items
++    $values = $form_state['values'][$field_name]['und'];
++    if (isset($values['add_more'])) unset($values['add_more']);
++    $filtered = _field_filter_items($field, $values);
++    // get multivalue_settings settings
++    $settings = $form_state['field'][$field_name][$langcode]['field']['settings']['multivalue_settings'];
++    $required = $settings['required'];
++    // trigger validation error if there are not enough values
++    if (count($filtered) < $required) {
++      if (isset($element['#title'])) $title = $element['#title'];
++      else $title = $element['#field_name'];
++      $args = array('%field' => $title);
++      $message = format_plural($required, '%field: 1 value is required', '%field: @count values are required', $args);
++      form_error($element, $message);
++    }
+   }
+ }
+ 
+@@ -152,27 +163,34 @@ function multivalue_settings_remove_item(&$element, $field_name, $langcode, &$fo
+ /**
+  * Helper function - adds items to the given element
+  */
+-function multivalue_settings_add_items(&$element, $add, $field_name, $langcode, &$form_state) {
++function multivalue_settings_add_items(&$element, $add, $field_name, $langcode, &$form_state, $field) {
+   foreach (range(1, $add) as $i) {
+-    multivalue_settings_add_item($element, $field_name, $langcode, $form_state);
++    multivalue_settings_add_item($element, $field_name, $langcode, $form_state, $field);
+   }
+ }
+ 
+ /**
+  * Helper function - adds one item to the given element
+  */
+-function multivalue_settings_add_item(&$element, $field_name, $langcode, &$form_state) {
++function multivalue_settings_add_item(&$element, $field_name, $langcode, &$form_state, $field) {
+   $old_delta = $element['#max_delta'];
+   $delta = $old_delta + 1;
+   // initialize new item
+-  $element[$delta] = $element[$old_delta];
++  if (isset($element[$old_delta])) {
++    $element[$delta] = $element[$old_delta];
++  }
++  else {
++    $element[$delta] = array();
++  }
+   // incremenet item settings
+   $element[$delta]['#delta'] = $delta;
+-  $element[$delta]['value']['#delta'] = $delta;
+   $element[$delta]['#weight'] = $delta;
+-  $element[$delta]['value']['#weight'] = $delta;
+   $element[$delta]['_weight']['#delta'] = $delta;
+   $element[$delta]['_weight']['#default_value'] = $delta;
++  if (!isset($field[$langcode]['instance']['widget']['type']) || $field[$langcode]['instance']['widget']['type'] != 'field_collection_table') {
++    $element[$delta]['value']['#delta'] = $delta;
++    $element[$delta]['value']['#weight'] = $delta;
++  }
+   // incremenet element settings
+   $element['#max_delta'] = $delta;
+   //$element['#prefix'] = '<div id="field-test-add-more-wrapper' . '--' . $i . '">';

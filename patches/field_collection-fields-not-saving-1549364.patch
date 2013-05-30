@@ -1,0 +1,53 @@
+diff --git a/field_collection.module b/field_collection.module
+index 80e4588..cf8278f 100644
+--- a/field_collection.module
++++ b/field_collection.module
+@@ -1294,6 +1294,10 @@ function field_collection_field_widget_embed_validate($element, &$form_state, $c
+   // Attach field API validation of the embedded form.
+   field_attach_form_validate('field_collection_item', $field_collection_item, $element, $form_state);
+ 
++  // Variable to store the validation errors for the field collection
++  // Errors are not directly set on the form to avoid compatibility issue with other modules
++  // such as conditional_fields
++  $field_collection_errors = array();
+   // Now validate required elements if the entity is not empty.
+   if (!field_collection_item_is_empty($field_collection_item) && !empty($element['#field_collection_required_elements'])) {
+     foreach ($element['#field_collection_required_elements'] as &$elements) {
+@@ -1305,10 +1309,14 @@ function field_collection_field_widget_embed_validate($element, &$form_state, $c
+         $is_empty_value = ($elements['#value'] === 0);
+         if ($is_empty_multiple || $is_empty_string || $is_empty_value) {
+           if (isset($elements['#title'])) {
+-            form_error($elements, t('!name field is required.', array('!name' => $elements['#title'])));
++            $field_collection_errors[] = array('elements' => $elements,
++              'message' => t('!name field is required.', array('!name' => $elements['#title'])),
++            );
+           }
+           else {
+-            form_error($elements);
++            $field_collection_errors[] = array('elements' => $elements,
++              'message' => '',
++            );
+           }
+         }
+       }
+@@ -1317,7 +1325,7 @@ function field_collection_field_widget_embed_validate($element, &$form_state, $c
+ 
+   // Only if the form is being submitted, finish the collection entity and
+   // prepare it for saving.
+-  if ($form_state['submitted'] && !form_get_errors()) {
++  if ($form_state['submitted'] && sizeof($field_collection_errors) == 0) {
+ 
+     field_attach_submit('field_collection_item', $field_collection_item, $element, $form_state);
+ 
+@@ -1332,6 +1340,11 @@ function field_collection_field_widget_embed_validate($element, &$form_state, $c
+     $item['entity'] = $field_collection_item;
+     form_set_value($element, $item, $form_state);
+   }
++
++  // Add the errors to the form
++  foreach ($field_collection_errors as $field_collection_error) {
++    form_error($field_collection_error['elements'], $field_collection_error['message']);
++  }
+ }
+ 
+ /**
