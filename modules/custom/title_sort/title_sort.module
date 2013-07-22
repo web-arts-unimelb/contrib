@@ -1,0 +1,26 @@
+<?php
+
+/**
+* Implementation of hook_views_query_alter
+* @param type $view
+* @param type $query
+*/
+function title_sort_views_query_alter(&$view, &$query) {
+	if($view->name == 'awards') {
+		if(
+			// Scholarship search
+			$view->current_display === 'page_4' ||
+			$view->current_display === 'page_5' ||
+			
+			// Prize search
+			$view->current_display === 'block_5' ||
+			$view->current_display === 'block_7' ||
+			
+			// Grant search
+			$view->current_display === 'block_2' ||
+			$view->current_display === 'block_3'
+		) {
+			$view->query->orderby[0]['field'] = "TRIM( LEADING 'The ' FROM node_title )";
+  	}
+  }
+}
