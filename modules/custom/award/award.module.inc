@@ -146,6 +146,8 @@ function _build_dropdown_option($input)
 	$xpath = new DOMXpath($doc);
 	$options = $xpath->query("*/div/select/option");
 
+	$has_any_child_condi = _does_it_has_any_child($options);
+
 	foreach($options as $option) 
 	{
   	$option_value = $option->getAttribute('value');
@@ -160,6 +162,11 @@ function _build_dropdown_option($input)
   	{
   		// Skip if node value is empty
   	}
+		elseif(!$has_any_child_condi)
+    {
+      // Has no child at all
+      $option_html .= "<option value=\"$option_value\">$option_content</option>";
+    }
 		elseif( _is_child($option_content) )
 		{
 			$option_html .= "<option value=\"$option_value\">&nbsp;&nbsp;$option_content</option>";
@@ -195,6 +202,21 @@ function _is_child($value = "")
 	{
 		return false;
 	}
+}
+
+function _does_it_has_any_child($options = null) {
+  $counter = 0;
+  foreach($options as $option) {
+    $option_content = $option->nodeValue;
+    if(_is_child($option_content)) {
+      ++$counter;
+    }
+  }
+
+  if($counter > 0)
+    return true;
+  else
+    return false;
 }
 
 function _reset_study_area_filter(&$form_state)
