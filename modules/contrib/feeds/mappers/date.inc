@@ -43,28 +43,31 @@ function date_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_nam
  *   The value to be mapped. Should be either a (flexible) date string
  *   or a FeedsDateTimeElement object.
  *
- * @todo Support array of values for dates.
  */
 function date_feeds_set_target($source, $entity, $target, $feed_element) {
   list($field_name, $sub_field) = explode(':', $target, 2);
-  if (!($feed_element instanceof FeedsDateTimeElement)) {
-    if (is_array($feed_element)) {
-      $feed_element = $feed_element[0];
-    }
-    
-		// Empty string means no time - so clear the date field!
-		// Gary
-		// http://drupal.org/node/857216
-		// http://drupal.org/files/issues/feed_empty_date_27.patch
-		if (!is_numeric($feed_element) && !strtotime($feed_element)) {
-			$feed_element = new FeedsDateTimeElement(NULL, NULL);
-		}
-    else if ($sub_field == 'end') {
-      $feed_element = new FeedsDateTimeElement(NULL, $feed_element);
-    }
-    else {
-      $feed_element = new FeedsDateTimeElement($feed_element, NULL);
-    }
+
+  if (!is_array($feed_element)) {
+    $feed_element = array($feed_element);
   }
-  $feed_element->buildDateField($entity, $field_name);
+
+  $delta = 0;
+  foreach ($feed_element as $f) {
+
+    if (!($feed_element instanceof FeedsDateTimeElement)) {
+
+      if (empty($f) || !is_numeric($f) && is_string($f) && !date_create($f)) {
+        $f = new FeedsDateTimeElement(NULL, NULL);
+      }
+      elseif ($sub_field == 'end') {
+        $f = new FeedsDateTimeElement(NULL, $f);
+      }
+      else {
+        $f = new FeedsDateTimeElement($f, NULL);
+      }
+    }
+
+    $f->buildDateField($entity, $field_name, $delta);
+    $delta++;
+  }
 }

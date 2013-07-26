@@ -54,6 +54,13 @@ class FeedsParserResult extends FeedsResult {
 abstract class FeedsParser extends FeedsPlugin {
 
   /**
+   * Implements FeedsPlugin::pluginType().
+   */
+  public function pluginType() {
+    return 'parser';
+  }
+
+  /**
    * Parse content fetched by fetcher.
    *
    * Extending classes must implement this method.
@@ -319,20 +326,25 @@ class FeedsEnclosure extends FeedsElement {
     return $result->data;
   }
 
-  /**
-   * Get a Drupal file object of the enclosed resource, download if necessary.
-   *
-   * @param $destination
-   *   The path or uri specifying the target directory in which the file is
-   *   expected. Don't use trailing slashes unless it's a streamwrapper scheme.
-   *
-   * @return
-   *   A Drupal temporary file object of the enclosed resource.
-   *
-   * @throws Exception
-   *   If file object could not be created.
-   */
-  public function getFile($destination) {
+   /**
+    * Get a Drupal file object of the enclosed resource, download if necessary.
+    *
+    * @param string $destination
+    *   The path or uri specifying the target directory in which the file is
+    *   expected. Don't use trailing slashes unless it's a streamwrapper scheme.
+    * @param int $replace
+    *   Replace behavior when the destination file already exists.
+    *   @see file_save_data()
+    *
+    * @return stdClass|FALSE
+    *   A Drupal temporary file object of the enclosed resource or FALSE if the
+    *   value is empty.
+    *
+    * @throws Exception
+    *   If file object could not be created.
+    */
+  public function getFile($destination, $replace = FILE_EXISTS_RENAME) {
+    $file = FALSE;
 
     if ($this->getValue()) {
       // Prepare destination directory.
@@ -345,7 +357,7 @@ class FeedsEnclosure extends FeedsElement {
         $file->filemime = $this->mime_type;
         $file->filename = basename($file->uri);
         if (dirname($file->uri) != $destination) {
-          $file = file_copy($file, $destination);
+          $file = file_copy($file, $destination, $replace);
         }
         else {
           // If file is not to be copied, check whether file already exists,
@@ -370,7 +382,7 @@ class FeedsEnclosure extends FeedsElement {
           $destination = trim($destination, '/') . '/';
         }
         try {
-          $file = file_save_data($this->getContent(), $destination . $filename);
+          $file = file_save_data($this->getContent(), $destination . $filename, $replace);
         }
         catch (Exception $e) {
           watchdog_exception('Feeds', $e, nl2br(check_plain($e)));
@@ -458,13 +470,13 @@ class FeedsDateTimeElement extends FeedsElement {
    * Helper method for buildDateField(). Build a FeedsDateTimeElement object
    * from a standard formatted node.
    */
-  protected static function readDateField($entity, $field_name) {
+  protected static function readDateField($entity, $field_name, $delta = 0) {
     $ret = new FeedsDateTimeElement();
-    if (isset($entity->{$field_name}['und'][0]['date']) && $entity->{$field_name}['und'][0]['date'] instanceof FeedsDateTime) {
-      $ret->start = $entity->{$field_name}['und'][0]['date'];
+    if (isset($entity->{$field_name}['und'][$delta]['date']) && $entity->{$field_name}['und'][$delta]['date'] instanceof FeedsDateTime) {
+      $ret->start = $entity->{$field_name}['und'][$delta]['date'];
     }
-    if (isset($entity->{$field_name}['und'][0]['date2']) && $entity->{$field_name}['und'][0]['date2'] instanceof FeedsDateTime) {
-      $ret->end = $entity->{$field_name}['und'][0]['date2'];
+    if (isset($entity->{$field_name}['und'][$delta]['date2']) && $entity->{$field_name}['und'][$delta]['date2'] instanceof FeedsDateTime) {
+      $ret->end = $entity->{$field_name}['und'][$delta]['date2'];
     }
     return $ret;
   }
@@ -472,15 +484,17 @@ class FeedsDateTimeElement extends FeedsElement {
   /**
    * Build a entity's date field from our object.
    *
-   * @param $entity
+   * @param object $entity
    *   The entity to build the date field on.
-   * @param $field_name
+   * @param str $field_name
    *   The name of the field to build.
+   * @param int $delta
+   *   The delta in the field.
    */
-  public function buildDateField($entity, $field_name) {
+  public function buildDateField($entity, $field_name, $delta = 0) {
     $info = field_info_field($field_name);
 
-    $oldfield = FeedsDateTimeElement::readDateField($entity, $field_name);
+    $oldfield = FeedsDateTimeElement::readDateField($entity, $field_name, $delta);
     // Merge with any preexisting objects on the field; we take precedence.
     $oldfield = $this->merge($oldfield);
     $use_start = $oldfield->start;
@@ -516,24 +530,24 @@ class FeedsDateTimeElement extends FeedsElement {
       $entity->{$field_name} = array('und' => array());
     }
     if ($use_start) {
-      $entity->{$field_name}['und'][0]['timezone'] = $use_start->getTimezone()->getName();
-      $entity->{$field_name}['und'][0]['offset'] = $use_start->getOffset();
+      $entity->{$field_name}['und'][$delta]['timezone'] = $use_start->getTimezone()->getName();
+      $entity->{$field_name}['und'][$delta]['offset'] = $use_start->getOffset();
       $use_start->setTimezone($db_tz);
-      $entity->{$field_name}['und'][0]['date'] = $use_start;
+      $entity->{$field_name}['und'][$delta]['date'] = $use_start;
       /**
        * @todo the date_type_format line could be simplified based upon a patch
        *   DO issue #259308 could affect this, follow up on at some point.
        *   Without this, all granularity info is lost.
        *   $use_start->format(date_type_format($field['type'], $use_start->granularity));
        */
-      $entity->{$field_name}['und'][0]['value'] = $use_start->format(date_type_format($info['type']));
+      $entity->{$field_name}['und'][$delta]['value'] = $use_start->format(date_type_format($info['type']));
     }
     if ($use_end) {
       // Don't ever use end to set timezone (for now)
-      $entity->{$field_name}['und'][0]['offset2'] = $use_end->getOffset();
+      $entity->{$field_name}['und'][$delta]['offset2'] = $use_end->getOffset();
       $use_end->setTimezone($db_tz);
-      $entity->{$field_name}['und'][0]['date2'] = $use_end;
-      $entity->{$field_name}['und'][0]['value2'] = $use_end->format(date_type_format($info['type']));
+      $entity->{$field_name}['und'][$delta]['date2'] = $use_end;
+      $entity->{$field_name}['und'][$delta]['value2'] = $use_end->format(date_type_format($info['type']));
     }
   }
 }
