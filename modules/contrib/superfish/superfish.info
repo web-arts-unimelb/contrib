@@ -5,9 +5,9 @@ dependencies[] = menu
 configure = admin/config/user-interface/superfish
 core = 7.x
 
-; Information added by drupal.org packaging script on 2013-04-27
-version = "7.x-1.9"
+; Information added by drupal.org packaging script on 2013-06-16
+version = "7.x-1.9+16-dev"
 core = "7.x"
 project = "superfish"
-datestamp = "1367054112"
+datestamp = "1371348804"
 

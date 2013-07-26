@@ -15,7 +15,7 @@ Installation instructions
 -------------------------
 1. Download and extract the Superfish library into the libraries directory (usually
    "sites/all/libraries").
-   Link: https://github.com/mehrpadin/Superfish-for-Drupal/zipball/master
+   Link: https://github.com/mehrpadin/Superfish-for-Drupal/zipball/1.x
 
 2. Download and extract the Superfish module into the modules directory (usually
    "sites/all/modules").

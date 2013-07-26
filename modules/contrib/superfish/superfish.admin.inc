@@ -8,12 +8,15 @@
 /**
  * Generate the default path for the Superfish library.
  */
-function slp_default() {
+function superfish_library_path() {
   // Ensure the Libraries API module is installed and working.
   if (module_exists('libraries') && function_exists('libraries_get_path')) {
     $directory = libraries_get_path('superfish');
   }
   // Otherwise use the default directory.
+  elseif (file_exists('profiles/' . drupal_get_profile() . '/libraries/superfish')) {
+    $directory = 'profiles/' . drupal_get_profile() . '/libraries/superfish';
+  }
   else {
     $directory = 'sites/all/libraries/superfish';
   }
@@ -72,7 +75,7 @@ function superfish_admin_settings() {
     '#type' => 'textarea',
     '#title' => t('Path to Superfish library'),
     '#description' => t('Edit only if you are sure of what you are doing.'),
-    '#default_value' => variable_get('superfish_slp', slp_default()),
+    '#default_value' => variable_get('superfish_slp', superfish_library_path()),
     '#rows' => 7,
   );
   return superfish_system_settings_form($form, FALSE);
@@ -85,7 +88,7 @@ function superfish_admin_settings_validate($form, &$form_state) {
   $error = array();
   $sf_library = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", trim($form_state['values']['superfish_slp']));
   if (empty($sf_library)) {
-    form_set_error('superfish_slp', t('<strong>Path to Superfish library</strong> field cannot be empty. Please try the below list:<br />' . '<pre>' . slp_default() . '</pre>'));
+    form_set_error('superfish_slp', t('<strong>Path to Superfish library</strong> field cannot be empty. Please try the below list:') . '<br /><pre>' . superfish_library_path() . '</pre>');
   }
   else {
     // Trimming blank lines and such
